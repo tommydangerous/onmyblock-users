@@ -8,7 +8,7 @@ app:
     - ./:/app
 
 redis:
-  image: redis
+  image: redis:2.8.17
   expose:
     - 6379
   volumes:
