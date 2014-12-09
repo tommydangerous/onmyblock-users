@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.8'
 
+gem 'airbrake'
 gem 'foreman'
 gem 'newrelic_rpm'
 gem 'puma'
