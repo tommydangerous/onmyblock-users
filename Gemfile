@@ -32,5 +32,6 @@ end
 
 group :test do
   gem 'faker'
+  gem 'mongoid-rspec'
   gem 'shoulda'
 end
