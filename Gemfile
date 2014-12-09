@@ -7,6 +7,7 @@ gem 'attr_extras'
 gem 'foreman'
 gem 'newrelic_rpm'
 gem 'puma'
+gem 'redis-rails'
 
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
