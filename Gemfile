@@ -36,3 +36,5 @@ group :test do
   gem 'rspec-instafail'
   gem 'shoulda'
 end
+
+# Add application specific gems below this line
