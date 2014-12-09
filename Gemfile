@@ -4,6 +4,7 @@ gem 'rails', '4.1.8'
 
 gem 'foreman'
 gem 'newrelic_rpm'
+gem 'puma'
 
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
