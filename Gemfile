@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.8'
 
+gem 'newrelic_rpm'
+
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'sass-rails', '~> 4.0'
