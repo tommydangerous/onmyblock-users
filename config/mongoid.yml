@@ -58,7 +58,7 @@ development:
 test:
   sessions:
     default:
-      database: <%= ENV['APP_NAME']_test
+      database: <%= ENV['APP_NAME'] %>_test
       hosts:
         - <%= ENV['MONGO_URL'] %>
       options:
