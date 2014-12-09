@@ -38,3 +38,4 @@ group :test do
 end
 
 # Add application specific gems below this line
+gem 'bson_ext'
