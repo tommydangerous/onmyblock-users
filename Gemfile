@@ -25,7 +25,6 @@ end
 
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'rspec-instafail'
   gem 'rspec-rails'
   gem 'spring'
 end
@@ -33,5 +32,6 @@ end
 group :test do
   gem 'faker'
   gem 'mongoid-rspec'
+  gem 'rspec-instafail'
   gem 'shoulda'
 end
