@@ -21,6 +21,7 @@ end
 
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'rspec-instafail'
   gem 'rspec-rails'
   gem 'spring'
 end
