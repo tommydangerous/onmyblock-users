@@ -1,6 +1,8 @@
 .bundle
 .sass-cache
 .vagrant
+db/mongo
+db/redis
 log/*.log
 tmp
 public/assets
