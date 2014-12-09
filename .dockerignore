@@ -1,0 +1,9 @@
+.bundle
+.git
+.sass-cache
+.vagrant
+log/*.log
+tmp
+public/system
+public/uploads
+vendor/cache
