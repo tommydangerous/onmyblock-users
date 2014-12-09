@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.8'
 
 gem 'airbrake'
+gem 'attr_extras'
 gem 'foreman'
 gem 'newrelic_rpm'
 gem 'puma'
