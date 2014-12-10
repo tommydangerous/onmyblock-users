@@ -34,11 +34,12 @@ $ fig run app foreman start
 ```
 
 ### Individual Service Description Below
+---
 
 ### Setting up new models
-When you create a new model, add `include MongoModel` to the class.
+When you create a new model, make it inherit from the `MongoModel` class.
 ```
-class User
-  include MongoModel
+class User < MongoModel
+  ...
 end
 ```
