@@ -7,9 +7,11 @@ RSpec.describe Api::V1::UsersController do
       get :show, id: @user.id
     end
 
-    it "returns the information about the user in JSON" do
+    it "should return JSON with user information" do
       resp = json_response
       expect(resp[:email]).to eq @user.email
+      expect(resp[:first_name]).to eq @user.first_name
+      expect(resp[:last_name]).to eq @user.last_name
     end
 
     it { should respond_with 200 }
