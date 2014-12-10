@@ -3,12 +3,14 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.8'
 
 gem 'airbrake'
+gem 'analytics-ruby'
 gem 'attr_extras'
 gem 'bson_ext'
 gem 'dotenv-rails'
 gem 'foreman'
 gem 'mongoid'
 gem 'newrelic_rpm'
+gem 'payload', require: 'payload/railtie'
 gem 'puma'
 gem 'redis-rails'
 
@@ -21,7 +23,9 @@ gem 'uglifier', '>= 1.3.0'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'bundler-audit'
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'quiet_assets'
 end
 
