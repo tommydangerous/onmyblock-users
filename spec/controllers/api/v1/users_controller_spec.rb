@@ -1,9 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::UsersController do
-  before(:each) { request.headers["Accept"] == "application/vnd.users.v1" }
-  before(:each) { request.headers["Content-Type"] = Mime::JSON.to_s }
-
   describe "GET #show" do
     before(:each) do
       @user = create :user
