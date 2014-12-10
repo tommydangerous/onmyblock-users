@@ -3,15 +3,17 @@ require "rails_helper"
 RSpec.describe User do
   subject { build :user }
 
+  it { should respond_to :email }
+  it { should respond_to :first_name }
+  it { should respond_to :last_name }
+
   it { should validate_presence_of :email }
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
 
   it { should be_valid }
 
-  it { should respond_to :email }
-  it { should respond_to :first_name }
-  it { should respond_to :last_name }
+  it_should_behave_like :crud
 
   describe "validations" do
     context "for email" do

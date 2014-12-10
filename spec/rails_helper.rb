@@ -7,6 +7,8 @@ require "factory_girl_rails"
 require "mongoid"
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'payload/testing'
+require "shoulda/matchers"
+require "shoulda/matchers/integrations/rspec"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -56,6 +58,10 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Request::JsonHelpers, type: :controller
   config.include Request::HeadersHelpers, type: :controller
+  config.include Shoulda::Matchers::ActiveModel
+  # config.include Shoulda::Matchers::ActiveRecord
+  config.include Shoulda::Matchers::ActionController
+  config.include Shoulda::Matchers::Independent
 
   # Clean/Reset Mongoid DB prior to running the tests
   config.before(:each) do
