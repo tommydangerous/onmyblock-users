@@ -2,12 +2,13 @@ require "rails_helper"
 
 RSpec.describe CreateService do
   let(:invalid_attributes) { { first_name: "test", last_name: "test" } }
+  let(:model) { User }
   let(:valid_attributes) { FactoryGirl.attributes_for :user }
 
   describe "#process" do
     context "with any attributes" do
       before(:each) do
-        @service = CreateService.new User, {}
+        @service = CreateService.new model, {}
         @service.process
       end
 
@@ -22,12 +23,16 @@ RSpec.describe CreateService do
 
     context "with valid attributes" do
       before(:each) do
-        @service = CreateService.new User, valid_attributes
+        @service = CreateService.new model, valid_attributes
         @service.process
       end
 
       it "should have a response equal to the record" do
         expect(@service.response).to eq @service.record
+      end
+
+      it "should create an object in the database" do
+        expect(model.count).to eq 1
       end
 
       it "should have a status of 201" do
@@ -37,12 +42,16 @@ RSpec.describe CreateService do
 
     context "with invalid attributes" do
       before(:each) do
-        @service = CreateService.new User, invalid_attributes
+        @service = CreateService.new model, invalid_attributes
         @service.process
       end
 
       it "should have a response with errors" do
         expect(@service.response).to have_key :email
+      end
+
+      it "should not create an object in the database" do
+        expect(model.count).to eq 0
       end
 
       it "should have a status of 422" do
@@ -52,7 +61,7 @@ RSpec.describe CreateService do
   end
 
   describe "#record" do
-    let(:service) { CreateService.new(User, {}) }
+    let(:service) { CreateService.new(model, {}) }
 
     it "should return an object" do
       expect(service.record).not_to be_nil
@@ -62,7 +71,7 @@ RSpec.describe CreateService do
   describe "#serialize" do
     context "with serializer" do
       let(:serializer) { UserSerializer }
-      let(:service) { CreateService.new User, valid_attributes, serializer }
+      let(:service) { CreateService.new model, valid_attributes, serializer }
 
       it "should return serializer object" do
         service.process
@@ -71,7 +80,7 @@ RSpec.describe CreateService do
     end
 
     context "without serializer" do
-      let(:service) { CreateService.new User, {}, nil }
+      let(:service) { CreateService.new model, {}, nil }
 
       it "should return the record" do
         service.process
