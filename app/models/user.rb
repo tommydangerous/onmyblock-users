@@ -1,4 +1,4 @@
-class User < MongoModel
+class User < BaseModel
   include ActiveModel::Model
   
   field :email, type: String
