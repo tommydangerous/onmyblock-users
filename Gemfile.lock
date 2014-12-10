@@ -41,6 +41,9 @@ GEM
     bson (2.3.0)
     bson_ext (1.5.1)
     builder (3.2.2)
+    bundler-audit (0.3.1)
+      bundler (~> 1.2)
+      thor (~> 0.18)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -206,6 +209,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bson_ext
+  bundler-audit
   coffee-rails (~> 4.1.0)
   dotenv-rails
   factory_girl_rails
