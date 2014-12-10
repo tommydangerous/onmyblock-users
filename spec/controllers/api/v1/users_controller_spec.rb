@@ -2,11 +2,12 @@ require "rails_helper"
 
 RSpec.describe Api::V1::UsersController do
   before(:each) { request.headers["Accept"] == "application/vnd.users.v1" }
+  before(:each) { request.headers["Content-Type"] = Mime::JSON.to_s }
 
   describe "GET #show" do
     before(:each) do
       @user = create :user
-      get :show, id: @user.id, format: :json
+      get :show, id: @user.id
     end
 
     it "returns the information about the user in JSON" do
@@ -21,7 +22,7 @@ RSpec.describe Api::V1::UsersController do
     context "when successfully created" do
       before(:each) do
         @user_attributes = FactoryGirl.attributes_for :user
-        post :create, { user: @user_attributes }, format: :json
+        post :create, { user: @user_attributes }
       end
 
       it "renders the JSON representation for the user record just created" do
@@ -35,7 +36,7 @@ RSpec.describe Api::V1::UsersController do
     context "when failed to create" do
       before(:each) do
         @user_attributes = { first_name: "test", last_name: "test" }
-        post :create, { user: @user_attributes }, format: :json
+        post :create, { user: @user_attributes }
       end
 
       it "renders JSON with errors" do
@@ -94,7 +95,7 @@ RSpec.describe Api::V1::UsersController do
   describe "DELETE #destroy" do
     before(:each) do
       @user = create :user
-      delete :destroy, { id: @user.id }, format: :json
+      delete :destroy, { id: @user.id }
     end
 
     it "should destroy the user record" do
