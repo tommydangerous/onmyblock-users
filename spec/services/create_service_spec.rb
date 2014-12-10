@@ -59,5 +59,24 @@ RSpec.describe CreateService do
     end
   end
 
-  
+  describe "#serialize" do
+    context "with serializer" do
+      let(:serializer) { UserSerializer }
+      let(:service) { CreateService.new User, valid_attributes, serializer }
+
+      it "should return serializer object" do
+        service.process
+        expect(service.serialize.class).to eq serializer
+      end
+    end
+
+    context "without serializer" do
+      let(:service) { CreateService.new User, {}, nil }
+
+      it "should return the record" do
+        service.process
+        expect(service.serialize).to eq service.record
+      end
+    end
+  end
 end
