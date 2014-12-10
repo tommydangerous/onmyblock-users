@@ -24,12 +24,18 @@ RSpec.describe Api::V1::UsersController do
         post :create, { user: @user_attributes }
       end
 
-      it "renders the JSON representation for the user record just created" do
-        resp = json_response
-        expect(resp[:email]).to eq @user_attributes[:email]
+      it "should create a new user" do
+        expect(User.count).to eq 1
       end
 
       it { should respond_with 201 }
+
+      it "should return JSON with user data" do
+        resp = json_response
+        expect(resp[:email]).to eq @user_attributes[:email]
+        expect(resp[:first_name]).to eq @user_attributes[:first_name]
+        expect(resp[:last_name]).to eq @user_attributes[:last_name]
+      end
     end
 
     context "when failed to create" do
@@ -38,18 +44,21 @@ RSpec.describe Api::V1::UsersController do
         post :create, { user: @user_attributes }
       end
 
-      it "renders JSON with errors" do
-        resp = json_response
-        puts resp
-        expect(resp).to have_key(:errors)
+      it "should not create a new user" do
+         expect(User.count).to eq 0
       end
 
-      it "renders JSON with errors on why the user could not be created" do
+      it "should return JSON with errors" do
         resp = json_response
-        expect(resp[:errors][:email]).to include "can't be blank"
+        expect(resp).to have_key :errors
       end
 
       it { should respond_with 422 }
+
+      it "should return JSON with errors" do
+        resp = json_response
+        expect(resp[:errors][:email]).to include "can't be blank"
+      end
     end
   end
 
