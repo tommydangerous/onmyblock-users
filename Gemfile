@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.8'
 
 gem 'airbrake'
+gem 'analytics-ruby'
 gem 'attr_extras'
 gem 'bson_ext'
 gem 'dotenv-rails'

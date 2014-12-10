@@ -30,6 +30,7 @@ GEM
     airbrake (4.1.0)
       builder
       multi_json
+    analytics-ruby (2.0.11)
     arel (5.0.1.20140414130214)
     attr_extras (3.1.0)
     better_errors (2.0.0)
@@ -206,6 +207,7 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
+  analytics-ruby
   attr_extras
   better_errors
   binding_of_caller
