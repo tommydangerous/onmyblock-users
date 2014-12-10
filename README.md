@@ -8,6 +8,7 @@ $ git remote add upstream git@github.com:onmyblock/rails.git
 ```
 
 ### App Setup
+#### Bundle install
 ```
 $ fig run --rm app bundle install
 ```
@@ -20,4 +21,12 @@ $ fig run --rm app rails console
 ### Testing
 ```
 $ fig run --rm app rspec
+```
+
+### Setting up new models
+When you create a new model, add `include MongoModel` to the class.
+```
+class User
+  include MongoModel
+end
 ```

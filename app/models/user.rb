@@ -1,3 +1,2 @@
-class User
-  include MongoModel
+class User < MongoModel
 end
