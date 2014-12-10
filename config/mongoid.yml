@@ -5,18 +5,18 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: <%= ENV['APP_NAME'] %>_development
+      database: <%= ENV["APP_NAME"] %>_development
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - <%= ENV['MONGO_URL'] %>
+        - <%= ENV["MONGO_URL"] %>
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
         # w: 1
 
         # Change the default consistency model to primary, secondary.
-        # 'secondary' will send reads to secondaries, 'primary' sends everything
+        # "secondary" will send reads to secondaries, "primary" sends everything
         # to master. (default: primary)
         # read: secondary_preferred
 
@@ -50,7 +50,7 @@ development:
     # existing method. (default: false)
     # scope_overwrite_exception: false
 
-    # Use Active Support's time zone in conversions. (default: true)
+    # Use Active Support"s time zone in conversions. (default: true)
     # use_activesupport_time_zone: true
 
     # Ensure all times are UTC in the app side. (default: false)
@@ -58,9 +58,9 @@ development:
 test:
   sessions:
     default:
-      database: <%= ENV['APP_NAME'] %>_test
+      database: <%= ENV["APP_NAME"] %>_test
       hosts:
-        - <%= ENV['MONGO_URL'] %>
+        - <%= ENV["MONGO_URL"] %>
       options:
         read: primary
         # In the test environment we lower the retries and retry interval to
