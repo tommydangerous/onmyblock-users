@@ -58,3 +58,9 @@ Use private method `render_json` to return your JSON.
 
 ### Tools
 [Postman - REST Client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en)
+
+### Tests
+- Model: test database interaction
+- Controller: test for response and status
+- Service: test CRUD logic
+- Serializer: test for correct data returned

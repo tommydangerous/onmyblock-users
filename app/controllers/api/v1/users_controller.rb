@@ -1,7 +1,7 @@
 class Api::V1::UsersController < Api::V1::UsersApplicationController
   def create
-    hash = service.create_user user_params
-    render json: hash[:response], status: hash[:status]
+    service = CreateService.new(User, user_params, UserSerializer).tap(&:process)
+    render json: service.response, status: service.status
   end
 
   def destroy

@@ -4,12 +4,20 @@ class CreateService < CrudService
       @response = record.errors
       @status   = 422
     else
-      @response = record
+      @response = serialize
       @status   = 201
     end
   end
 
   def record
     @record ||= model.create options
+  end
+
+  def serialize
+    if serializer
+      serializer.new record
+    else
+      record
+    end
   end
 end
