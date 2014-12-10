@@ -13,6 +13,11 @@ Then you can pull in upstream changes by calling
 $ git pull upstream master
 ```
 
+Before running your app, install the gems
+```
+$ fig run app bundle install
+```
+
 ### Running commands
 Use `fig` to interact with the application containers.
 
@@ -28,7 +33,7 @@ $ fig run app rails console
 $ fig run app foreman start
 ```
 
-### Service Description Below
+### Individual Service Description Below
 
 ### Setting up new models
 When you create a new model, add `include MongoModel` to the class.
