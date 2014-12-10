@@ -9,7 +9,7 @@ development:
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - <%= ENV['MONGO_URL'] %>
+        - <%= ENV["MONGO_HOST"] %>:<%= ENV["MONGO_PORT"] %>
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
@@ -60,7 +60,7 @@ test:
     default:
       database: <%= ENV['APP_NAME'] %>_test
       hosts:
-        - <%= ENV['MONGO_URL'] %>
+        - <%= ENV["MONGO_HOST"] %>:<%= ENV["MONGO_PORT"] %>
       options:
         read: primary
         # In the test environment we lower the retries and retry interval to

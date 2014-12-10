@@ -5,6 +5,7 @@ gem 'rails', '4.1.8'
 gem 'airbrake'
 gem 'attr_extras'
 gem 'bson_ext'
+gem 'dotenv-rails'
 gem 'foreman'
 gem 'mongoid'
 gem 'newrelic_rpm'
@@ -38,4 +39,4 @@ group :test do
 end
 
 # Add application specific gems below this line
-gem 'bson_ext'
+gem 'bcrypt', '~> 3.1.7'
