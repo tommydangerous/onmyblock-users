@@ -6,12 +6,16 @@ When you clone a child repository, make sure you add this as an upstream.
 
 ```
 $ git remote add upstream git@github.com:onmyblock/rails.git
-$ fig run app bundle install # Install gems
 ```
 
 Then you can pull in upstream changes by calling
 ```
 $ git pull upstream master
+```
+
+Before running your app, install the gems
+```
+$ fig run app bundle install
 ```
 
 ### Running commands
