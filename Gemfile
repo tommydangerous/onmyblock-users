@@ -9,6 +9,7 @@ gem 'dotenv-rails'
 gem 'foreman'
 gem 'mongoid'
 gem 'newrelic_rpm'
+gem 'payload', require: 'payload/railtie'
 gem 'puma'
 gem 'redis-rails'
 
