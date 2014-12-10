@@ -221,6 +221,7 @@ DEPENDENCIES
   mongoid-rspec
   newrelic_rpm
   payload
+  pry-byebug
   pry-rails
   puma
   quiet_assets
