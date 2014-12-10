@@ -39,5 +39,6 @@ group :test do
 end
 
 # Add application specific gems below this line
+gem 'active_model_serializers'
 gem 'bcrypt', '~> 3.1.7'
-gem 'jbuilder'
+gem 'rails-api'

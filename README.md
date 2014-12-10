@@ -55,3 +55,6 @@ end
 
 #### Using controllers
 Use private method `render_json` to return your JSON.
+
+### Tools
+[Postman - REST Client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en)
