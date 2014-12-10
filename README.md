@@ -27,27 +27,3 @@ $ fig run app rails console
 ```
 $ fig run app foreman start
 ```
-
-### App Setup
-#### Bundle install
-```
-$ fig run --rm app bundle install
-```
-
-### Rails Console
-```
-$ fig run --rm app rails console
-```
-
-### Testing
-```
-$ fig run --rm app rspec
-```
-
-### Setting up new models
-When you create a new model, add `include MongoModel` to the class.
-```
-class User
-  include MongoModel
-end
-```
