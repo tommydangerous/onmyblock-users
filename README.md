@@ -36,10 +36,22 @@ $ fig run app foreman start
 ### Individual Service Description Below
 ---
 
-### Setting up new models
+### Models
 When you create a new model, make it inherit from the `MongoModel` class.
 ```
 class User < MongoModel
   ...
 end
 ```
+
+### Controllers
+##### Creating new controllers
+Subclass controller `UsersApplicationController`
+```
+class UsersController < UsersApplicationController
+  ...
+end
+```
+
+#### Using controllers
+Use private method `render_json` to return your JSON.
