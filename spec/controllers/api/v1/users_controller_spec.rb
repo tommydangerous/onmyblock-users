@@ -10,7 +10,7 @@ RSpec.describe Api::V1::UsersController do
     end
 
     it "returns the information about the user in JSON" do
-      resp = JSON.parse response.body, symbolize_names: true
+      resp = json_response
       expect(resp[:email]).to eq @user.email
     end
 
@@ -25,7 +25,7 @@ RSpec.describe Api::V1::UsersController do
       end
 
       it "renders the JSON representation for the user record just created" do
-        resp = JSON.parse response.body, symbolize_names: true
+        resp = json_response
         expect(resp[:email]).to eq @user_attributes[:email]
       end
 
@@ -39,13 +39,13 @@ RSpec.describe Api::V1::UsersController do
       end
 
       it "renders JSON with errors" do
-        resp = JSON.parse response.body, symbolize_names: true
+        resp = json_response
         puts resp
         expect(resp).to have_key(:errors)
       end
 
       it "renders JSON with errors on why the user could not be created" do
-        resp = JSON.parse response.body, symbolize_names: true
+        resp = json_response
         expect(resp[:errors][:email]).to include "can't be blank"
       end
 
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::UsersController do
       end
 
       it "renders JSON for the updated user" do
-        resp = JSON.parse response.body, symbolize_names: true
+        resp = json_response
         expect(resp[:email]).to eq new_email
       end
 
@@ -78,16 +78,29 @@ RSpec.describe Api::V1::UsersController do
       end
 
       it "renders JSON with errors" do
-        resp = JSON.parse response.body, symbolize_names: true
+        resp = json_response
         expect(resp).to have_key :errors
       end
 
       it "renders JSON with errors on why the user could not be updated" do
-        resp = JSON.parse response.body, symbolize_names: true
+        resp = json_response
         expect(resp[:errors][:email]).to include "is invalid"
       end
 
       it { should respond_with 422 }
     end
+  end
+
+  describe "DELETE #destroy" do
+    before(:each) do
+      @user = create :user
+      delete :destroy, { id: @user.id }, format: :json
+    end
+
+    it "should destroy the user record" do
+      expect(User.count).to eq 0
+    end
+
+    it { should respond_with 204 }
   end
 end

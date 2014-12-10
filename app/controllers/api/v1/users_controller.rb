@@ -8,6 +8,11 @@ class Api::V1::UsersController < Api::V1::UsersApplicationController
     end
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    head 204
+  end
+
   def show
     render json: User.find(params[:id]), status: 200
   end
