@@ -25,6 +25,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'bundler-audit'
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'quiet_assets'
 end
 
