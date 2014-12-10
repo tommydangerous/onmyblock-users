@@ -6,6 +6,7 @@ When you clone a child repository, make sure you add this as an upstream.
 
 ```
 $ git remote add upstream git@github.com:onmyblock/rails.git
+$ fig run app bundle install # Install gems
 ```
 
 Then you can pull in upstream changes by calling
@@ -28,4 +29,4 @@ $ fig run app rails console
 $ fig run app foreman start
 ```
 
-### Service Description Below
+*Individual Service Description Below*
