@@ -29,4 +29,4 @@ $ fig run app rails console
 $ fig run app foreman start
 ```
 
-*Individual Service Description Below*
+### Individual Service Description Below
