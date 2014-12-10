@@ -4,9 +4,9 @@ app:
     - mongo
     - redis
   ports:
-    - 3000
+    - "3000:3000"
   volumes:
-    - ./:/app
+    - .:/app
 
 redis:
   image: redis:2.8.17

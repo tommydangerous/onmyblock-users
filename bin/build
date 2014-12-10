@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Exit if any of the commands below fail
+set -e
+
+bundle install
+bundle clean --force
+
+if [ -n "$FRONTEND" ]; then
+  bundle exec rake assets:precompile assets:clean --trace;
+fi

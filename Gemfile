@@ -5,6 +5,7 @@ gem 'rails', '4.1.8'
 gem 'airbrake'
 gem 'attr_extras'
 gem 'bson_ext'
+gem 'dotenv-rails'
 gem 'foreman'
 gem 'mongoid'
 gem 'newrelic_rpm'
@@ -36,3 +37,8 @@ group :test do
   gem 'rspec-instafail'
   gem 'shoulda'
 end
+
+# Add application specific gems below this line
+gem 'active_model_serializers'
+gem 'bcrypt', '~> 3.1.7'
+gem 'rails-api'
