@@ -20,4 +20,16 @@ RSpec.describe User do
       end
     end
   end
+
+  describe "#as_json" do
+    it "should have an email key and value" do
+      expect(subject.as_json[:email]).to eq subject.email
+    end
+    it "should have an first_name key and value" do
+      expect(subject.as_json[:first_name]).to eq subject.first_name
+    end
+    it "should have an last_name key and value" do
+      expect(subject.as_json[:last_name]).to eq subject.last_name
+    end
+  end
 end

@@ -40,3 +40,4 @@ end
 
 # Add application specific gems below this line
 gem 'bcrypt', '~> 3.1.7'
+gem 'jbuilder'
