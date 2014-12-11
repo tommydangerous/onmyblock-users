@@ -5,11 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require "rspec/rails"
 
 # Add additional requires below this line. Rails is not loaded until this point!
-require "factory_girl_rails"
-require "mongoid"
 require "payload/testing"
-require "shoulda/matchers"
-require "shoulda/matchers/integrations/rspec"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -31,7 +27,14 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+  config.include Mongoid::Matchers, type: :model
   config.include Payload::Testing
+  config.include Shoulda::Matchers
+
+  config.before :suite do
+    FactoryGirl.lint
+  end
 
   # Remove this line if you"re not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -56,23 +59,21 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.include FactoryGirl::Syntax::Methods
-  config.include Mongoid::Matchers, type: :model
+  # Add application specific configuration below this line
+
   config.include Request::JsonHelpers, type: :controller
   config.include Request::HeadersHelpers, type: :controller
-  config.include Shoulda::Matchers::ActiveModel
-  config.include Shoulda::Matchers::ActionController
-  config.include Shoulda::Matchers::Independent
 
   # Clean/Reset Mongoid DB prior to running the tests
-  config.before(:each) do
-    collections = Mongoid::Sessions.default.collections.select do |c| 
-      c.name !~ /system/
+  config.before :each do
+    Mongoid::Sessions.default.collections.select do |collection|
+      if collection.name !~ /system/
+        collection.drop
+      end
     end
-    collections.each(&:drop)
   end
 
-  config.before(:each, type: :controller) do
+  config.before :each, type: :controller do
     include_default_accept_headers
   end
 end
