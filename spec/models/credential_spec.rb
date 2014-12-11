@@ -4,10 +4,12 @@ RSpec.describe Credential do
   subject { build :credential }
 
   it { should have_fields(:confirmed_at).of_type DateTime }
-  it { should have_fields(:digest, :identification, :provider).of_type String }
+  it { should have_fields(:identification, :provider).of_type String }
+  it { should have_fields(:password_digest).with_alias(:digest).of_type String }
   it { should have_fields(:user_id) }
 
-  it { should validate_presence_of :digest }
+  it { should validate_length_of(:password_digest).with_minimum 2 }
+  it { should validate_presence_of :password_digest }
   it { should validate_presence_of :identification }
   it { should validate_inclusion_of(:provider).to_allow(
     Credential::PROVIDERS.values) }
