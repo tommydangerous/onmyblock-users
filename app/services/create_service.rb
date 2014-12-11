@@ -1,7 +1,7 @@
 class CreateService < CrudService
   def process
     if record.new_record?
-      @response = record.errors
+      @response = record.errors.to_json
       @status   = 422
     else
       @response = serialize

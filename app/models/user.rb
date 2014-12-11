@@ -23,6 +23,7 @@ class User < BaseModel
   validates_format_of :email,
     with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+([A-Za-z0-9]*))\z/i
   validates_presence_of :email, :first_name, :last_name
+  validates_uniqueness_of :email
 
   has_many :credentials, dependent: :destroy
 
