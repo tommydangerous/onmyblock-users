@@ -13,6 +13,4 @@ RSpec.describe Key do
   it { should be_valid }
 
   it_should_behave_like :crud
-
-  # it { should belong_to :credential }
 end

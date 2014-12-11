@@ -6,7 +6,7 @@ require 'rspec/rails'
 require "factory_girl_rails"
 require "mongoid"
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'payload/testing'
+require "payload/testing"
 require "shoulda/matchers"
 require "shoulda/matchers/integrations/rspec"
 
@@ -59,7 +59,6 @@ RSpec.configure do |config|
   config.include Request::JsonHelpers, type: :controller
   config.include Request::HeadersHelpers, type: :controller
   config.include Shoulda::Matchers::ActiveModel
-  # config.include Shoulda::Matchers::ActiveRecord
   config.include Shoulda::Matchers::ActionController
   config.include Shoulda::Matchers::Independent
 

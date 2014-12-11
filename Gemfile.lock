@@ -236,7 +236,6 @@ DEPENDENCIES
   faker
   foreman
   jquery-rails
-  minitest
   mongoid
   mongoid-rspec
   newrelic_rpm
