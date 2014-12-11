@@ -2,11 +2,13 @@ source "https://rubygems.org"
 
 gem "rails", "4.1.8"
 
+# Load ENV variables from .env before loading other gems
+gem "dotenv-rails", require: "dotenv/rails-now"
+
 gem "airbrake"
 gem "analytics-ruby"
 gem "attr_extras"
 gem "bson_ext"
-gem "dotenv-rails"
 gem "foreman"
 gem "mongoid"
 gem "newrelic_rpm"
