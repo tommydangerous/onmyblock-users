@@ -1,18 +1,17 @@
 require "rails_helper"
 
 RSpec.describe User do
-  # role
-  # status
-
   subject { build :user }
 
   it { should have_fields(:email, :first_name, :last_name).of_type String }
-  it { should have_fields(:role).of_type Array }
+  it { should have_fields(:roles).of_type Array }
 
   it { should respond_to :email }
   it { should respond_to :first_name }
   it { should respond_to :last_name }
 
+  it { should validate_format_of(:email).to_allow(
+    "test@gmail.com").not_to_allow("test") }
   it { should validate_presence_of :email }
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
@@ -37,6 +36,18 @@ RSpec.describe User do
         subject.email = "test@gmail"
         expect(subject.save).to eq false
       end
+    end
+  end
+
+  describe "#validate_roles" do
+    it "should be valid with valid roles" do
+      subject.roles = [User::ROLES.values.first]
+      expect(subject.valid?).to be true
+    end
+
+    it "should not be valid with invalid roles" do
+      subject.roles = ["invalid"]
+      expect(subject.valid?).to be false
     end
   end
 end

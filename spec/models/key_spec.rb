@@ -7,7 +7,7 @@ RSpec.describe Key do
   it { should have_fields(:expires_at).of_type DateTime }
   it { should have_fields(:token, :type).of_type String }
 
-  it { should ensure_inclusion_of(:type).to_allow(Key::TYPES.values) }
+  it { should validate_inclusion_of(:type).to_allow(Key::TYPES.values) }
   it { should validate_presence_of :credential_id }
   it { should validate_presence_of :expires_at }
   it { should validate_presence_of :token }

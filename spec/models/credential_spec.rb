@@ -9,7 +9,7 @@ RSpec.describe Credential do
 
   it { should validate_presence_of :digest }
   it { should validate_presence_of :identification }
-  it { should ensure_inclusion_of(:provider).to_allow(
+  it { should validate_inclusion_of(:provider).to_allow(
     Credential::PROVIDERS.values) }
     it { should have_many(:keys) }
   it { should validate_presence_of :user_id }
