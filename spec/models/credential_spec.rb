@@ -24,4 +24,17 @@ RSpec.describe Credential do
   it { should belong_to :user }
 
   it { should have_index_for(identification: 1).with_options unique: true }
+
+  describe "#authenticate" do
+    let(:credential) { create :credential, password: password }
+    let(:password) { "password" }
+
+    it "should authenticate and return the object" do
+      expect(credential.authenticate password).to eq credential
+    end
+
+    it "should not authenticate and return false" do
+      expect(credential.authenticate "").to eq false
+    end
+  end
 end

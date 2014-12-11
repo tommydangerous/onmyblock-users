@@ -1,5 +1,5 @@
 class Credential < BaseModel
-  # include ActiveModel::SecurePassword
+  include ActiveModel::SecurePassword
 
   PROVIDERS = {
     facebook:  "facebook",
@@ -7,8 +7,8 @@ class Credential < BaseModel
   }.freeze
 
   field :confirmed_at,    type: DateTime
-  field :password_digest, as: :digest, type: String
   field :identification,  type: String
+  field :password_digest, as: :digest, type: String
   field :provider,        type: String, default: PROVIDERS[:onmyblock]
   field :user_id
 
@@ -22,5 +22,5 @@ class Credential < BaseModel
 
   index({ identification: 1 }, { unique: true })
 
-  # has_secure_password validations: false
+  has_secure_password validations: false
 end

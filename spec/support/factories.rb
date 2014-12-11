@@ -7,8 +7,8 @@ FactoryGirl.define do
   sequence(:password) { Faker::Internet.password 8 }
 
   factory :credential do
-    digest SecureRandom.uuid
     identification Faker::Internet.email
+    password_digest SecureRandom.uuid
     user
   end
 
