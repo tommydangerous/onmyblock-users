@@ -26,6 +26,8 @@ class User < BaseModel
 
   has_many :credentials, dependent: :destroy
 
+  accepts_nested_attributes_for :credentials
+
   index({ email: 1 }, { unique: true })
 
   def validate_roles

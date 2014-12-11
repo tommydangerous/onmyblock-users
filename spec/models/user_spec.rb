@@ -19,6 +19,8 @@ RSpec.describe User do
 
   it { should have_many(:credentials).with_dependent :destroy }
 
+  it { should accept_nested_attributes_for :credentials }
+
   it { should have_index_for(email: 1).with_options unique: true }
 
   describe "validations" do
