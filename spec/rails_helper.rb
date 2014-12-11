@@ -60,7 +60,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   # Add application specific configuration below this line
-
   config.include Request::JsonHelpers, type: :controller
   config.include Request::HeadersHelpers, type: :controller
 
