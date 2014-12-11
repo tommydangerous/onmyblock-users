@@ -24,6 +24,7 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "bundler-audit"
+  gem "license_finder"
   gem "pry-rails"
   gem "pry-byebug"
   gem "quiet_assets"
