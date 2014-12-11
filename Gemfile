@@ -39,7 +39,7 @@ end
 
 group :test do
   gem "faker"
-  gem "mongoid-rspec"
+  gem "mongoid-rspec", "~> 2.0.0.rc1"
   gem "rspec-instafail"
   gem "shoulda"
 end
