@@ -1,4 +1,5 @@
 class Credential < BaseModel
+  
   # field: user_id,         type:String
   # field: identification,  type:String
   # field: password_digest,   type:String

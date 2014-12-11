@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe User do
+  # role
+  # status
+
   subject { build :user }
 
   it { should respond_to :email }

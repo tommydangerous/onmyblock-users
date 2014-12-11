@@ -1,8 +1,9 @@
 class User < BaseModel
   # ROLES = {
-  #   administrator: "administrator"
-  #   landlord:      "landlord",
-  #   student:       "student"
+  #   admin:    "admin",
+  #   landlord: "landlord",
+  #   parent:   "parent",
+  #   student:  "student"
   # }.freeze
   
   field :email,      type: String
