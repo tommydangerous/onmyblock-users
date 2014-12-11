@@ -27,7 +27,6 @@ RSpec.describe User do
   describe "validations" do
     context "for email" do
       it "should save with a valid email format" do
-        puts subject.email
         subject.email = "test@gmail.com"
         expect(subject.save).to eq true
       end
