@@ -46,8 +46,9 @@ RSpec.describe CreateService do
         @service.process
       end
 
-      it "should have a response with errors" do
-        expect(@service.response).to have_key :email
+      it "should have a response with what caused the error" do
+        hash = JSON.parse @service.response, symbolize_keys: true
+        expect(hash).to have_key "email"
       end
 
       it "should not create an object in the database" do
