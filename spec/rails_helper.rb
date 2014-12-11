@@ -57,6 +57,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include FactoryGirl::Syntax::Methods
+  config.include Mongoid::Matchers, type: :model
   config.include Request::JsonHelpers, type: :controller
   config.include Request::HeadersHelpers, type: :controller
   config.include Shoulda::Matchers::ActiveModel

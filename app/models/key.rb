@@ -4,13 +4,16 @@ class Key < BaseModel
     reset:  "reset"
   }.freeze
 
-  field :expires_at, type: DateTime
-  field :token,      type: String
-  field :type,       type: String, default: TYPES[:access]
+  field :credential_id
+  field :expires_at,   type: DateTime
+  field :token,        type: String
+  field :type,         type: String, default: TYPES[:access]
+
+  validates :type, inclusion: { in: TYPES.values }
+  validates_presence_of :credential_id, :expires_at, :token
+  validates_uniqueness_of :token, case_sensitive: false
 
   belongs_to :credential
 
-  validates :type, inclusion: { in: TYPES.values }
-  validates_presence_of :expires_at, :token
-  validates_uniqueness_of :token, case_sensitive: false
+  index({ credential_id: 1 })
 end

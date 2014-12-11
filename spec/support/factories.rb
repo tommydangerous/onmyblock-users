@@ -6,7 +6,14 @@ FactoryGirl.define do
   sequence(:last_name) { Faker::Name.last_name }
   sequence(:password) { Faker::Internet.password 8 }
 
+  factory :credential do
+    digest SecureRandom.uuid
+    identification Faker::Internet.email
+    user
+  end
+
   factory :key do
+    credential
     expires_at Time.zone.now + 7.days
     token SecureRandom.uuid
   end

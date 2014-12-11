@@ -37,16 +37,16 @@ end
 
 group :test do
   gem "faker"
-  gem "mongoid-rspec"
+  gem "mongoid-rspec", "~> 2.0.0.rc1"
   gem "rspec-instafail"
   gem "shoulda"
 end
 
 # Add application specific gems below this line
-gem 'active_model_serializers'
-gem 'bcrypt', '~> 3.1.7'
-gem 'rails-api'
+gem "active_model_serializers"
+gem "bcrypt", "~> 3.1.7"
+gem "rails-api"
 
 group :test do
-  gem 'shoulda-matchers', require: false
+  gem "shoulda-matchers", require: false
 end
