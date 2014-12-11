@@ -1,16 +1,16 @@
 class CreateService < CrudService
   def process
-    if record.new_record?
-      @response = record.errors.to_json
-      @status   = 422
-    else
+    if record.save
       @response = serialize
       @status   = 201
+    else
+      @response = record.errors.to_json
+      @status   = 422
     end
   end
 
   def record
-    @record ||= model.create options
+    @record ||= model.new options
   end
 
   def serialize

@@ -28,7 +28,7 @@ RSpec.describe CreateService do
       end
 
       it "should have a response equal to the record" do
-        expect(@service.response).to eq @service.record
+        expect(@service.response.email).to eq @service.record.email
       end
 
       it "should create an object in the database" do

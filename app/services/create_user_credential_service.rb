@@ -1,0 +1,3 @@
+class CreateUserCredentialService < CreateService
+
+end
