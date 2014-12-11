@@ -128,6 +128,9 @@ GEM
       pry (>= 0.9.10)
     puma (2.10.2)
       rack (>= 1.1, < 2.0)
+    puma-rails (0.0.2)
+      puma
+      rack
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -249,7 +252,7 @@ DEPENDENCIES
   payload
   pry-byebug
   pry-rails
-  puma
+  puma-rails
   quiet_assets
   rails (= 4.1.8)
   redis-rails

@@ -11,7 +11,7 @@ gem "foreman"
 gem "mongoid"
 gem "newrelic_rpm"
 gem "payload", require: "payload/railtie"
-gem "puma"
+gem "puma-rails"
 gem "redis-rails"
 
 gem "coffee-rails", "~> 4.1.0"

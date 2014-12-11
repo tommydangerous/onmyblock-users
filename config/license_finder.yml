@@ -11,3 +11,4 @@ ignore_dependencies:
   - bundler
   - json
   - puma
+  - puma-rails
