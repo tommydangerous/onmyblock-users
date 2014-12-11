@@ -7,6 +7,9 @@ app:
     - "3000:3000"
   volumes:
     - .:/app
+  environment:
+    MONGO_URL: mongo
+    REDIS_URL: redis://redis
 
 redis:
   image: redis:2.8.17
