@@ -251,7 +251,6 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0)
   shoulda
-  shoulda-matchers
   spring
   turbolinks
   uglifier (>= 1.3.0)
