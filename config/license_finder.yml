@@ -1,0 +1,14 @@
+project_name: OnMyBlock
+dependencies_file_dir: './licenses/'
+whitelist:
+  - MIT
+  - Apache 2.0
+ignore_groups:
+  - test
+  - development
+ignore_dependencies:
+  - bson_ext
+  - bundler
+  - json
+  - puma
+  - puma-rails

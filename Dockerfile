@@ -5,9 +5,9 @@ MAINTAINER OnMyBlock development@onmyblock.com
 ENV PATH /root/.rbenv/bin:/root/.rbenv/shims:$PATH
 ENV RBENV_ROOT /root/.rbenv
 
-# Install packages required for Ruby and Rails
+# Install packages required to build and install Ruby
 RUN apt-get update && \
-    apt-get -y install build-essential git nodejs wget libreadline-dev libssl-dev libxml2-dev libyaml-dev && \
+    apt-get -y install build-essential git wget libreadline-dev libssl-dev libxml2-dev libyaml-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -34,6 +34,14 @@ RUN echo "gem: --no-rdoc --no-ri" >> ~/.gemrc && \
     echo "update_sources: false" >> ~/.gemrc && \
     echo "verbose: true" >> ~/.gemrc
 
+# Generate the /app directory which is where the Rails application will be mounted
+RUN mkdir /app
+WORKDIR /app
+VOLUME /app
+
+# Add /app/bin to $PATH
+ENV PATH /app/bin:$PATH
+
 # Set the Ruby version for this app
 ENV RUBY_VERSION 2.1.5
 
@@ -41,15 +49,15 @@ ENV RUBY_VERSION 2.1.5
 RUN rbenv install $RUBY_VERSION && \
     rbenv global $RUBY_VERSION
 
-# Generate the /app directory which is where the Rails application will be mounted
-RUN mkdir /app
-WORKDIR /app
-VOLUME /app
-
 # Configure bundler to install gems to a specific path
 RUN bundle config --global path /app/vendor/bundle
 
-# Add /app/bin to $PATH
-ENV PATH /app/bin:$PATH
+# Install packages required for the Rails application
+# libsqlite3-dev is used for the license_finder gem
+RUN apt-get update && \
+    apt-get -y install nodejs libsqlite3-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Start foreman by default when running a container
 CMD bundle exec foreman start
