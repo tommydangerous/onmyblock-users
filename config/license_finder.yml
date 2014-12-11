@@ -7,4 +7,7 @@ ignore_groups:
   - test
   - development
 ignore_dependencies:
+  - bson_ext
   - bundler
+  - json
+  - puma
