@@ -1,4 +1,4 @@
-class UserCredentialService < CrudService
+class UserCredentialService < CreateService
   def initialize(options, serializer = nil)
     @options    = options
     @serializer = serializer
@@ -16,19 +16,11 @@ class UserCredentialService < CrudService
     create_user_service.record
   end
 
-  def process
-    # 1. build user
-    # 2. validate user
-    # 3. build credential
-    # 4. validate credential
-    if record_valid?(user) && record_valid?(credential)
-      # 5. save user
-      save_user
-      # 6. save credential from user
-      save_credential_from_user
-      # 7. create key from credential
-    end
-  end
+  # def process(condition = nil)
+  #   condition = sign_up
+  #   record = user
+  #   super condition
+  # end
 
   def record_valid?(record)
     record.valid?
@@ -47,6 +39,22 @@ class UserCredentialService < CrudService
   def save_user
     create_user_service.process
     create_user_service.response
+  end
+
+  def sign_up
+    # 1. build user
+    # 2. validate user
+    # 3. build credential
+    # 4. validate credential
+    if record_valid?(user) && record_valid?(credential)
+      # 5. save user
+      save_user
+      # 6. save credential from user
+      save_credential_from_user
+      # 7. create key from credential
+    else
+      false
+    end
   end
 
   def set_credential_to_user
