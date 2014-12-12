@@ -53,6 +53,54 @@ RSpec.describe UserCredentialService do
     end
   end
 
+  describe "#process_credential" do
+    before { @hash = service.process_credential }
+
+    it "should save a credential to the database" do
+      expect(Credential.count).to eq 1
+    end
+
+    it "should create a credential that belongs to the user" do
+      expect(service.user.credentials).to include @hash[:response]
+    end
+  end
+
+  describe "#process_credential_from_user" do
+    it "should send :set_credential_to_user message to service" do
+      expect(service).to receive :set_credential_to_user
+      service.process_credential_from_user
+    end
+
+    it "should send :process_credential message to service" do
+      expect(service).to receive :process_credential
+      service.process_credential_from_user
+    end
+  end
+
+  describe "#process_key_from_credential" do
+    before { @hash = service.process_key_from_credential }
+
+    it "should save a key to the database" do
+      expect(Key.count).to eq 1
+    end
+
+    it "should create a key that belongs to the credential" do
+      expect(service.credential.keys).to include @hash[:response]
+    end
+  end
+
+  describe "#process_user" do
+    before { @hash = service.process_user }
+
+    it "should save a user to the database" do
+      expect(User.count).to eq 1
+    end
+
+    it "should return a user" do
+      expect(@hash[:response].class).to eq User
+    end
+  end
+
   describe "#record_valid?" do
     it "should send :valid? message to record" do
       d = double "record"
@@ -76,56 +124,9 @@ RSpec.describe UserCredentialService do
     end
   end
 
-  describe "#save_credential" do
-    before { @hash = service.save_credential }
-    it "should save a credential to the database" do
-      expect(Credential.count).to eq 1
-    end
-
-    it "should create a credential that belongs to the user" do
-      expect(service.user.credentials).to include @hash[:response]
-    end
-  end
-
-  describe "#save_credential_from_user" do
-    it "should send :set_credential_to_user message to service" do
-      expect(service).to receive :set_credential_to_user
-      service.save_credential_from_user
-    end
-
-    it "should send :save_credential message to service" do
-      expect(service).to receive :save_credential
-      service.save_credential_from_user
-    end
-  end
-
-  describe "#save_key_from_credential" do
-    before { @hash = service.save_key_from_credential }
-
-    it "should save a key to the database" do
-      expect(Key.count).to eq 1
-    end
-
-    it "should create a key that belongs to the credential" do
-      expect(service.credential.keys).to include @hash[:response]
-    end
-  end
-
-  describe "#save_user" do
-    before { @hash = service.save_user }
-
-    it "should save a user to the database" do
-      expect(User.count).to eq 1
-    end
-
-    it "should return a user" do
-      expect(@hash[:response].class).to eq User
-    end
-  end
-
   describe "#set_credential_to_user" do
     it "should set the credential's user_id to the user" do
-      hash = service.save_user
+      hash = service.process_user
       service.set_credential_to_user
       expect(build_credential.user_id).to eq hash[:response].id
     end
@@ -134,13 +135,13 @@ RSpec.describe UserCredentialService do
   describe "#sign_up_process" do
     context "when user is valid" do
       context "when credential is valid" do
-        it "should send :save_user message to service" do
-          expect(service).to receive :save_user
+        it "should send :process_user message to service" do
+          expect(service).to receive :process_user
           service.sign_up_process
         end
 
-        it "should send :save_credential_from_user message to service" do
-          expect(service).to receive :save_credential_from_user
+        it "should send :process_credential_from_user message to service" do
+          expect(service).to receive :process_credential_from_user
           service.sign_up_process
         end
 
@@ -153,13 +154,13 @@ RSpec.describe UserCredentialService do
       context "when credential is not valid" do
         let(:service_options) { FactoryGirl.attributes_for(:user) }
 
-        it "should not send :save_user message to service" do
-          expect(service).not_to receive :save_user
+        it "should not send :process_user message to service" do
+          expect(service).not_to receive :process_user
           service.sign_up_process
         end
 
-        it "should not send :save_credential_from_user message to service" do
-          expect(service).not_to receive :save_credential_from_user
+        it "should not send :process_credential_from_user message to service" do
+          expect(service).not_to receive :process_credential_from_user
           service.sign_up_process
         end
 
@@ -173,13 +174,13 @@ RSpec.describe UserCredentialService do
     context "when user is not valid" do
       let(:service_options) { {} }
       
-      it "should not send :save_user message to service" do
-        expect(service).not_to receive :save_user
+      it "should not send :process_user message to service" do
+        expect(service).not_to receive :process_user
         service.sign_up_process
       end
 
-      it "should not send :save_credential_from_user message to service" do
-        expect(service).not_to receive :save_credential_from_user
+      it "should not send :process_credential_from_user message to service" do
+        expect(service).not_to receive :process_credential_from_user
         service.sign_up_process
       end
 

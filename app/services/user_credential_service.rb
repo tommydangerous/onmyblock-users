@@ -31,11 +31,7 @@ class UserCredentialService < CreateService
     # @status   = hash[:status]
   end
 
-  def record_valid?(record)
-    record.valid?
-  end
-
-  def save_credential
+  def process_credential
     create_credential_service.process
     {
       response: create_credential_service.response,
@@ -43,12 +39,12 @@ class UserCredentialService < CreateService
     }
   end
 
-  def save_credential_from_user
+  def process_credential_from_user
     set_credential_to_user
-    save_credential
+    process_credential
   end
 
-  def save_key_from_credential
+  def process_key_from_credential
     create_key_service.process
     {
       response: create_key_service.response,
@@ -56,12 +52,16 @@ class UserCredentialService < CreateService
     }
   end
 
-  def save_user
+  def process_user
     create_user_service.process
     {
       response: create_user_service.response,
       status:   create_user_service.status
     }
+  end
+
+  def record_valid?(record)
+    record.valid?
   end
 
   def sign_up_process
@@ -71,11 +71,11 @@ class UserCredentialService < CreateService
     # 4. validate credential
     if record_valid?(user) && record_valid?(credential)
       # 5. save user
-      save_user
+      process_user
       # 6. save credential from user
-      save_credential_from_user
+      process_credential_from_user
       # 7. create key from credential
-      save_key_from_credential
+      process_key_from_credential
     else
       errors_response
     end
