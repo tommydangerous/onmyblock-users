@@ -40,7 +40,7 @@ class AuthenticationService < CreateService
     @options[:password]
   end
 
-  def record_errors
+  def failure_response
     {}
   end
 

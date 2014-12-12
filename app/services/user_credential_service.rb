@@ -83,7 +83,7 @@ class UserCredentialService < CreateService
     { credential_id: credential.id }
   end
 
-  def record_errors
+  def failure_response
     if !record_valid? user
       errors = user.errors
     elsif !record_valid? credential
