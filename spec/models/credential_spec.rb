@@ -14,7 +14,7 @@ RSpec.describe Credential do
   it { should validate_inclusion_of(:provider).to_allow(
     Credential::PROVIDERS.values) }
     it { should have_many(:keys) }
-  it { should validate_presence_of :user_id }
+  xit { should validate_presence_of :user_id }
   it { should be_valid }
 
   it_should_behave_like :crud
@@ -24,6 +24,7 @@ RSpec.describe Credential do
   it { should belong_to :user }
 
   it { should have_index_for(identification: 1).with_options unique: true }
+  it { should have_index_for(user_id: 1) }
 
   describe "#authenticate" do
     let(:credential) { create :credential, password: password }
