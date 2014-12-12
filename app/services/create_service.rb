@@ -11,11 +11,11 @@ class CreateService < CrudService
     end
   end
 
-  private
-
   def record
     @record ||= model.new options
   end
+
+  private
 
   def serialized_record
     if serializer

@@ -20,6 +20,8 @@ RSpec.describe CreateService do
     end
   end
 
+  it { should respond_to :record }
+
   context "with valid attributes" do
     before { subject.process }
 
