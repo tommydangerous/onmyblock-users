@@ -1,8 +1,8 @@
 require_relative "crud_service"
 
 class CreateService < CrudService
-  def process
-    if record.save
+  def process(condition = nil)
+    if condition.nil? && record.save || !condition.nil? && condition
       @response = serialized_record
       @status   = 201
     else
