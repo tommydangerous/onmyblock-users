@@ -6,7 +6,7 @@ class CreateService < CrudService
       @response = serialized_record
       @status   = 201
     else
-      @response = record.errors
+      @response = record_errors
       @status   = 422
     end
   end
@@ -16,6 +16,10 @@ class CreateService < CrudService
   end
 
   private
+
+  def record_errors
+    record.errors
+  end
 
   def serialized_record
     if serializer

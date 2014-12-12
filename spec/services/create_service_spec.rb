@@ -41,6 +41,11 @@ RSpec.describe CreateService do
           expect(subject).not_to receive :serialized_record
           subject.process false
         end
+
+        it "should send :record_errors message" do
+          expect(subject).to receive :record_errors
+          subject.process false
+        end
       end
     end
 
