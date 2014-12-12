@@ -16,4 +16,12 @@ class Key < BaseModel
   belongs_to :credential
 
   index({ credential_id: 1 })
+
+  def self.generate_access_token
+    SecureRandom.uuid
+  end
+
+  def assign_token(t)
+    self.token = t
+  end
 end
