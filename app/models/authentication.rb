@@ -1,8 +1,13 @@
-class Session
-  # attr_reader :response, :status
+class Authentication
+  attr_reader :identification
+
+  def initialize(identification: nil, password: nil)
+    @identification = identification
+    @password       = password
+  end
 
   def credential
-    Credential.find
+    @credential ||= Credential.find_by identification: @identification
   end
 
   def destroy
@@ -10,23 +15,29 @@ class Session
   end
 
   def errors
-    @errors
-  end
-
-  def initialize(identification, password_digest)
-    @identification  = identification
-    @password_digest = password_digest
+    # @errors
   end
 
   def save
-    if valid?
-      # create key
-    else
-      # set errors
-    end
+    # if valid?
+    #   # create key
+    # else
+    #   # set errors
+    # end
   end
 
   def valid?
     # find credential, authenticate it
+    if credential && authenticate
+      true
+    else
+      false
+    end
+  end
+
+  private
+
+  def authenticate
+    credential.authenticate @password
   end
 end
