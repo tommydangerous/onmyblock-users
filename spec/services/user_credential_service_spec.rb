@@ -87,17 +87,17 @@ RSpec.describe UserCredentialService do
     end
   end
 
-  describe "#sign_up" do
+  describe "#sign_up_process" do
     context "when user is valid" do
       context "when credential is valid" do
         it "should send :save_user message to service" do
           expect(service).to receive :save_user
-          service.sign_up
+          service.sign_up_process
         end
 
         it "should send :save_credential_from_user message to service" do
           expect(service).to receive :save_credential_from_user
-          service.sign_up
+          service.sign_up_process
         end
       end
 
@@ -106,12 +106,12 @@ RSpec.describe UserCredentialService do
 
         it "should not send :save_user message to service" do
           expect(service).not_to receive :save_user
-          service.sign_up
+          service.sign_up_process
         end
 
         it "should not send :save_credential_from_user message to service" do
           expect(service).not_to receive :save_credential_from_user
-          service.sign_up
+          service.sign_up_process
         end
       end
     end
@@ -121,12 +121,12 @@ RSpec.describe UserCredentialService do
       
       it "should not send :save_user message to service" do
         expect(service).not_to receive :save_user
-        service.sign_up
+        service.sign_up_process
       end
 
       it "should not send :save_credential_from_user message to service" do
         expect(service).not_to receive :save_credential_from_user
-        service.sign_up
+        service.sign_up_process
       end
     end
   end

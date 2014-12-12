@@ -41,7 +41,7 @@ class UserCredentialService < CreateService
     create_user_service.response
   end
 
-  def sign_up
+  def sign_up_process
     # 1. build user
     # 2. validate user
     # 3. build credential
