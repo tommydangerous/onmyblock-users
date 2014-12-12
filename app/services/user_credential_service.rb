@@ -82,7 +82,8 @@ class UserCredentialService < CreateService
   def credential_params
     {
       identification: options[:email],
-      password:       options[:password]
+      password:       options[:password],
+      user_id:        user.id
     }
   end
 end

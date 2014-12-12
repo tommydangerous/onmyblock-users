@@ -14,7 +14,7 @@ class Credential < BaseModel
 
   validates :password_digest, length: { minimum: 2 }
   validates :provider, inclusion: { in: PROVIDERS.values }
-  validates_presence_of :password_digest, :identification#, :user_id
+  validates_presence_of :password_digest, :identification, :user_id
 
   has_many :keys, dependent: :destroy
 
