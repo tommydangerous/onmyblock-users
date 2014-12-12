@@ -25,7 +25,7 @@ class Api::V1::UsersController < ApiController
 
   def sign_up_service
     if @sign_up_service.nil?
-      @sign_up_service = UserCredentialService.new user_params, KeySerializer
+      @sign_up_service = UserCredentialService.new user_params
       @sign_up_service.process
     end
     @sign_up_service
