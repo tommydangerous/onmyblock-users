@@ -1,18 +1,18 @@
 class Key < BaseModel
   DEFAULT_DAYS       = 3
   DEFAULT_EXPIRES_AT = Time.zone.now + DEFAULT_DAYS.days
-  TYPES = {
+  KEY_TYPES = {
     access: "access",
     reset:  "reset"
   }.freeze
 
   field :credential_id
   field :expires_at,   type: DateTime
+  field :key_type,     type: String, default: KEY_TYPES[:access]
   field :token,        type: String
-  field :type,         type: String, default: TYPES[:access]
 
-  validates :type, inclusion: { in: TYPES.values }
-  validates_presence_of :credential_id, :expires_at, :token, :type
+  validates :key_type, inclusion: { in: KEY_TYPES.values }
+  validates_presence_of :credential_id, :expires_at, :token, :key_type
   validates_uniqueness_of :token, case_sensitive: false
 
   belongs_to :credential
@@ -28,7 +28,7 @@ class Key < BaseModel
     self.expires_at = datetime
   end
 
-  def assign_token(t)
-    self.token = t
+  def assign_token(tok = Key.generate_access_token)
+    self.token = tok
   end
 end
