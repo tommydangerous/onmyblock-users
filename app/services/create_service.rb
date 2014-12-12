@@ -1,24 +1,22 @@
 require_relative "crud_service"
 
 class CreateService < CrudService
-  def process(condition = nil)
-    if condition.nil? && record.save || !condition.nil? && condition
-      @response = serialized_record
-      @status   = 201
-    else
-      @response = record_errors
-      @status   = 422
-    end
-  end
-
   def record
     @record ||= model.new options
   end
 
   private
 
-  def record_errors
+  def failure_response
     record.errors
+  end
+
+  def failure_status
+    422
+  end
+
+  def record_action
+    record.save
   end
 
   def serialized_record
@@ -27,5 +25,13 @@ class CreateService < CrudService
     else
       record
     end
+  end
+
+  def success_status
+    201
+  end
+
+  def success_response
+    serialized_record
   end
 end

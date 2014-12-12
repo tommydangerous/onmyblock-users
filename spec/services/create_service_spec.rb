@@ -22,41 +22,6 @@ RSpec.describe CreateService do
 
   it { should respond_to :record }
 
-  describe "#process" do
-    context "with a condition" do
-      it "should not send :save message to record" do
-        expect(subject.record).not_to receive :save
-        subject.process "some condition"
-      end
-
-      context "that is true" do
-        it "should send :serialized_record message" do
-          expect(subject).to receive :serialized_record
-          subject.process true
-        end
-      end
-
-      context "that is false" do
-        it "should not send :serialized_record message" do
-          expect(subject).not_to receive :serialized_record
-          subject.process false
-        end
-
-        it "should send :record_errors message" do
-          expect(subject).to receive :record_errors
-          subject.process false
-        end
-      end
-    end
-
-    context "without a condition" do
-      it "should send :save message to record" do
-        expect(subject.record).to receive :save
-        subject.process
-      end
-    end
-  end
-
   context "with valid attributes" do
     before { subject.process }
 
