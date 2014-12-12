@@ -3,11 +3,12 @@ require "rails_helper"
 RSpec.describe Api::V1::UsersController do
   describe "POST #create" do
     before(:each) do
-      @user_attributes = FactoryGirl.attributes_for :user
+      @user_attributes = FactoryGirl.attributes_for(:user)
       post :create, { user: @user_attributes }
     end
 
     it "should return a status" do
+      puts response
       expect(response.status).not_to be_nil
     end
   end

@@ -77,20 +77,8 @@ RSpec.describe UserCredentialService do
     end
   end
 
-  describe "#process_credential_from_user" do
-    it "should send :set_credential_to_user message to service" do
-      expect(service).to receive :set_credential_to_user
-      service.process_credential_from_user
-    end
-
-    it "should send :process_credential message to service" do
-      expect(service).to receive :process_credential
-      service.process_credential_from_user
-    end
-  end
-
-  describe "#process_key_from_credential" do
-    before { @hash = service.process_key_from_credential }
+  describe "#process_key" do
+    before { @hash = service.process_key }
 
     it "should save a key to the database" do
       expect(Key.count).to eq 1
@@ -136,14 +124,6 @@ RSpec.describe UserCredentialService do
     end
   end
 
-  describe "#set_credential_to_user" do
-    it "should set the credential's user_id to the user" do
-      hash = service.process_user
-      service.set_credential_to_user
-      expect(build_credential.user_id).to eq hash[:response].id
-    end
-  end
-
   describe "#sign_up_process" do
     context "when user is valid" do
       context "when credential is valid" do
@@ -152,8 +132,13 @@ RSpec.describe UserCredentialService do
           service.sign_up_process
         end
 
-        it "should send :process_credential_from_user message to service" do
-          expect(service).to receive :process_credential_from_user
+        it "should send :process_credential message to service" do
+          expect(service).to receive :process_credential
+          service.sign_up_process
+        end
+
+        it "should send :process_key message to service" do
+          expect(service).to receive :process_key
           service.sign_up_process
         end
 
@@ -171,8 +156,13 @@ RSpec.describe UserCredentialService do
           service.sign_up_process
         end
 
-        it "should not send :process_credential_from_user message to service" do
-          expect(service).not_to receive :process_credential_from_user
+        it "should not send :process_credential message to service" do
+          expect(service).not_to receive :process_credential
+          service.sign_up_process
+        end
+
+        it "should not send :process_key message to service" do
+          expect(service).not_to receive :process_key
           service.sign_up_process
         end
 
@@ -191,8 +181,13 @@ RSpec.describe UserCredentialService do
         service.sign_up_process
       end
 
-      it "should not send :process_credential_from_user message to service" do
-        expect(service).not_to receive :process_credential_from_user
+      it "should not send :process_credential message to service" do
+        expect(service).not_to receive :process_credential
+        service.sign_up_process
+      end
+
+      it "should not send :process_key message to service" do
+        expect(service).not_to receive :process_key
         service.sign_up_process
       end
 

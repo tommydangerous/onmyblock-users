@@ -39,12 +39,7 @@ class UserCredentialService < CreateService
     }
   end
 
-  def process_credential_from_user
-    set_credential_to_user
-    process_credential
-  end
-
-  def process_key_from_credential
+  def process_key
     create_key_service.process
     {
       response: create_key_service.response,
@@ -73,16 +68,12 @@ class UserCredentialService < CreateService
       # 5. save user
       process_user
       # 6. save credential from user
-      process_credential_from_user
+      process_credential
       # 7. create key from credential
-      process_key_from_credential
+      process_key
     else
       errors_response
     end
-  end
-
-  def set_credential_to_user
-    credential.user = user
   end
 
   def user
