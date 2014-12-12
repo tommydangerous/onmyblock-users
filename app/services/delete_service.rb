@@ -1,17 +1,29 @@
 require_relative "crud_service"
 
 class DeleteService < CrudService
-  def process(condition = nil)
-    if condition.nil? && record.destroy || !condition.nil? && condition
-      @response = {}
-      @status   = 204
-    else
-      @response = {}
-      @status   = 422
-    end
-  end
-
   def record
     @record ||= model.find options[:id]
+  end
+
+  private
+
+  def failure_response
+    {}
+  end
+
+  def failure_status
+    422
+  end
+
+  def record_action
+    record.try :destroy
+  end
+
+  def success_status
+    204
+  end
+
+  def success_response
+    {}
   end
 end
