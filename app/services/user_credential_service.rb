@@ -26,9 +26,9 @@ class UserCredentialService < CreateService
   end
 
   def process
-    # hash      = sign_up_process
-    # @response = hash[:response]
-    # @status   = hash[:status]
+    hash      = sign_up_process
+    @response = hash[:response]
+    @status   = hash[:status]
   end
 
   def process_credential
