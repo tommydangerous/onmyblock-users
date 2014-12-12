@@ -48,17 +48,13 @@ RSpec.describe UserCredentialService do
   end
 
   describe "#save_credential" do
-    before { @credential = service.save_credential }
+    before { @hash = service.save_credential }
     it "should save a credential to the database" do
       expect(Credential.count).to eq 1
     end
 
     it "should create a credential that belongs to the user" do
-      expect(service.user.credentials).to include @credential
-    end
-
-    it "should return a credential" do
-      expect(@credential.class).to eq Credential
+      expect(service.user.credentials).to include @hash[:response]
     end
   end
 
@@ -75,38 +71,34 @@ RSpec.describe UserCredentialService do
   end
 
   describe "#save_key_from_credential" do
-    before { @key = service.save_key_from_credential }
+    before { @hash = service.save_key_from_credential }
 
     it "should save a key to the database" do
       expect(Key.count).to eq 1
     end
 
     it "should create a key that belongs to the credential" do
-      expect(service.credential.keys).to include @key
-    end
-
-    it "should return a key" do
-      expect(@key.class).to eq Key
+      expect(service.credential.keys).to include @hash[:response]
     end
   end
 
   describe "#save_user" do
-    before { @user = service.save_user }
+    before { @hash = service.save_user }
 
     it "should save a user to the database" do
       expect(User.count).to eq 1
     end
 
     it "should return a user" do
-      expect(@user.class).to eq User
+      expect(@hash[:response].class).to eq User
     end
   end
 
   describe "#set_credential_to_user" do
     it "should set the credential's user_id to the user" do
-      user = service.save_user
+      hash = service.save_user
       service.set_credential_to_user
-      expect(build_credential.user_id).to eq user.id
+      expect(build_credential.user_id).to eq hash[:response].id
     end
   end
 

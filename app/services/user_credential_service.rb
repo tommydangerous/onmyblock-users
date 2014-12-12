@@ -16,13 +16,20 @@ class UserCredentialService < CreateService
     create_user_service.record
   end
 
+  def process
+    # !!!
+  end
+
   def record_valid?(record)
     record.valid?
   end
 
   def save_credential
     create_credential_service.process
-    create_credential_service.response
+    {
+      response: create_credential_service.response,
+      status:   create_credential_service.status
+    }
   end
 
   def save_credential_from_user
@@ -32,12 +39,18 @@ class UserCredentialService < CreateService
 
   def save_key_from_credential
     create_key_service.process
-    create_key_service.response
+    {
+      response: create_key_service.response,
+      status:   create_key_service.status
+    }
   end
 
   def save_user
     create_user_service.process
-    create_user_service.response
+    {
+      response: create_user_service.response,
+      status:   create_user_service.status
+    }
   end
 
   def sign_up_process
@@ -83,7 +96,7 @@ class UserCredentialService < CreateService
 
   def credential_params
     {
-      identification: options[:email],
+      identification: user.email,
       password:       options[:password],
       user_id:        user.id
     }
