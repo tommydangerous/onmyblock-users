@@ -5,19 +5,15 @@ class UserCredentialService < CrudService
   end
 
   def build_credential
-    create_credential_service(credential_params).record
+    create_credential_service.record
   end
 
   def build_user
-    create_user_service(options).record
+    create_user_service.record
   end
 
-  def create_credential_service(opts)
-    create_service Credential, opts
-  end
-
-  def create_user_service(opts)
-    create_service User, opts
+  def record_valid?(record)
+    record.valid?
   end
 
   def process
@@ -31,8 +27,16 @@ class UserCredentialService < CrudService
 
   private
 
+  def create_credential_service
+    @create_credential_service ||= create_service Credential, credential_params
+  end
+
   def create_service(model, opts)
     CreateService.new model, opts
+  end
+
+  def create_user_service
+    @create_user_service ||= create_service User, options
   end
 
   def credential_params
