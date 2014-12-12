@@ -1,2 +1,2 @@
-class Api::V1::SessionsController < Api::V1::UsersApplicationController
+class Api::V1::SessionsController < ApiController
 end

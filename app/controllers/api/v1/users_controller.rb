@@ -1,4 +1,4 @@
-class Api::V1::UsersController < Api::V1::UsersApplicationController
+class Api::V1::UsersController < ApiController
   def create
     render json: create_service.response, status: create_service.status
   end
