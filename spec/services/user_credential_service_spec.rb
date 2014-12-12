@@ -24,6 +24,35 @@ RSpec.describe UserCredentialService do
     end
   end
 
+  describe "#errors_response" do
+    let(:errors) { hash[:response].to_hash }
+    let(:hash) { service.errors_response }
+
+    context "when user is not valid" do
+      let(:service_options) { {} }
+
+      it "should return a hash with response with errors" do
+        expect(errors).to have_key :email
+      end
+
+      it "should return a hash with key status of value 422" do
+        expect(hash[:status]).to eq 422
+      end
+    end
+
+    context "when credential is not valid" do
+      let(:service_options) { FactoryGirl.attributes_for :user }
+
+      it "should return a hash with response with errors" do
+        expect(errors).to have_key :password_digest
+      end
+
+      it "should return a hash with key status of value 422" do
+        expect(hash[:status]).to eq 422
+      end
+    end
+  end
+
   describe "#record_valid?" do
     it "should send :valid? message to record" do
       d = double "record"
@@ -114,6 +143,11 @@ RSpec.describe UserCredentialService do
           expect(service).to receive :save_credential_from_user
           service.sign_up_process
         end
+
+        it "should not send :errors_response message to service" do
+          expect(service).not_to receive :errors_response
+          service.sign_up_process
+        end
       end
 
       context "when credential is not valid" do
@@ -126,6 +160,11 @@ RSpec.describe UserCredentialService do
 
         it "should not send :save_credential_from_user message to service" do
           expect(service).not_to receive :save_credential_from_user
+          service.sign_up_process
+        end
+
+        it "should send :errors_response message to service" do
+          expect(service).to receive :errors_response
           service.sign_up_process
         end
       end
@@ -141,6 +180,11 @@ RSpec.describe UserCredentialService do
 
       it "should not send :save_credential_from_user message to service" do
         expect(service).not_to receive :save_credential_from_user
+        service.sign_up_process
+      end
+
+      it "should send :errors_response message to service" do
+        expect(service).to receive :errors_response
         service.sign_up_process
       end
     end

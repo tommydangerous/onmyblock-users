@@ -16,8 +16,19 @@ class UserCredentialService < CreateService
     create_user_service.record
   end
 
+  def errors_response
+    if !record_valid? user
+      errors = user.errors
+    elsif !record_valid? credential
+      errors = credential.errors
+    end
+    { response: errors, status: 422 }
+  end
+
   def process
-    # !!!
+    # hash      = sign_up_process
+    # @response = hash[:response]
+    # @status   = hash[:status]
   end
 
   def record_valid?(record)
@@ -65,6 +76,8 @@ class UserCredentialService < CreateService
       save_credential_from_user
       # 7. create key from credential
       save_key_from_credential
+    else
+      errors_response
     end
   end
 
