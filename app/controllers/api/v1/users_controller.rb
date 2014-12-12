@@ -1,8 +1,4 @@
-class Api::V1::UsersController < ApiController
-  def create
-    render json: sign_up_service.response, status: sign_up_service.status
-  end
-
+class Api::V1::UsersController < Api::V1::BaseController
   # def destroy
   #   User.find(params[:id]).destroy
   #   head 204
@@ -23,15 +19,11 @@ class Api::V1::UsersController < ApiController
 
   private
 
-  def sign_up_service
-    if @sign_up_service.nil?
-      @sign_up_service = UserCredentialService.new user_params
-      @sign_up_service.process
-    end
-    @sign_up_service
+  def new_create_service
+    UserCredentialService.new record_params
   end
 
-  def user_params
+  def record_params
     params.require(:user).permit(:email, :first_name, :last_name, :password)
   end
 end

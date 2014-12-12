@@ -1,19 +1,12 @@
-class Api::V1::AuthenticationsController < ApiController
-  def create
-    render json: create_service.response, status: create_service.status
-  end
+class Api::V1::AuthenticationsController < Api::V1::BaseController
 
   private
-
-  def authentication_params
-    params.require(:authentication).permit(:identification, :password)
+  
+  def new_create_service
+    AuthenticationService.new record_params
   end
 
-  def create_service
-    if @create_service.nil?
-      @create_service = AuthenticationService.new authentication_params
-      @create_service.process
-    end
-    @create_service
+  def record_params
+    params.require(:authentication).permit(:identification, :password)
   end
 end
