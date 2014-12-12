@@ -10,12 +10,13 @@ class Key < BaseModel
   field :type,         type: String, default: TYPES[:access]
 
   validates :type, inclusion: { in: TYPES.values }
-  validates_presence_of :credential_id, :expires_at, :token
+  validates_presence_of :credential_id, :expires_at, :token, :type
   validates_uniqueness_of :token, case_sensitive: false
 
   belongs_to :credential
 
   index({ credential_id: 1 })
+  index({ token: 1 })
 
   def self.generate_access_token
     SecureRandom.uuid

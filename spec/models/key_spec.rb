@@ -11,6 +11,7 @@ RSpec.describe Key do
   it { should validate_presence_of :credential_id }
   it { should validate_presence_of :expires_at }
   it { should validate_presence_of :token }
+  it { should validate_presence_of :type }
   it { should validate_uniqueness_of :token }
   it { should be_valid }
 
@@ -19,6 +20,7 @@ RSpec.describe Key do
   it { should belong_to :credential }
 
   it { should have_index_for(credential_id: 1) }
+  it { should have_index_for(token: 1) }
 
   describe ".generate_access_token" do
     it "should return a unique string" do
