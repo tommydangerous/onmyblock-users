@@ -24,6 +24,50 @@ RSpec.describe UserCredentialService do
     end
   end
 
+  describe "#process" do
+    context "when user is valid" do
+      context "when credential is valid" do
+        it "should send :save_user message to service" do
+          expect(service).to receive :save_user
+          service.process
+        end
+
+        it "should send :save_credential_from_user message to service" do
+          expect(service).to receive :save_credential_from_user
+          service.process
+        end
+      end
+
+      context "when credential is not valid" do
+        let(:service_options) { FactoryGirl.attributes_for(:user) }
+
+        it "should not send :save_user message to service" do
+          expect(service).not_to receive :save_user
+          service.process
+        end
+
+        it "should not send :save_credential_from_user message to service" do
+          expect(service).not_to receive :save_credential_from_user
+          service.process
+        end
+      end
+    end
+
+    context "when user is not valid" do
+      let(:service_options) { {} }
+      
+      it "should not send :save_user message to service" do
+        expect(service).not_to receive :save_user
+        service.process
+      end
+
+      it "should not send :save_credential_from_user message to service" do
+        expect(service).not_to receive :save_credential_from_user
+        service.process
+      end
+    end
+  end
+
   describe "#record_valid?" do
     it "should send :valid? message to record" do
       d = double "record"

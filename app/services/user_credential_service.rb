@@ -16,6 +16,20 @@ class UserCredentialService < CrudService
     create_user_service.record
   end
 
+  def process
+    # 1. build user
+    # 2. validate user
+    # 3. build credential
+    # 4. validate credential
+    if record_valid?(user) && record_valid?(credential)
+      # 5. save user
+      save_user
+      # 6. save credential from user
+      save_credential_from_user
+      # 7. create key from credential
+    end
+  end
+
   def record_valid?(record)
     record.valid?
   end
@@ -41,16 +55,6 @@ class UserCredentialService < CrudService
 
   def user
     @user ||= build_user
-  end
-
-  def process
-    # 1. build user
-    # 2. validate user
-    # 3. build credential
-    # 4. validate credential
-    # 5. save user
-    # 6. save credential from user
-    # 7. create key from credential
   end
 
   private
