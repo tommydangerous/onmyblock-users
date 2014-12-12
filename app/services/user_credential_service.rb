@@ -52,8 +52,6 @@ class UserCredentialService < CreateService
       save_credential_from_user
       # 7. create key from credential
       save_key_from_credential
-    else
-      false
     end
   end
 
@@ -72,7 +70,7 @@ class UserCredentialService < CreateService
   end
 
   def create_key_service
-    @create_key_service ||= CreateKeyService.new key_params
+    @create_key_service ||= CreateKeyService.new key_params, @serializer
   end
 
   def create_service(model, opts)
