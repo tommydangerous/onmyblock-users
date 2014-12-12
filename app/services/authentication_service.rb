@@ -10,14 +10,8 @@ class AuthenticationService < CreateService
     service.response
   end
 
-  def process
-    if valid?
-      @response = create_key
-      @status   = 201
-    else
-      @response = errors
-      @status   = 422
-    end
+  def process(condition = nil)
+    super valid?
   end
 
   def record
@@ -34,10 +28,6 @@ class AuthenticationService < CreateService
     record.authenticate password
   end
 
-  def errors
-    {}
-  end
-
   def identification
     @options[:identification]
   end
@@ -48,5 +38,13 @@ class AuthenticationService < CreateService
 
   def password
     @options[:password]
+  end
+
+  def record_errors
+    {}
+  end
+
+  def serialized_record
+    create_key
   end
 end

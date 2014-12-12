@@ -16,43 +16,23 @@ class UserCredentialService < CreateService
     create_user_service.record
   end
 
-  def errors_response
-    if !record_valid? user
-      errors = user.errors
-    elsif !record_valid? credential
-      errors = credential.errors
-    end
-    { response: errors.to_json, status: 422 }
-  end
-
-  def process
-    hash      = sign_up_process
-    @response = hash[:response]
-    @status   = hash[:status]
+  def process(condition = nil)
+    super sign_up_process
   end
 
   def process_credential
     create_credential_service.process
-    {
-      response: create_credential_service.response,
-      status:   create_credential_service.status
-    }
+    create_credential_service.response
   end
 
   def process_key
     create_key_service.process
-    {
-      response: create_key_service.response,
-      status:   create_key_service.status
-    }
+    @key_response = create_key_service.response
   end
 
   def process_user
     create_user_service.process
-    {
-      response: create_user_service.response,
-      status:   create_user_service.status
-    }
+    create_user_service.response
   end
 
   def record_valid?(record)
@@ -60,19 +40,12 @@ class UserCredentialService < CreateService
   end
 
   def sign_up_process
-    # 1. build user
-    # 2. validate user
-    # 3. build credential
-    # 4. validate credential
     if record_valid?(user) && record_valid?(credential)
-      # 5. save user
       process_user
-      # 6. save credential from user
       process_credential
-      # 7. create key from credential
       process_key
     else
-      errors_response
+      false
     end
   end
 
@@ -108,5 +81,18 @@ class UserCredentialService < CreateService
 
   def key_params
     { credential_id: credential.id }
+  end
+
+  def record_errors
+    if !record_valid? user
+      errors = user.errors
+    elsif !record_valid? credential
+      errors = credential.errors
+    end
+    errors.to_json
+  end
+
+  def serialized_record
+    @key_response
   end
 end

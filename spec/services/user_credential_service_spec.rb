@@ -24,35 +24,6 @@ RSpec.describe UserCredentialService do
     end
   end
 
-  describe "#errors_response" do
-    let(:errors) { JSON.parse hash[:response], symbolize_names: true }
-    let(:hash) { service.errors_response }
-
-    context "when user is not valid" do
-      let(:service_options) { {} }
-
-      it "should return a hash with response with errors" do
-        expect(errors).to have_key :email
-      end
-
-      it "should return a hash with key status of value 422" do
-        expect(hash[:status]).to eq 422
-      end
-    end
-
-    context "when credential is not valid" do
-      let(:service_options) { FactoryGirl.attributes_for :user }
-
-      it "should return a hash with response with errors" do
-        expect(errors).to have_key :password_digest
-      end
-
-      it "should return a hash with key status of value 422" do
-        expect(hash[:status]).to eq 422
-      end
-    end
-  end
-
   describe "#process" do
     before { service.process }
 
@@ -66,38 +37,33 @@ RSpec.describe UserCredentialService do
   end
 
   describe "#process_credential" do
-    before { @hash = service.process_credential }
+    before { service.process_credential }
 
     it "should save a credential to the database" do
       expect(Credential.count).to eq 1
     end
 
     it "should create a credential that belongs to the user" do
-      expect(service.user.credentials).to include @hash[:response]
+      expect(service.user.credentials).to include Credential.first
     end
   end
 
   describe "#process_key" do
-    before { @hash = service.process_key }
-
+    before { service.process_key }
+    
     it "should save a key to the database" do
       expect(Key.count).to eq 1
     end
 
     it "should create a key that belongs to the credential" do
-      expect(service.credential.keys).to include @hash[:response]
+      expect(service.credential.keys).to include Key.first
     end
   end
 
   describe "#process_user" do
-    before { @hash = service.process_user }
-
     it "should save a user to the database" do
+      service.process_user
       expect(User.count).to eq 1
-    end
-
-    it "should return a user" do
-      expect(@hash[:response].class).to eq User
     end
   end
 
@@ -141,11 +107,6 @@ RSpec.describe UserCredentialService do
           expect(service).to receive :process_key
           service.sign_up_process
         end
-
-        it "should not send :errors_response message to service" do
-          expect(service).not_to receive :errors_response
-          service.sign_up_process
-        end
       end
 
       context "when credential is not valid" do
@@ -163,11 +124,6 @@ RSpec.describe UserCredentialService do
 
         it "should not send :process_key message to service" do
           expect(service).not_to receive :process_key
-          service.sign_up_process
-        end
-
-        it "should send :errors_response message to service" do
-          expect(service).to receive :errors_response
           service.sign_up_process
         end
       end
@@ -188,11 +144,6 @@ RSpec.describe UserCredentialService do
 
       it "should not send :process_key message to service" do
         expect(service).not_to receive :process_key
-        service.sign_up_process
-      end
-
-      it "should send :errors_response message to service" do
-        expect(service).to receive :errors_response
         service.sign_up_process
       end
     end
