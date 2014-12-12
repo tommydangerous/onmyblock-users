@@ -22,7 +22,7 @@ class UserCredentialService < CreateService
     elsif !record_valid? credential
       errors = credential.errors
     end
-    { response: errors, status: 422 }
+    { response: errors.to_json, status: 422 }
   end
 
   def process

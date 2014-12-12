@@ -25,7 +25,7 @@ RSpec.describe UserCredentialService do
   end
 
   describe "#errors_response" do
-    let(:errors) { hash[:response].to_hash }
+    let(:errors) { JSON.parse hash[:response], symbolize_names: true }
     let(:hash) { service.errors_response }
 
     context "when user is not valid" do
