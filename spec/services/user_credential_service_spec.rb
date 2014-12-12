@@ -25,6 +25,13 @@ RSpec.describe UserCredentialService do
   end
 
   describe "#record_valid?" do
+    it "should send :valid? message to record" do
+      d = double "record"
+      allow(d).to receive(:valid?) { true }
+      expect(d).to receive :valid?
+      service.record_valid? d
+    end
+
     context "with valid attributes" do
       it "should return true" do
         expect(service.record_valid?(build_user)).to be true
@@ -37,6 +44,46 @@ RSpec.describe UserCredentialService do
       it "should return false" do
         expect(service.record_valid?(build_user)).to be false
       end
+    end
+  end
+
+  describe "#save_credential" do
+    it "should save a credential to the database" do
+      expect{ service.save_credential }.to change{ Credential.count }.by 1
+    end
+
+    it "should return a credential" do
+      expect(service.save_credential.class).to eq Credential
+    end
+  end
+
+  describe "#save_credential_from_user" do
+    it "should send :set_credential_to_user message to service" do
+      expect(service).to receive :set_credential_to_user
+      service.save_credential_from_user
+    end
+
+    it "should send :save_credential message to service" do
+      expect(service).to receive :save_credential
+      service.save_credential_from_user
+    end
+  end
+
+  describe "#save_user" do
+    it "should save a user to the database" do
+      expect{ service.save_user }.to change{ User.count }.by 1
+    end
+
+    it "should return a user" do
+      expect(service.save_user.class).to eq User
+    end
+  end
+
+  describe "#set_credential_to_user" do
+    it "should set the credential's user_id to the user" do
+      user = service.save_user
+      service.set_credential_to_user
+      expect(build_credential.user_id).to eq user.id
     end
   end
 end

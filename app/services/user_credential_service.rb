@@ -4,6 +4,10 @@ class UserCredentialService < CrudService
     @serializer = serializer
   end
 
+  def credential
+    @credential ||= build_credential
+  end
+
   def build_credential
     create_credential_service.record
   end
@@ -16,13 +20,37 @@ class UserCredentialService < CrudService
     record.valid?
   end
 
+  def save_credential
+    create_credential_service.process
+    create_credential_service.response
+  end
+
+  def save_credential_from_user
+    set_credential_to_user
+    save_credential
+  end
+
+  def save_user
+    create_user_service.process
+    create_user_service.response
+  end
+
+  def set_credential_to_user
+    credential.user = user
+  end
+
+  def user
+    @user ||= build_user
+  end
+
   def process
     # 1. build user
     # 2. validate user
     # 3. build credential
     # 4. validate credential
     # 5. save user
-    # 6. save credential
+    # 6. save credential from user
+    # 7. create key from credential
   end
 
   private
