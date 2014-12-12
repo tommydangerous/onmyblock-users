@@ -1,4 +1,6 @@
 class Key < BaseModel
+  DEFAULT_DAYS       = 3
+  DEFAULT_EXPIRES_AT = Time.zone.now + DEFAULT_DAYS.days
   TYPES = {
     access: "access",
     reset:  "reset"
@@ -20,6 +22,10 @@ class Key < BaseModel
 
   def self.generate_access_token
     SecureRandom.uuid
+  end
+
+  def assign_expires_at(datetime = DEFAULT_EXPIRES_AT)
+    self.expires_at = datetime
   end
 
   def assign_token(t)

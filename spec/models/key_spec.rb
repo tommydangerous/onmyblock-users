@@ -32,6 +32,14 @@ RSpec.describe Key do
     end
   end
 
+  describe "#assign_expires_at" do
+    it "should set the expires_at to a future date" do
+      subject.expires_at = nil
+      subject.assign_expires_at
+      expect(subject.expires_at).to be > Time.zone.now
+    end
+  end
+
   describe "#assign_token" do
     it "should assign the new token" do
       token = Key.generate_access_token
