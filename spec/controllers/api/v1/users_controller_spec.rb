@@ -8,7 +8,6 @@ RSpec.describe Api::V1::UsersController do
     end
 
     it "should return a status" do
-      puts response
       expect(response.status).not_to be_nil
     end
   end

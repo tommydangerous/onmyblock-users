@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApiController
   def create
-    render json: sign_up.response, status: sign_up.status
+    render json: sign_up_service.response, status: sign_up_service.status
   end
 
   # def destroy
@@ -23,8 +23,12 @@ class Api::V1::UsersController < ApiController
 
   private
 
-  def sign_up
-    UserCredentialService.new(user_params, KeySerializer).process
+  def sign_up_service
+    if @sign_up_service.nil?
+      @sign_up_service = UserCredentialService.new user_params, KeySerializer
+      @sign_up_service.process
+    end
+    @sign_up_service
   end
 
   def user_params
