@@ -19,14 +19,6 @@ class CreateService < CrudService
     record.save
   end
 
-  def serialized_record
-    if serializer
-      serializer.new record
-    else
-      record
-    end
-  end
-
   def success_status
     201
   end

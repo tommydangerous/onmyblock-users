@@ -29,7 +29,19 @@ class CrudService
     400
   end
 
+  def record
+    @record
+  end
+
   def record_action
+  end
+
+  def serialized_record
+    if serializer
+      serializer.new record
+    else
+      record
+    end
   end
 
   def success_status
