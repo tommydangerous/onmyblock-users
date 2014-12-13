@@ -1,91 +1,64 @@
-require "rails_helper"
+require_relative "../../app/services/create_service"
 
 RSpec.describe CreateService do
-  let(:invalid_attributes) { { first_name: "test", last_name: "test" } }
-  let(:model) { User }
-  let(:valid_attributes) { FactoryGirl.attributes_for :user }
+  subject { described_class.new model, options, serializer }
 
-  describe "#process" do
-    context "with any attributes" do
-      before(:each) do
-        @service = CreateService.new model, {}
-        @service.process
+  let(:options)    { true }
+  let(:serializer) { nil }
+
+  let :model do
+    Class.new do
+      pattr_initialize :options
+
+      def errors
+        "errors"
       end
 
-      it "should have a response" do
-        expect(@service.response).not_to be_nil
-      end
-
-      it "should have a status" do
-        expect(@service.status).not_to be_nil
-      end
-    end
-
-    context "with valid attributes" do
-      before(:each) do
-        @service = CreateService.new model, valid_attributes
-        @service.process
-      end
-
-      it "should have a response equal to the record" do
-        expect(@service.response).to eq @service.record
-      end
-
-      it "should create an object in the database" do
-        expect(model.count).to eq 1
-      end
-
-      it "should have a status of 201" do
-        expect(@service.status).to eq 201
-      end
-    end
-
-    context "with invalid attributes" do
-      before(:each) do
-        @service = CreateService.new model, invalid_attributes
-        @service.process
-      end
-
-      it "should have a response with errors" do
-        expect(@service.response).to have_key :email
-      end
-
-      it "should not create an object in the database" do
-        expect(model.count).to eq 0
-      end
-
-      it "should have a status of 422" do
-        expect(@service.status).to eq 422
+      def save
+        options
       end
     end
   end
 
-  describe "#record" do
-    let(:service) { CreateService.new(model, {}) }
+  it { should respond_to :record }
 
-    it "should return an object" do
-      expect(service.record).not_to be_nil
+  context "with valid attributes" do
+    before { subject.process }
+
+    it "should set status to 201" do
+      expect(subject.status).to eq 201
+    end
+
+    it "should return a model instance" do
+      expect(subject.response).to be_a model
     end
   end
 
-  describe "#serialize" do
-    context "with serializer" do
-      let(:serializer) { UserSerializer }
-      let(:service) { CreateService.new model, valid_attributes, serializer }
+  context "with invalid attributes" do
+    before { subject.process }
 
-      it "should return serializer object" do
-        service.process
-        expect(service.serialize.class).to eq serializer
-      end
+    let(:options) { false }
+
+    it "should set status to 201" do
+      expect(subject.status).to eq 422
     end
 
-    context "without serializer" do
-      let(:service) { CreateService.new model, {}, nil }
+    it "should return the record's errors" do
+      expect(subject.response).to eq "errors"
+    end
+  end
 
-      it "should return the record" do
-        service.process
-        expect(service.serialize).to eq service.record
-      end
+  context "with a serializer" do
+    before { subject.process }
+
+    let(:serializer) { Struct.new :record }
+
+    it "should set status to 201" do
+      expect(subject.status).to eq 201
+    end
+
+    it "should return a model instance" do
+      expect(subject.response).to be_a serializer
     end
   end
 end

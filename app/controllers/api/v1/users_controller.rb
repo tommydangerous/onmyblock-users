@@ -1,8 +1,4 @@
-class Api::V1::UsersController < Api::V1::UsersApplicationController
-  def create
-    render json: create_service.response, status: create_service.status
-  end
-
+class Api::V1::UsersController < Api::V1::BaseController
   # def destroy
   #   User.find(params[:id]).destroy
   #   head 204
@@ -23,11 +19,11 @@ class Api::V1::UsersController < Api::V1::UsersApplicationController
 
   private
 
-  def create_service
-    CreateService.new(User, user_params, UserSerializer).tap(&:process)
+  def new_create_service
+    UserCredentialService.new record_params
   end
 
-  def user_params
-    params.require(:user).permit(:email, :first_name, :last_name)
+  def record_params
+    params.require(:user).permit(:email, :first_name, :last_name, :password)
   end
 end

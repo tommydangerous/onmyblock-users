@@ -11,7 +11,7 @@ gem "foreman"
 gem "mongoid"
 gem "newrelic_rpm"
 gem "payload", require: "payload/railtie"
-gem "puma"
+gem "puma-rails"
 gem "redis-rails"
 
 gem "coffee-rails", "~> 4.1.0"
@@ -24,6 +24,7 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "bundler-audit"
+  gem "license_finder"
   gem "pry-rails"
   gem "pry-byebug"
   gem "quiet_assets"
@@ -33,20 +34,17 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "rspec-rails"
   gem "spring"
+  gem "spring-commands-rspec"
 end
 
 group :test do
   gem "faker"
-  gem "mongoid-rspec"
+  gem "mongoid-rspec", "~> 2.0.0.rc1"
   gem "rspec-instafail"
   gem "shoulda"
 end
 
 # Add application specific gems below this line
-gem 'active_model_serializers'
-gem 'bcrypt', '~> 3.1.7'
-gem 'rails-api'
-
-group :test do
-  gem 'shoulda-matchers', require: false
-end
+gem "active_model_serializers"
+gem "bcrypt", "~> 3.1.7"
+gem "rails-api"

@@ -50,10 +50,8 @@ Rails.application.routes.draw do
   #   resources :photos, concerns: :toggleable
 
   namespace :api, defaults: { format: :json } do
-    scope module: :v1, 
-      constraints: ApiConstraints.new(version: 1, default: true) do
-
-      # resources :users, only: [:create, :destroy, :show, :update]
+    namespace :v1 do
+      resources :authentications, only: [:create]
       resources :users, only: [:create]
     end
   end

@@ -1,23 +1,37 @@
+require_relative "crud_service"
+
 class CreateService < CrudService
-  def process
-    if record.new_record?
-      @response = record.errors
-      @status   = 422
-    else
-      @response = serialize
-      @status   = 201
-    end
-  end
-
   def record
-    @record ||= model.create options
+    @record ||= model.new options
   end
 
-  def serialize
+  private
+
+  def failure_response
+    record.errors
+  end
+
+  def failure_status
+    422
+  end
+
+  def record_action
+    record.save
+  end
+
+  def serialized_record
     if serializer
       serializer.new record
     else
       record
     end
+  end
+
+  def success_status
+    201
+  end
+
+  def success_response
+    serialized_record
   end
 end

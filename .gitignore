@@ -3,6 +3,7 @@
 .vagrant
 db/mongo
 db/redis
+licenses
 log/*.log
 tmp
 public/assets
