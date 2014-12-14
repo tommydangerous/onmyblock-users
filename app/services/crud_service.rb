@@ -30,7 +30,7 @@ class CrudService
   private
 
   def failure_response
-    {}
+    nil
   end
 
   def failure_status
