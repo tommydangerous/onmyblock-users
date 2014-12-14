@@ -46,10 +46,6 @@ RSpec.describe DeleteService do
         expect(model.count).to eq 1
       end
 
-      it "should return a response" do
-        expect(subject.response).not_to be_nil
-      end
-
       it "should return a status of 422" do
         expect(subject.status).to eq 422
       end
