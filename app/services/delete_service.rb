@@ -7,10 +7,6 @@ class DeleteService < CrudService
 
   private
 
-  def failure_response
-    {}
-  end
-
   def failure_status
     422
   end
