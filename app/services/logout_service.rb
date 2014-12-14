@@ -1,11 +1,7 @@
-class KeyService < CrudService
+class LogoutService < CrudService
   def initialize(options, serializer = nil)
     @options    = options
     @serializer = serializer
-  end
-
-  def find_and_delete
-    read_service.response && delete_service.response
   end
 
   def process(condition = nil)
@@ -28,6 +24,10 @@ class KeyService < CrudService
     else
       delete_service.status
     end
+  end
+
+  def find_and_delete
+    read_service.response && delete_service.response
   end
 
   def key
