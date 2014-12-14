@@ -1,43 +1,24 @@
-require_relative "../../app/services/create_service"
-
-COLLECTIONS = {}
+require_relative "../../app/services/delete_service"
+require_relative "../../spec/support/collection_mock"
 
 RSpec.describe DeleteService do
   subject { described_class.new model, options }
 
-  let :model do
-    Class.new do
-      pattr_initialize :options
-
-      def self.count
-        COLLECTIONS.size
-      end
-
-      def self.find(pk)
-        COLLECTIONS[pk]
-      end
-
-      def destroy
-        COLLECTIONS.delete id
-      end
-
-      def id
-        @id ||= Time.zone.now.to_s
-      end
-
-      def initialize
-        COLLECTIONS[id] = self
-      end
-    end
-  end
-
-  let(:options) { { id: record.id } }
-  let(:record) { model.new }
+  let(:email)   { "test@gmail.com" }
+  let(:id)      { rand(100) }
+  let(:model)   { CollectionMock }
+  let(:options) { { id: id } }
+  let(:valid_attributes) { { id: id, email: email } }
 
   describe "#process" do
-    before { subject.process }
-
     context "with an ID of an existing record" do
+      before do
+        model.create valid_attributes
+        subject.process
+      end
+
+      after { model.destroy_all }
+
       it "should destroy the record" do
         expect(model.count).to eq 0
       end
@@ -54,7 +35,12 @@ RSpec.describe DeleteService do
     context "with an ID of a non existent record" do
       let(:options) { { id: "0" } }
 
-      before { record }
+      before do
+        model.create valid_attributes
+        subject.process
+      end
+
+      after { model.destroy_all }
 
       it "should not destroy any records" do
         expect(model.count).to eq 1

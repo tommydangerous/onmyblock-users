@@ -20,8 +20,6 @@ RSpec.describe CreateService do
     end
   end
 
-  it { should respond_to :record }
-
   context "with valid attributes" do
     before { subject.process }
 
@@ -45,20 +43,6 @@ RSpec.describe CreateService do
 
     it "should return the record's errors" do
       expect(subject.response).to eq "errors"
-    end
-  end
-
-  context "with a serializer" do
-    before { subject.process }
-
-    let(:serializer) { Struct.new :record }
-
-    it "should set status to 201" do
-      expect(subject.status).to eq 201
-    end
-
-    it "should return a model instance" do
-      expect(subject.response).to be_a serializer
     end
   end
 end
