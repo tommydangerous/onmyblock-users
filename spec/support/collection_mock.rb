@@ -3,6 +3,7 @@ class CollectionMock
 
   def initialize(opts = {})
     opts.each do |name, value|
+      define_singleton_method(name) { instance_variable_get("@#{name}") }
       instance_variable_set "@#{name}".to_sym, value
     end
   end
@@ -39,7 +40,6 @@ class CollectionMock
 
   def self.where(opts = {})
     record = COLLECTION.select do |key, value|
-      puts value
       found = true
       opts.each do |query_key, query_value|
         if value.send(query_key) != query_value
