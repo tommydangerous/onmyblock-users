@@ -19,7 +19,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
 
-  def new_create_service
+  def create_service_new
     UserCredentialService.new record_params
   end
 
