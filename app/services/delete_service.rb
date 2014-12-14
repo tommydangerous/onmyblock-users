@@ -16,7 +16,7 @@ class DeleteService < CrudService
   end
 
   def record_action
-    record.try :destroy
+    record.try(:destroy) if record
   end
 
   def success_status

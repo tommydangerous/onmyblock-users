@@ -23,6 +23,10 @@ class CrudService
     @record
   end
 
+  def serialized_record
+    serializer ? serializer.new(record) : record
+  end
+
   private
 
   def failure_response
@@ -34,11 +38,7 @@ class CrudService
   end
 
   def record_action
-    # Subclasses should override this
-  end
-
-  def serialized_record
-    serializer ? serializer.new(record) : record
+    record
   end
 
   def success_status
@@ -46,6 +46,6 @@ class CrudService
   end
 
   def success_response
-    {}
+    serialized_record
   end
 end
