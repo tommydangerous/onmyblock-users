@@ -1,20 +1,20 @@
 class Api::V1::AuthenticationsController < Api::V1::BaseController
   def logout
-    read     = read_service Key, { token: params[:token] }
-    response = read.response
-    status   = read.status
-    if response
-      delete   = delete_service Key, { id: response.id }
-      response = delete.response
-      status   = delete.status
-    end
-    render json: response, status: status
+    render json: logout_service.response, status: logout_service.status
   end
 
   private
   
   def create_service_new
     AuthenticationService.new record_params
+  end
+
+  def logout_service
+    unless @logout_service
+      @logout_service = LogoutService.new params
+      @logout_service.process
+    end
+    @logout_service
   end
 
   def record_params

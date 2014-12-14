@@ -26,6 +26,11 @@ RSpec.describe LogoutService do
         expect(service).to receive :success_status
         service.process
       end
+
+      it "should return a response" do
+        service.process
+        expect(service.response).not_to be_nil
+      end
     end
 
     context "when key cannot be found" do
@@ -45,6 +50,11 @@ RSpec.describe LogoutService do
       it "should receive :failure_status" do
         expect(service).to receive :failure_status
         service.process
+      end
+
+      it "should return a nil response" do
+        service.process
+        expect(service.response).to be_nil
       end
     end
   end

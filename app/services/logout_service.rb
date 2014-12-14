@@ -45,4 +45,8 @@ class LogoutService < CrudService
     end
     @read_service
   end
+
+  def success_response
+    {}
+  end
 end
