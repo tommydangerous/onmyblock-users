@@ -1,4 +1,6 @@
 class LogoutService < CrudService
+  include Keyable
+  
   def initialize(options, serializer = nil)
     @options    = options
     @serializer = serializer
@@ -30,20 +32,8 @@ class LogoutService < CrudService
     read_service.response && delete_service.response
   end
 
-  def key
-    @key ||= read_service.response
-  end
-
   def key_id
     key ? key.id : ""
-  end
-
-  def read_service
-    unless @read_service
-      @read_service = ReadService.new Key, { token: options[:token] }
-      @read_service.process
-    end
-    @read_service
   end
 
   def success_response
