@@ -5,7 +5,7 @@ class CrudService < Service
     @serializer = serializer
   end
   
-  attr_private :model, :options, :serializer
+  attr_private :model, :serializer
 
   def process(condition = nil)
     if condition.nil? && record_action || !condition.nil? && condition
