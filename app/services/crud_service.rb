@@ -1,3 +1,5 @@
+require_relative "service"
+
 class CrudService < Service
   def initialize(model, options, serializer = nil)
     @model      = model

@@ -4,8 +4,8 @@ class CollectionMock
   def initialize(opts = {})
     opts.each do |name, value|
       define_singleton_method(name) { instance_variable_get("@#{name}") }
-      instance_variable_set "@#{name}".to_sym, value
     end
+    update opts
   end
 
   def self.all
@@ -69,6 +69,12 @@ class CollectionMock
       send message
     rescue Exception => e
       p e
+    end
+  end
+
+  def update(opts)
+    opts.each do |name, value|
+      instance_variable_set "@#{name}".to_sym, value
     end
   end
 end
