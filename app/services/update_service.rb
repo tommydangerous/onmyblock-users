@@ -21,6 +21,6 @@ class UpdateService < CrudService
   end
 
   def record_action
-    record.update(**options) if record
+    record.update(options) if record
   end
 end
