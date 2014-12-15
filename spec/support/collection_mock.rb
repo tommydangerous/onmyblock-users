@@ -56,6 +56,10 @@ class CollectionMock
     COLLECTION.delete id
   end
 
+  def errors
+    {}
+  end
+
   def id
     @id ||= Time.now.to_s
   end
