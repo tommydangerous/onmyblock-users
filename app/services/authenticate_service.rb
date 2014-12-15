@@ -1,4 +1,4 @@
-class AuthenticateService < Service
+class AuthenticateService < CrudService
   include Keyable
 
   def initialize(options, proc = nil)
@@ -6,20 +6,19 @@ class AuthenticateService < Service
     @proc    = proc
   end
 
-  def process
-    # 1. Find key using params[:token]
-    # 2. Check to see if key has expired
-    # 3. Execute callback
-    callback if key && !expired?
+  attr_private :proc
+
+  def process(condition = nil)
+    super key && !expired?
   end
 
   private
 
   def callback
-    proc.call(key) if proc
+    proc ? proc.call(key) : key
   end
 
-  def expired?
-    key.expired?
+  def success_response
+    callback
   end
 end

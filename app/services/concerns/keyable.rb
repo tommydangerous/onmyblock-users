@@ -7,6 +7,10 @@ module Keyable
 
   private
 
+  def expired?
+    key.expired?
+  end
+
   def read_service
     unless @read_service
       @read_service = ReadService.new Key, { token: options[:token] }
