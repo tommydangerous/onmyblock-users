@@ -31,4 +31,8 @@ class Key < BaseModel
   def assign_token(tok = Key.generate_access_token)
     self.token = tok
   end
+
+  def expired?
+    expires_at <= Time.now
+  end
 end

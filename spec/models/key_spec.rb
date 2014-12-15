@@ -47,4 +47,22 @@ RSpec.describe Key do
       expect(subject.token).to eq token
     end
   end
+
+  describe "#expired?" do
+    context "when expires_at is in the future" do
+      before { subject.expires_at = Time.now + 1.day }
+
+      it "should return false" do
+        expect(subject.expired?).to be false
+      end
+    end
+
+    context "when expires_at is in the past" do
+      before { subject.expires_at = Time.now - 1.day }
+
+      it "should return true" do
+        expect(subject.expired?).to be true
+      end
+    end
+  end
 end
