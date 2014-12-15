@@ -1,32 +1,22 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  # def destroy
-  #   User.find(params[:id]).destroy
-  #   head 204
-  # end
-
-  # def show
-  #   render json: User.find(params[:id]), status: 200
-  # end
-
   def update
-    response = nil
-    status   = nil
-    proc = Proc.new do |key|
-      update_service = UpdateService.new User, params[:id], update_params
-      update_service.process
-      response = update_service.response
-      status   = update_service.status
-    end
-    service = AuthenticateService.new params, proc
-    service.process
+    service = authenticate_service update_callback
     unless service.response
-      response = service.response
-      status   = service.status
+      @response = service.response
+      @status   = service.status
     end
-    render json: response, status: status
+    render json: @response, status: @status
   end
 
   private
+
+  def authenticate_service(callback)
+    unless @authenticate_service
+      @authenticate_service = AuthenticateService.new params, callback
+      @authenticate_service.process
+    end
+    @authenticate_service
+  end
 
   def create_service_new
     UserCredentialService.new record_params
@@ -36,7 +26,22 @@ class Api::V1::UsersController < Api::V1::BaseController
     params.require(:user).permit(:email, :first_name, :last_name, :password)
   end
 
+  def update_callback
+    Proc.new do |key|
+      @response = update_service.response
+      @status   = update_service.status
+    end
+  end
+
   def update_params
     params.require(:user).permit(:email, :first_name, :last_name, :roles)
+  end
+
+  def update_service
+    unless @update_service
+      @update_service = UpdateService.new User, params[:id], update_params
+      @update_service.process
+    end
+    @update_service
   end
 end
