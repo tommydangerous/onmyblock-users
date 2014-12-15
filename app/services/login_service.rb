@@ -1,4 +1,4 @@
-class AuthenticationService < CreateService
+class LoginService < CreateService
   def initialize(options, serializer = nil)
     @options    = options
     @serializer = serializer

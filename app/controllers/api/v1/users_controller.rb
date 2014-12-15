@@ -1,29 +1,47 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  # def destroy
-  #   User.find(params[:id]).destroy
-  #   head 204
-  # end
-
-  # def show
-  #   render json: User.find(params[:id]), status: 200
-  # end
-
-  # def update
-  #   user = User.find params[:id]
-  #   if user.update(user_params)
-  #     render json: user, status: 200, location: [:api, user]
-  #   else
-  #     render json: { errors: user.errors }.to_json, status: 422
-  #   end
-  # end
+  def update
+    service = authenticate_service update_callback
+    unless service.response
+      @response = service.response
+      @status   = service.status
+    end
+    render json: @response, status: @status
+  end
 
   private
 
-  def new_create_service
+  def authenticate_service(callback)
+    unless @authenticate_service
+      @authenticate_service = AuthenticateService.new params, callback
+      @authenticate_service.process
+    end
+    @authenticate_service
+  end
+
+  def create_service_new
     UserCredentialService.new record_params
   end
 
   def record_params
     params.require(:user).permit(:email, :first_name, :last_name, :password)
+  end
+
+  def update_callback
+    Proc.new do |key|
+      @response = update_service.response
+      @status   = update_service.status
+    end
+  end
+
+  def update_params
+    params.require(:user).permit(:email, :first_name, :last_name, :roles)
+  end
+
+  def update_service
+    unless @update_service
+      @update_service = UpdateService.new User, params[:id], update_params
+      @update_service.process
+    end
+    @update_service
   end
 end

@@ -22,8 +22,4 @@ class CreateService < CrudService
   def success_status
     201
   end
-
-  def success_response
-    serialized_record
-  end
 end

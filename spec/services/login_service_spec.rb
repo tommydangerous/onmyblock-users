@@ -1,12 +1,12 @@
 require "rails_helper"
 
-RSpec.describe AuthenticationService do
+RSpec.describe LoginService do
   let(:attributes) {
     { identification: credential.identification, password: password }
   }
   let(:credential) { create :credential, password: password }
   let(:password) { "password" }
-  let(:service) { AuthenticationService.new attributes }
+  let(:service) { LoginService.new attributes }
 
   describe "#create_key" do
     before {  }

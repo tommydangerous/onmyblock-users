@@ -51,8 +51,13 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :authentications, only: [:create]
-      resources :users, only: [:create]
+      resources :authentications, only: [] do
+        collection do
+          post   :login,  path: "/"
+          delete :logout, path: "/"
+        end
+      end
+      resources :users, only: [:create, :update]
     end
   end
 

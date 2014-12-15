@@ -7,16 +7,12 @@ class DeleteService < CrudService
 
   private
 
-  def failure_response
-    {}
-  end
-
   def failure_status
     422
   end
 
   def record_action
-    record.try :destroy
+    record.try(:destroy) if record
   end
 
   def success_status
