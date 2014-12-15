@@ -8,14 +8,23 @@ class Api::V1::UsersController < Api::V1::BaseController
   #   render json: User.find(params[:id]), status: 200
   # end
 
-  # def update
-  #   user = User.find params[:id]
-  #   if user.update(user_params)
-  #     render json: user, status: 200, location: [:api, user]
-  #   else
-  #     render json: { errors: user.errors }.to_json, status: 422
-  #   end
-  # end
+  def update
+    response = nil
+    status   = nil
+    proc = Proc.new do |key|
+      update_service = UpdateService.new User, params[:id], update_params
+      update_service.process
+      response = update_service.response
+      status   = update_service.status
+    end
+    service = AuthenticateService.new params, proc
+    service.process
+    unless service.response
+      response = service.response
+      status   = service.status
+    end
+    render json: response, status: status
+  end
 
   private
 
@@ -25,5 +34,9 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def record_params
     params.require(:user).permit(:email, :first_name, :last_name, :password)
+  end
+
+  def update_params
+    params.require(:user).permit(:email, :first_name, :last_name, :roles)
   end
 end

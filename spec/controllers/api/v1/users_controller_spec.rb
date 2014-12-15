@@ -12,6 +12,19 @@ RSpec.describe Api::V1::UsersController do
     end
   end
 
+  describe "PUT/PATCH #update" do
+    let(:user) { create :user }
+
+    before do
+      @attributes = { first_name: "new_first", last_name: "new_last" }
+      patch :update, { id: user.id, user: @attributes }
+    end
+
+    it "should return a status" do
+      expect(response.status).not_to be_nil
+    end
+  end
+
   # describe "GET #show" do
   #   before(:each) do
   #     @user = create :user
