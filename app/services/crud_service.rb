@@ -1,6 +1,4 @@
-class CrudService
-  attr_reader :response, :status
-
+class CrudService < Service
   def initialize(model, options, serializer = nil)
     @model      = model
     @options    = options
