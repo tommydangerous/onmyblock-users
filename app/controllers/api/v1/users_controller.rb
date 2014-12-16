@@ -1,11 +1,8 @@
 class Api::V1::UsersController < Api::V1::BaseController
   def update
-    service = authenticate_service update_callback
-    unless service.response
-      @response = service.response
-      @status   = service.status
-    end
-    render json: @response, status: @status
+    service   = authenticate_service update_callback
+    @response = service.response unless service.response
+    render json: @response
   end
 
   private
@@ -29,7 +26,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   def update_callback
     proc do |_key|
       @response = update_service.response
-      @status   = update_service.status
     end
   end
 
