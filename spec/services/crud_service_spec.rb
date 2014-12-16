@@ -11,7 +11,7 @@ RSpec.describe CrudService do
 
   describe "#process" do
     it "should receive :set_response" do
-      expect(subject).to receive :set_response
+      expect(subject).to receive :conditional_response
       subject.process
     end
 
@@ -25,11 +25,21 @@ RSpec.describe CrudService do
         it "should return true" do
           expect(subject.process true).to be true
         end
+
+        it "should receive success_response" do
+          expect(subject).to receive :success_response
+          subject.process true
+        end
       end
 
       context "that is false" do
         it "should return false" do
           expect(subject.process false).to be false
+        end
+
+        it "should receive failure_response" do
+          expect(subject).to receive :failure_response
+          subject.process false
         end
       end
     end
@@ -62,22 +72,6 @@ RSpec.describe CrudService do
     context "without serializer" do
       it "should return a record" do
         expect(subject.response).to eq subject.record
-      end
-    end
-  end
-
-  describe "#set_response" do
-    context "when condition is true" do
-      it "should receive success_response" do
-        expect(subject).to receive :success_response
-        subject.send :set_response, true
-      end
-    end
-
-    context "when condition is false" do
-      it "should receive failure_response" do
-        expect(subject).to receive :failure_response
-        subject.send :set_response, false
       end
     end
   end
