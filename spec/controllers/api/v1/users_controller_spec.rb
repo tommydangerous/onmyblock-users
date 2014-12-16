@@ -7,7 +7,7 @@ RSpec.describe Api::V1::UsersController do
       post :create, { user: @user_attributes }
     end
 
-    it "should return a status" do
+    xit "should return a status" do
       expect(response.status).not_to be_nil
     end
   end
@@ -20,7 +20,7 @@ RSpec.describe Api::V1::UsersController do
       patch :update, { id: user.id, user: @attributes }
     end
 
-    it "should return a status" do
+    xit "should return a status" do
       expect(response.status).not_to be_nil
     end
   end

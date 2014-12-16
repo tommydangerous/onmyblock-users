@@ -22,11 +22,6 @@ RSpec.describe LogoutService do
         service.process
       end
 
-      it "should receive :success_status" do
-        expect(service).to receive :success_status
-        service.process
-      end
-
       it "should return a response" do
         service.process
         expect(service.response).not_to be_nil
@@ -44,11 +39,6 @@ RSpec.describe LogoutService do
 
       it "should receive :failure_response" do
         expect(service).to receive :failure_response
-        service.process
-      end
-
-      it "should receive :failure_status" do
-        expect(service).to receive :failure_status
         service.process
       end
 

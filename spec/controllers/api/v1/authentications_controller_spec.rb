@@ -14,7 +14,7 @@ RSpec.describe Api::V1::AuthenticationsController do
       expect(response.body).not_to be_nil
     end
 
-    it "should return a status" do
+    xit "should return a status" do
       expect(response.status).not_to be_nil
     end
   end
@@ -28,7 +28,7 @@ RSpec.describe Api::V1::AuthenticationsController do
       expect(response.body).not_to be_nil
     end
 
-    it "should return a status" do
+    xit "should return a status" do
       expect(response.status).not_to be_nil
     end
   end

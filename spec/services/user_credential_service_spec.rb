@@ -30,10 +30,6 @@ RSpec.describe UserCredentialService do
     it "should have a response" do
       expect(service.response).not_to be_nil
     end
-
-    it "should have a status" do
-      expect(service.status).not_to be_nil
-    end
   end
 
   describe "#process_credential" do

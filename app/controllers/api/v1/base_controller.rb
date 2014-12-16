@@ -1,6 +1,6 @@
 class Api::V1::BaseController < ApiController
   def create
-    render json: create_service.response, status: create_service.status
+    render json: create_service.response
   end
 
   private

@@ -1,10 +1,10 @@
 class Api::V1::AuthenticationsController < Api::V1::BaseController
   def login
-    render json: login_service.response, status: login_service.status
+    render json: login_service.response
   end
 
   def logout
-    render json: logout_service.response, status: logout_service.status
+    render json: logout_service.response
   end
 
   private

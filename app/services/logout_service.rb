@@ -20,14 +20,6 @@ class LogoutService < CrudService
     @delete_service
   end
 
-  def failure_status
-    if key.nil?
-      read_service.status
-    else
-      delete_service.status
-    end
-  end
-
   def find_and_delete
     read_service.response && delete_service.response
   end
