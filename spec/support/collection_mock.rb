@@ -70,7 +70,7 @@ class CollectionMock
 
   def try(message)
     send message
-  rescue Exception => e
+  rescue StandardError => e
     p e
   end
 
