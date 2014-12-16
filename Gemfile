@@ -24,11 +24,13 @@ gem "uglifier", ">= 1.3.0"
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
-  gem "bundler-audit"
-  gem "license_finder"
+  gem "bundler-audit", require: false
+  gem "license_finder", require: false
   gem "pry-rails"
   gem "pry-byebug"
   gem "quiet_assets"
+  gem "rubocop", require: false
+  gem "rubocop-rspec", require: false
 end
 
 group :development, :test do
