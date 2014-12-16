@@ -10,7 +10,7 @@ class LoginService < CreateService
     service.response
   end
 
-  def process(condition = nil)
+  def process(_condition = nil)
     super valid?
   end
 

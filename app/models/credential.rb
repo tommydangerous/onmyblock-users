@@ -20,8 +20,8 @@ class Credential < BaseModel
 
   belongs_to :user
 
-  index({ identification: 1 }, { unique: true })
-  index({ user_id: 1 })
+  index({ identification: 1 }, unique: true)
+  index(user_id: 1)
 
   has_secure_password validations: false
 end

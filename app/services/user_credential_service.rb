@@ -16,7 +16,7 @@ class UserCredentialService < CreateService
     create_user_service.record
   end
 
-  def process(condition = nil)
+  def process(_condition = nil)
     super sign_up_process
   end
 

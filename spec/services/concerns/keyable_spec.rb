@@ -4,7 +4,7 @@ RSpec.describe Keyable do
   let(:key) { create :key }
   let(:model) do
     Class.new do
-      include Keyable
+      include described_class
 
       def initialize(options)
         @options = options

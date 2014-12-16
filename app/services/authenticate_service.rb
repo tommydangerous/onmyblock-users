@@ -8,7 +8,7 @@ class AuthenticateService < CrudService
 
   attr_private :proc
 
-  def process(condition = nil)
+  def process(_condition = nil)
     super key && !expired?
   end
 

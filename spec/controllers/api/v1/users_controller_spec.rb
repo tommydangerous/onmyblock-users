@@ -4,7 +4,7 @@ RSpec.describe Api::V1::UsersController do
   describe "POST #create" do
     before(:each) do
       @user_attributes = FactoryGirl.attributes_for(:user)
-      post :create, { user: @user_attributes }
+      post :create, user: @user_attributes
     end
 
     it "should return a status" do
@@ -17,7 +17,7 @@ RSpec.describe Api::V1::UsersController do
 
     before do
       @attributes = { first_name: "new_first", last_name: "new_last" }
-      patch :update, { id: user.id, user: @attributes }
+      patch :update, id: user.id, user: @attributes
     end
 
     it "should return a status" do

@@ -1,14 +1,14 @@
 require "rails_helper"
 
 RSpec.describe ApiConstraints do
-  let(:api_constraints_v1) { ApiConstraints.new(version: 1) }
-  let(:api_constraints_v2) { ApiConstraints.new(version: 2, default: true) }
+  let(:api_constraints_v1) { described_class.new(version: 1) }
+  let(:api_constraints_v2) { described_class.new(version: 2, default: true) }
   let(:host) { "127.0.0.1:3000" }
 
   describe "matches?" do
     it "returns true when the version matches the 'Accept' header" do
       request = double(
-        host:    host, 
+        host:    host,
         headers: { "Accept" => "application/vnd.users.v1" }
       )
       expect(api_constraints_v1.matches?(request)).to eq true

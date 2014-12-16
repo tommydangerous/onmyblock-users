@@ -3,10 +3,10 @@ require "rails_helper"
 RSpec.describe UserCredentialService do
   let(:build_credential) { service.build_credential }
   let(:build_user) { service.build_user }
-  let(:service) { UserCredentialService.new service_options }
-  let(:service_options) { 
-    FactoryGirl.attributes_for(:user).merge({ password: "password" })
-  }
+  let(:service) { described_class.new service_options }
+  let(:service_options) do
+    FactoryGirl.attributes_for(:user).merge(password: "password")
+  end
 
   describe "#build_credential" do
     it "should return a built credential with the same attributes" do
@@ -50,7 +50,7 @@ RSpec.describe UserCredentialService do
 
   describe "#process_key" do
     before { service.process_key }
-    
+
     it "should save a key to the database" do
       expect(Key.count).to eq 1
     end
@@ -131,7 +131,7 @@ RSpec.describe UserCredentialService do
 
     context "when user is not valid" do
       let(:service_options) { {} }
-      
+
       it "should not send :process_user message to service" do
         expect(service).not_to receive :process_user
         service.sign_up_process

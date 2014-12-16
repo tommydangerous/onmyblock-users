@@ -1,12 +1,12 @@
 class LogoutService < CrudService
   include Keyable
-  
+
   def initialize(options, serializer = nil)
     @options    = options
     @serializer = serializer
   end
 
-  def process(condition = nil)
+  def process(_condition = nil)
     super find_and_delete
   end
 
@@ -14,7 +14,7 @@ class LogoutService < CrudService
 
   def delete_service
     unless @delete_service
-      @delete_service = DeleteService.new Key, { id: key_id }
+      @delete_service = DeleteService.new Key, id: key_id
       @delete_service.process
     end
     @delete_service

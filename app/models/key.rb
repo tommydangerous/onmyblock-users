@@ -17,8 +17,8 @@ class Key < BaseModel
 
   belongs_to :credential
 
-  index({ credential_id: 1 })
-  index({ token: 1 })
+  index(credential_id: 1)
+  index(token: 1)
 
   def self.generate_access_token
     SecureRandom.uuid

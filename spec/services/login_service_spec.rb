@@ -1,18 +1,18 @@
 require "rails_helper"
 
 RSpec.describe LoginService do
-  let(:attributes) {
+  let(:attributes) do
     { identification: credential.identification, password: password }
-  }
+  end
   let(:credential) { create :credential, password: password }
   let(:password) { "password" }
-  let(:service) { LoginService.new attributes }
+  let(:service) { described_class.new attributes }
 
   describe "#create_key" do
-    before {  }
+    before {}
 
     it "should create a key" do
-      expect{ service.create_key }.to change{ Key.count }.by 1
+      expect { service.create_key }.to change { Key.count }.by 1
     end
 
     it "should create a key belonging to credential" do
@@ -34,9 +34,9 @@ RSpec.describe LoginService do
     end
 
     context "when not valid" do
-      let(:attributes) {
+      let(:attributes) do
         { identification: "", password: "" }
-      }
+      end
 
       it "should not receive :create_key message" do
         expect(service).not_to receive :create_key
@@ -60,9 +60,9 @@ RSpec.describe LoginService do
       end
 
       context "when password is not correct" do
-        let(:attributes) {
+        let(:attributes) do
           { identification: credential.identification, password: "" }
-        }
+        end
 
         it "should return false" do
           expect(service.valid?).to be false
@@ -71,9 +71,9 @@ RSpec.describe LoginService do
     end
 
     context "when credential cannot be found" do
-      let(:attributes) {
+      let(:attributes) do
         { identification: "", password: password }
-      }
+      end
 
       it "should return false" do
         expect(service.valid?).to be false

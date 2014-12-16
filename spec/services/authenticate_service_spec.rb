@@ -15,7 +15,7 @@ RSpec.describe AuthenticateService do
         end
 
         context "with a proc" do
-          let(:proc) { Proc.new { |obj| proc_return } }
+          let(:proc) { proc { |_obj| proc_return } }
           let(:proc_return) { "proc_return" }
 
           it "should return a key object" do

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe UserSerializer do
   let(:user) { create :user }
-  let(:hash) { UserSerializer.new(user).serializable_hash }
+  let(:hash) { described_class.new(user).serializable_hash }
 
   it "should have email" do
     expect(hash[:email]).to eq user.email
