@@ -16,8 +16,8 @@ RSpec.describe ReadService do
     context "when record not found" do
       let(:options) { { email: "" } }
 
-      it "should return a status of 404" do
-        expect(subject.status).to eq 404
+      it "should have a nil response" do
+        expect(subject.response).to be_nil
       end
     end
   end
