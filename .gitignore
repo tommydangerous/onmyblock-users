@@ -1,6 +1,7 @@
 .bundle
 .sass-cache
 .vagrant
+coverage
 db/mongo
 db/redis
 licenses
