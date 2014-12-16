@@ -23,11 +23,10 @@ RSpec.describe ReadService do
   end
 
   describe "#record" do
-    before { @object = model.create valid_attributes }
-
     context "when the options contain correct query attributes" do
       it "should return an object from the database" do
-        expect(subject.record).to eq @object
+        object = model.create valid_attributes
+        expect(subject.record).to eq object
       end
     end
 
