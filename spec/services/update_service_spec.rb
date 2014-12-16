@@ -15,11 +15,10 @@ RSpec.describe UpdateService do
 
   describe "#process" do
     before do
+      model.destroy_all
       record
       subject.process
     end
-
-    after { model.destroy_all }
 
     context "when record found" do
       it "should update record" do

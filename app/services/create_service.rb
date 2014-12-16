@@ -11,15 +11,7 @@ class CreateService < CrudService
     record.errors
   end
 
-  def failure_status
-    422
-  end
-
   def record_action
     record.save
-  end
-
-  def success_status
-    201
   end
 end
