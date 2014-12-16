@@ -12,8 +12,8 @@ RSpec.describe Credential do
   it { should validate_presence_of :password_digest }
   it { should validate_presence_of :identification }
   it do
-    should validate_inclusion_of(:provider).
-             to_allow(Credential::PROVIDERS.values)
+    should validate_inclusion_of(:provider)
+      .to_allow(Credential::PROVIDERS.values)
   end
 
   it { should have_many(:keys) }

@@ -57,7 +57,7 @@ Rails.application.routes.draw do
           delete :logout, path: "/"
         end
       end
-      resources :users, only: [:create, :update]
+      resources :users, only: %i(create update)
     end
   end
 

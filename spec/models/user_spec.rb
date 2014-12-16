@@ -4,14 +4,14 @@ RSpec.describe User do
   subject { build :user }
 
   it do
-    should have_fields(:email, :first_name, :last_name, :status).
-             of_type(String)
+    should have_fields(:email, :first_name, :last_name, :status)
+      .of_type(String)
   end
   it { should have_fields(:roles).of_type Array }
 
   it do
-    should validate_format_of(:email).to_allow("test@gmail.com").
-             not_to_allow("test")
+    should validate_format_of(:email).to_allow("test@gmail.com")
+      .not_to_allow("test")
   end
   it { should validate_presence_of :email }
   it { should validate_presence_of :first_name }

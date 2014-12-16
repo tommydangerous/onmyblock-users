@@ -55,6 +55,8 @@ class UserCredentialService < CreateService
 
   private
 
+  attr_reader :key_response
+
   def create_credential_service
     @create_credential_service ||= create_service Credential, credential_params
   end
@@ -93,6 +95,6 @@ class UserCredentialService < CreateService
   end
 
   def serialized_record
-    @key_response
+    key_response
   end
 end
