@@ -13,12 +13,7 @@ class CollectionMock
   end
 
   def self.create(opts = {})
-    if opts[:id]
-      pk = opts[:id]
-    else
-      pk = Time.now.to_s
-    end
-    obj = CollectionMock.new opts
+    obj = new opts
     COLLECTION[obj.id] = obj
   end
 
@@ -31,11 +26,11 @@ class CollectionMock
   end
 
   def self.find(pk)
-    CollectionMock.find_by id: pk
+    find_by id: pk
   end
 
   def self.find_by(opts = {})
-    CollectionMock.where(opts).first
+    where(opts).first
   end
 
   def self.where(opts = {})
