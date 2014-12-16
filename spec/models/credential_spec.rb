@@ -11,9 +11,12 @@ RSpec.describe Credential do
   it { should validate_length_of(:password_digest).with_minimum 2 }
   it { should validate_presence_of :password_digest }
   it { should validate_presence_of :identification }
-  it { should validate_inclusion_of(:provider).to_allow(
-    Credential::PROVIDERS.values) }
-    it { should have_many(:keys) }
+  it do
+    should validate_inclusion_of(:provider)
+      .to_allow(Credential::PROVIDERS.values)
+  end
+
+  it { should have_many(:keys) }
   it { should validate_presence_of :user_id }
   it { should be_valid }
 

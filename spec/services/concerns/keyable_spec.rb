@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe Keyable do
   let(:key) { create :key }
   let(:model) do
-    Class.new do
-      include Keyable
+    Class.new.class_exec described_class do |mod|
+      include mod
 
       def initialize(options)
         @options = options

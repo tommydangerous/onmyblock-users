@@ -27,7 +27,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def update_callback
-    Proc.new do |key|
+    proc do |_key|
       @response = update_service.response
       @status   = update_service.status
     end

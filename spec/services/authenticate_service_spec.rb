@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe AuthenticateService do
   let(:key) { create :key }
   let(:options) { { token: key.token } }
-  let(:proc) { nil }
-  let(:service) { described_class.new options, proc }
+  let(:block) { nil }
+  let(:service) { described_class.new options, block }
 
   describe "#process" do
     context "when key is found" do
@@ -14,17 +14,17 @@ RSpec.describe AuthenticateService do
           service.process
         end
 
-        context "with a proc" do
-          let(:proc) { Proc.new { |obj| proc_return } }
-          let(:proc_return) { "proc_return" }
+        context "with a block" do
+          let(:block) { proc { |_obj| block_return } }
+          let(:block_return) { "block_return" }
 
           it "should return a key object" do
             service.process
-            expect(service.response).to eq proc_return
+            expect(service.response).to eq block_return
           end
         end
 
-        context "without a proc" do
+        context "without a block" do
           it "should return a key" do
             service.process
             expect(service.response).to eq key

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe LogoutService do
   let(:key) { create :key }
   let(:options) { { token: key.token } }
-  let(:service) { LogoutService.new options }
+  let(:service) { described_class.new options }
 
   describe "#process" do
     it "should receive :find_and_delete message" do

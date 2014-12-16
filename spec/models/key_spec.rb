@@ -24,8 +24,8 @@ RSpec.describe Key do
 
   describe ".generate_access_token" do
     it "should return a unique string" do
-      token1 = Key.generate_access_token
-      token2 = Key.generate_access_token
+      token1 = described_class.generate_access_token
+      token2 = described_class.generate_access_token
       expect(token1).not_to be_nil
       expect(token2).not_to be_nil
       expect(token1).not_to eq token2
@@ -42,7 +42,7 @@ RSpec.describe Key do
 
   describe "#assign_token" do
     it "should assign the new token" do
-      token = Key.generate_access_token
+      token = described_class.generate_access_token
       subject.assign_token token
       expect(subject.token).to eq token
     end
