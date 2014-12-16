@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "4.1.8"
 
+gem "active_model_serializers"
 gem "airbrake"
 gem "analytics-ruby"
 gem "attr_extras"
