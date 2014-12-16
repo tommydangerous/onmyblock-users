@@ -1,4 +1,26 @@
 module Request
+  module EnvelopeHelpers
+    def envelope_errors
+      envelope_response[:errors]
+    end
+
+    def envelope_metadata
+      envelope_response[:metadata]
+    end
+
+    def envelope_resource
+      envelope_response[:resource]
+    end
+
+    def envelope_response
+      @envelope_response ||= JSON.parse response.body, symbolize_names: true
+    end
+
+    def envelope_status
+      envelope_metadata[:status]
+    end
+  end
+
   module JsonHelpers
     def json_response
       @json_response ||= JSON.parse response.body, symbolize_names: true
