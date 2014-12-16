@@ -1,0 +1,38 @@
+AllCops:
+  Include:
+    - "**/*.gemspec"
+    - "**/*.rake"
+    - "**/Berksfile"
+    - "**/Capfile"
+    - "**/Cheffile"
+    - "**/Gemfile"
+    - "**/Guardfile"
+    - "**/Rakefile"
+    - "**/Thorfile"
+    - "**/Vagrantfile"
+  Exclude:
+    - "spec/fixtures/**/*"
+    - "vendor/**/*"
+
+  RunRailsCops: true
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/CollectionMethods:
+  Description: "Preferred collection methods."
+  StyleGuide: "https://github.com/bbatsov/ruby-style-guide#map-fine-select-reduce-size"
+  Enabled: true
+
+Style/MethodCalledOnDoEndBlock:
+  Description: "Avoid chaining a method call on a do...end block."
+  StyleGuide: "https://github.com/bbatsov/ruby-style-guide#single-line-blocks"
+  Enabled: true
+
+Style/SymbolArray:
+  Description: "Use %i or %I for arrays of symbols."
+  StyleGuide: "https://github.com/bbatsov/ruby-style-guide#percent-i"
+  Enabled: true
