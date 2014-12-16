@@ -46,3 +46,15 @@ Style/Documentation:
 
 RSpec/ExampleWording:
   Enabled: false
+
+Rails/Validation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
