@@ -5,7 +5,14 @@ class Envelope
 
   def initialize(opts = {})
     @errors   = opts[:errors]   || {}
-    @metadata = opts[:metadata] || {}
+    @metadata = add_metadata opts
     @resource = opts[:resource] || {}
+  end
+
+  def add_metadata(opts)
+    hash = opts[:metadata] || {}
+    hash[:execution_time] = Time.now
+    hash[:status] = opts[:status] if opts[:status]
+    hash
   end
 end
