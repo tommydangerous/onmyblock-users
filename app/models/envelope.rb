@@ -4,13 +4,14 @@ class Envelope
   attr_reader :errors, :metadata, :resource
 
   def initialize(opts = {})
-    @errors   = opts[:errors]   || {}
+    puts opts
+    @errors   = opts[:errors] ? opts[:errors] : {}
     @metadata = add_metadata opts
-    @resource = opts[:resource] || {}
+    @resource = opts[:resource] ? opts[:resource] : {}
   end
 
   def add_metadata(opts)
-    hash = opts[:metadata] || {}
+    hash = opts[:metadata] ? opts[:metadata] : {}
     hash[:execution_time] = Time.now
     hash[:status] = opts[:status] if opts[:status]
     hash

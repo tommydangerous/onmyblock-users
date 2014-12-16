@@ -17,8 +17,6 @@ RSpec.describe Api::V1::UsersController do
     let(:user) { create :user }
     let(:attributes) { { first_name: "new_first", last_name: "new_last" } }
 
-    xit "should return a status" do
-      expect(response.status).not_to be_nil
-    end
+    # Test status
   end
 end

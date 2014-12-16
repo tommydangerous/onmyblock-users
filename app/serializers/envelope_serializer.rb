@@ -1,3 +1,3 @@
 class EnvelopeSerializer < ActiveModel::Serializer
-  attributes :errors, :metadata, :resource
+  attributes :resource, :metadata, :errors
 end

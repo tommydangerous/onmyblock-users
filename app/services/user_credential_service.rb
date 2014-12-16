@@ -70,7 +70,7 @@ class UserCredentialService < CreateService
   end
 
   def create_user_service
-    @create_user_service ||= create_service User, options
+    @create_user_service ||= create_service User, user_params
   end
 
   def credential_params
@@ -96,5 +96,9 @@ class UserCredentialService < CreateService
 
   def serialized_record
     key_response
+  end
+
+  def user_params
+    options.except :password
   end
 end

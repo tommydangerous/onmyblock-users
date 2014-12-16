@@ -10,7 +10,7 @@ class Api::V1::BaseController < ApiController
   end
 
   def current_session
-    @current_session ||= Session.new params[:token]
+    @current_session ||= Session.new(params[:token])
   end
 
   def create_service
@@ -39,21 +39,12 @@ class Api::V1::BaseController < ApiController
     )
   end
 
-  def envelope(opts)
-    Envelope.new(
-      errors:   opts[:errors],
-      metadata: opts[:metadata],
-      resource: opts[:resource],
-      status:   opts[:status]
-    )
-  end
-
   def read_service(model, options, serializer = nil)
     service "read", model, options, serializer
   end
 
   def render_envelope(opts)
-    render json: envelope(opts)
+    render json: Envelope.new(opts)
   end
 
   def service(action, model, options, serializer)
