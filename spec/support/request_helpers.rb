@@ -32,6 +32,10 @@ module Request
       request.headers["Accept"] == "application/vnd.users.v#{version}"
     end
 
+    def api_token(token)
+      request.headers["Authorization"] = token
+    end
+
     def api_response_format(format = Mime::JSON)
       request.headers["Accept"] = "#{request.headers["Accept"]},#{format}"
       request.headers["Content-Type"] = format.to_s

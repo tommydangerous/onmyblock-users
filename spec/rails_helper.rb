@@ -61,6 +61,7 @@ RSpec.configure do |config|
 
   # Add application specific configuration below this line
   config.include Request::EnvelopeHelpers, type: :controller
+  config.include Request::HeadersHelpers, type: :controller
 
   # Clean/Reset Mongoid DB prior to running the tests
   config.before :each do

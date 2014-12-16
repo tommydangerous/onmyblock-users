@@ -9,8 +9,12 @@ class Api::V1::BaseController < ApiController
     deny_access unless current_session.signed_in?
   end
 
+  def authorization
+    request.headers["Authorization"]
+  end
+
   def current_session
-    @current_session ||= Session.new(params[:token])
+    @current_session ||= Session.new authorization
   end
 
   def create_service

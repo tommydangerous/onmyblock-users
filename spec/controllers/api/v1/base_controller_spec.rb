@@ -8,7 +8,7 @@ RSpec.describe Api::V1::BaseController do
     let(:token) { key.token }
 
     before do
-      allow(controller).to receive(:params) { { token: token } }
+      allow(controller).to receive(:authorization) { token }
     end
 
     context "with correct token" do
@@ -30,7 +30,7 @@ RSpec.describe Api::V1::BaseController do
 
   describe "#current_session" do
     it "should assign @current_session" do
-      allow(controller).to receive(:params) { { token: "" } }
+      allow(controller).to receive(:authorization) { "" }
       expect(controller.send :current_session).not_to be_nil
     end
   end

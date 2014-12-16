@@ -20,7 +20,10 @@ RSpec.describe Api::V1::UsersController do
     let(:key)        { create :key }
     let(:user)       { key.credential.user }
 
-    before { patch :update, id: user.id, token: key.token, user: attributes }
+    before do
+      api_token key.token
+      patch :update, id: user.id, user: attributes
+    end
 
     context "with valid attributes" do
       it "should return a status 200" do
