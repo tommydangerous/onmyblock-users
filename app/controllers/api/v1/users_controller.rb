@@ -1,4 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
+  before_action :authenticate
+  
   def update
     service   = authenticate_service update_callback
     @response = service.response unless service.response
