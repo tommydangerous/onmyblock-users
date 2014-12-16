@@ -6,3 +6,4 @@ set -e
 bundle exec bundle-audit update
 bundle exec bundle-audit
 bundle exec license_finder
+bundle exec rubocop -D

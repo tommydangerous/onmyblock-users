@@ -11,4 +11,3 @@ class ReadService < CrudService
     404
   end
 end
-

@@ -6,7 +6,7 @@ class CrudService < Service
     @options    = options
     @serializer = serializer
   end
-  
+
   attr_private :model, :serializer
 
   def process(condition = nil)
@@ -19,9 +19,7 @@ class CrudService < Service
     end
   end
 
-  def record
-    @record
-  end
+  attr_reader :record
 
   def serialized_record
     serializer ? serializer.new(record) : record
