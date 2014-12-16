@@ -45,6 +45,7 @@ group :test do
   gem "mongoid-rspec", "~> 2.0.0.rc1"
   gem "rspec-instafail"
   gem "shoulda"
+  gem "simplecov"
 end
 
 # Add application specific gems below this line
