@@ -4,7 +4,6 @@ class Envelope
   attr_reader :errors, :metadata, :resource
 
   def initialize(opts = {})
-    puts opts
     @errors   = opts[:errors] ? opts[:errors] : {}
     @metadata = add_metadata opts
     @resource = opts[:resource] ? opts[:resource] : {}
