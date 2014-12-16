@@ -70,14 +70,14 @@ RSpec.describe CrudService do
     context "when condition is true" do
       it "should receive success_response" do
         expect(subject).to receive :success_response
-        subject.set_response true
+        subject.send :set_response, true
       end
     end
 
     context "when condition is false" do
       it "should receive failure_response" do
         expect(subject).to receive :failure_response
-        subject.set_response false
+        subject.send :set_response, false
       end
     end
   end
