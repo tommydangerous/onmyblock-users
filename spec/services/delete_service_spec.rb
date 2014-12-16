@@ -31,6 +31,7 @@ RSpec.describe DeleteService do
       let(:options) { { id: "0" } }
 
       before do
+        model.destroy_all
         model.create valid_attributes
         subject.process
       end
