@@ -1,4 +1,7 @@
+require: rubocop-rspec
+
 AllCops:
+  RunRailsCops: true
   Include:
     - "**/*.gemspec"
     - "**/*.rake"
@@ -14,7 +17,8 @@ AllCops:
     - "spec/fixtures/**/*"
     - "vendor/**/*"
 
-  RunRailsCops: true
+Metrics/LineLength:
+  Max: 100
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
@@ -40,5 +44,5 @@ Style/SymbolArray:
 Style/Documentation:
   Enabled: false
 
-Metrics/LineLength:
-  Max: 100
+RSpec/ExampleWording:
+  Enabled: false
