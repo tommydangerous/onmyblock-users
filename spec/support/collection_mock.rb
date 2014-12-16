@@ -35,15 +35,11 @@ class CollectionMock
 
   def self.where(opts = {})
     record = COLLECTION.select do |_key, value|
-      found = true
-      opts.each do |query_key, query_value|
-        if value.send(query_key) != query_value
-          found = false
-          break
-        end
+      opts.all? do |query_key, query_value|
+        value.send(query_key) == query_value
       end
-      found
     end
+
     record.values
   end
 
