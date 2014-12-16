@@ -47,7 +47,7 @@ RSpec.describe CrudService do
 
         it "should return with a status of 200  " do
           subject.process condition
-          expect(subject.status).to eq 200  
+          expect(subject.status).to eq 200
         end
       end
 

@@ -1,6 +1,6 @@
 class Envelope
   include ActiveModel::Serialization
-  
+
   attr_reader :errors, :metadata, :resource
 
   def initialize(opts = {})

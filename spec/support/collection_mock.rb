@@ -2,7 +2,7 @@ class CollectionMock
   COLLECTION = {}
 
   def initialize(opts = {})
-    opts.each do |name, value|
+    opts.each do |name, _value|
       define_singleton_method(name) { instance_variable_get("@#{name}") }
     end
     update opts
@@ -39,7 +39,7 @@ class CollectionMock
   end
 
   def self.where(opts = {})
-    record = COLLECTION.select do |key, value|
+    record = COLLECTION.select do |_key, value|
       found = true
       opts.each do |query_key, query_value|
         if value.send(query_key) != query_value
@@ -69,11 +69,9 @@ class CollectionMock
   end
 
   def try(message)
-    begin
-      send message
-    rescue Exception => e
-      p e
-    end
+    send message
+  rescue Exception => e
+    p e
   end
 
   def update(opts)
