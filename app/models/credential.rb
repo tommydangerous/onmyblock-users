@@ -37,4 +37,8 @@ class Credential < BaseModel
     key.save
     key
   end
+
+  def send_confirmation
+    CredentialMailer.confirmation(self, create_access_key).deliver
+  end
 end

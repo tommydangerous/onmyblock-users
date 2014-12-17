@@ -68,4 +68,12 @@ RSpec.describe Credential do
       expect(@key.token).not_to be_nil
     end
   end
+
+  describe "#send_confirmation" do
+    it "should send a confirmation email" do
+      expect { credential.send_confirmation }.to change { 
+        CredentialMailer.deliveries.count 
+      }
+    end
+  end
 end

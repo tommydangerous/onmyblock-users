@@ -42,8 +42,4 @@ class User < BaseModel
       errors.add(:status, "has an invalid value")
     end
   end
-
-  def send_confirmation
-    UserMailer.confirmation(self).deliver
-  end
 end
