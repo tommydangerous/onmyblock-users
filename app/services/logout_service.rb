@@ -1,6 +1,4 @@
 class LogoutService < CrudService
-  include Keyable
-
   def initialize(options, serializer = nil)
     @options    = options
     @serializer = serializer

@@ -1,4 +1,6 @@
 class Api::V1::AuthenticationsController < Api::V1::BaseController
+  before_action :authenticate, only: :logout
+  
   def login
     render_envelope login_envelope
   end

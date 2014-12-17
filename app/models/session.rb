@@ -3,12 +3,16 @@ class Session
     @token = token
   end
 
+  def current_key
+    @current_key ||= Key.find_by token: @token
+  end
+
   def current_user
     @current_user ||= user_from_key
   end
 
   def expired?
-    key.expired?
+    current_key.expired?
   end
 
   def signed_in?
@@ -17,12 +21,8 @@ class Session
 
   private
 
-  def key
-    @key ||= Key.find_by token: @token
-  end
-
   def user_from_key
-    key.credential.user
+    current_key.credential.user
   rescue
     nil
   end
