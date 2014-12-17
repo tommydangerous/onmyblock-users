@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApiController
-  
+
   private
 
   def authenticate
