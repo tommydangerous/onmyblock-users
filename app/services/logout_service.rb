@@ -13,11 +13,7 @@ class LogoutService < CrudService
   private
 
   def delete_service
-    unless @delete_service
-      @delete_service = DeleteService.new Key, id: key_id
-      @delete_service.process
-    end
-    @delete_service
+    @delete_service ||= DeleteService.new Key, id: key_id
   end
 
   def find_and_delete

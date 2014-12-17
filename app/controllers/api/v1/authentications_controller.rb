@@ -4,7 +4,7 @@ class Api::V1::AuthenticationsController < Api::V1::BaseController
   end
 
   def logout
-    render json: logout_service.response
+    render_envelope logout_envelope
   end
 
   private
@@ -26,11 +26,20 @@ class Api::V1::AuthenticationsController < Api::V1::BaseController
     @login_service ||= LoginService.new params, KeySerializer
   end
 
-  def logout_service
-    unless @logout_service
-      @logout_service = LogoutService.new params
-      @logout_service.process
+  def logout_envelope
+    if logout_service.process
+      errors   = nil
+      resource = logout_service.response
+      status   = 204
+    else
+      errors   = logout_service.response
+      resource = nil
+      status   = 404
     end
-    @logout_service
+    { errors: errors, resource: resource, status: status }
+  end
+
+  def logout_service
+    @logout_service ||= LogoutService.new params
   end
 end

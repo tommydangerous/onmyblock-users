@@ -12,10 +12,6 @@ module Keyable
   end
 
   def read_service
-    unless @read_service
-      @read_service = ReadService.new Key, token: options[:token]
-      @read_service.process
-    end
-    @read_service
+    @read_service ||= ReadService.new Key, token: options[:token]
   end
 end

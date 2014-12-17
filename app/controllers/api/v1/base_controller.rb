@@ -3,7 +3,7 @@ class Api::V1::BaseController < ApiController
   private
 
   def authenticate
-    deny_access unless current_session.signed_in?
+    deny_access unless current_session.signed_in? && !current_session.expired?
   end
 
   def authorization
@@ -31,10 +31,13 @@ class Api::V1::BaseController < ApiController
   end
 
   def deny_access
+    if !current_session.signed_in?
+      errors = { access_denied: "you must login" }
+    else
+      errors = { session_expired: "your session has expired" }
+    end
     render_envelope(
-      errors: {
-        access_denied: "you must login"
-      },
+      errors:   errors,
       resource: nil,
       status:   401
     )

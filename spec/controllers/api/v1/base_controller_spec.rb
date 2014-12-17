@@ -12,9 +12,19 @@ RSpec.describe Api::V1::BaseController do
     end
 
     context "with correct token" do
-      it "should not receive :deny_access" do
-        expect(controller).not_to receive :deny_access
-        controller.send :authenticate
+      context "when key is not expired" do
+        it "should not receive :deny_access" do
+          expect(controller).not_to receive :deny_access
+          controller.send :authenticate
+        end
+      end
+
+      context "when key is expired" do
+        it "should receive :deny_access" do
+          key.update expires_at: Time.now - 1.day
+          expect(controller).to receive :deny_access
+          controller.send :authenticate
+        end
       end
     end
 
