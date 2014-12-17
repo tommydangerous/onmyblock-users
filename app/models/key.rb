@@ -32,6 +32,11 @@ class Key < BaseModel
     self.token = tok
   end
 
+  def configure_defaults
+    assign_expires_at
+    assign_token
+  end
+
   def expired?
     expires_at <= Time.now
   end

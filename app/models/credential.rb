@@ -30,4 +30,11 @@ class Credential < BaseModel
       errors.add :password, "must be at least 2 characters"
     end
   end
+
+  def create_access_key(key_type = nil)
+    key = keys.new key_type: key_type
+    key.configure_defaults
+    key.save
+    key
+  end
 end

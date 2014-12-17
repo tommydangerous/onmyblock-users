@@ -28,10 +28,10 @@ RSpec.describe Credential do
   it { should have_index_for(identification: 1).with_options unique: true }
   it { should have_index_for(user_id: 1) }
 
-  describe "#authenticate" do
-    let(:credential) { create :credential, password: password }
-    let(:password) { "password" }
+  let(:credential) { create :credential, password: password }
+  let(:password) { "password" }
 
+  describe "#authenticate" do
     it "should authenticate and return the object" do
       expect(credential.authenticate password).to eq credential
     end
@@ -50,6 +50,22 @@ RSpec.describe Credential do
     it "should not be valid with password length less than 2" do
       subject.password = "1"
       expect(subject.valid?).to be false
+    end
+  end
+
+  describe "#create_access_key" do
+    before { @key = credential.create_access_key }
+
+    it "should create a key" do
+      expect(credential.keys).to include @key
+    end
+
+    it "should create a key with an expires_at" do
+      expect(@key.expires_at).not_to be_nil
+    end
+
+    it "should create a key with a token" do
+      expect(@key.token).not_to be_nil
     end
   end
 end

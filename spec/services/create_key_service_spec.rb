@@ -10,28 +10,17 @@ RSpec.describe CreateKeyService do
       expect(service.record.class).to eq Key
     end
 
-    context "when service record is nil" do
-      it "should send service.record :assign_expires_at message" do
-        expect(service).to receive :assign_expires_at
-        service.record
-      end
-
-      it "should send service.record :assign_token message" do
-        expect(service).to receive :assign_token
+    context "when service record does not exist" do
+      it "should send service.record :configure_defaults message" do
+        expect(service).to receive :configure_defaults
         service.record
       end
     end
 
-    context "when service record is not nil" do
-      before { service.record }
-
-      it "should not send service.record :assign_expires_at message" do
-        expect(service).not_to receive :assign_expires_at
+    context "when service record exists" do
+      it "should not send service.record :configure_defaults" do
         service.record
-      end
-
-      it "should not send service.record :assign_token message" do
-        expect(service).not_to receive :assign_token
+        expect(service).not_to receive :configure_defaults
         service.record
       end
     end

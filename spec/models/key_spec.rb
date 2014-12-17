@@ -48,6 +48,18 @@ RSpec.describe Key do
     end
   end
 
+  describe "#configure_defaults" do
+    it "should receive :assign_expires_at" do
+      expect(subject).to receive :assign_expires_at
+      subject.configure_defaults
+    end
+
+    it "should receive :assign_token" do
+      expect(subject).to receive :assign_token
+      subject.configure_defaults
+    end
+  end
+
   describe "#expired?" do
     context "when expires_at is in the future" do
       before { subject.expires_at = Time.now + 1.day }
