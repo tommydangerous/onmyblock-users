@@ -7,9 +7,7 @@ class Session
     @key ||= Key.find_by token: @token
   end
 
-  def expired?
-    key.expired?
-  end
+  delegate :expired?, to: :key
 
   def signed_in?
     !user.nil?

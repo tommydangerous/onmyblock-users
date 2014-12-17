@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe Api::V1::AuthenticationsController do
   describe "POST #login" do
     let(:credential) do
-      create :credential, identification: user.email, 
-                          password:       password, 
+      create :credential, identification: user.email,
+                          password:       password,
                           user:           user
     end
     let(:login_password) { password }
@@ -12,7 +12,7 @@ RSpec.describe Api::V1::AuthenticationsController do
     let(:user) { create :user }
 
     before do
-      post :login, identification: credential.identification, 
+      post :login, identification: credential.identification,
                    password:       login_password
     end
 
