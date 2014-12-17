@@ -1,6 +1,6 @@
 class Api::V1::AuthenticationsController < Api::V1::BaseController
   before_action :authenticate, only: :logout
-  
+
   def login
     render_envelope login_envelope
   end
@@ -42,6 +42,6 @@ class Api::V1::AuthenticationsController < Api::V1::BaseController
   end
 
   def logout_service
-    @logout_service ||= LogoutService.new params
+    @logout_service ||= DeleteService.new Key, { id: current_session.key.id }
   end
 end

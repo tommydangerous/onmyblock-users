@@ -31,17 +31,16 @@ RSpec.describe Api::V1::AuthenticationsController do
     end
   end
 
-  # describe "DELETE #logout" do
-  #   let(:key) { create :key }
+  describe "DELETE #logout" do
+    let(:key) { create :key }
 
-  #   before { delete :logout, token: key.token }
+    before do
+      api_token key.token
+      delete :logout
+    end
 
-  #   it "should return a response" do
-  #     expect(response.body).not_to be_nil
-  #   end
-
-  #   xit "should return a status" do
-  #     expect(response.status).not_to be_nil
-  #   end
-  # end
+    it "should return status 204" do
+      expect(envelope_status).to eq 204
+    end
+  end
 end

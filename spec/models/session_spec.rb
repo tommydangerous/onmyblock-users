@@ -6,10 +6,10 @@ RSpec.describe Session do
 
   subject { described_class.new token }
 
-  describe "#current_key" do
+  describe "#key" do
     context "when key exists" do
       it "should return user" do
-        expect(subject.current_key).to eq key
+        expect(subject.key).to eq key
       end
     end
 
@@ -17,23 +17,7 @@ RSpec.describe Session do
       let(:token) { "" }
 
       it "should return nil" do
-        expect(subject.current_key).to be_nil
-      end
-    end
-  end
-
-  describe "#current_user" do
-    context "when key exists" do
-      it "should return user" do
-        expect(subject.current_user).to eq key.credential.user
-      end
-    end
-
-    context "when key doesn't exist" do
-      let(:token) { "" }
-
-      it "should return nil" do
-        expect(subject.current_user).to be_nil
+        expect(subject.key).to be_nil
       end
     end
   end
@@ -65,6 +49,22 @@ RSpec.describe Session do
 
       it "should return false" do
         expect(subject.signed_in?).to be false
+      end
+    end
+  end
+
+  describe "#user" do
+    context "when key exists" do
+      it "should return user" do
+        expect(subject.user).to eq key.credential.user
+      end
+    end
+
+    context "when key doesn't exist" do
+      let(:token) { "" }
+
+      it "should return nil" do
+        expect(subject.user).to be_nil
       end
     end
   end
