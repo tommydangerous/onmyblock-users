@@ -15,7 +15,7 @@ FactoryGirl.define do
   factory :key do
     credential
     expires_at Time.zone.now + 7.days
-    token SecureRandom.uuid
+    token { |n| "token-#{n}" }
   end
 
   factory :user do
