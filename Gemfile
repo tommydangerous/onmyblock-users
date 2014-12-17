@@ -41,6 +41,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "database_cleaner"
   gem "faker"
   gem "mongoid-rspec", "~> 2.0.0.rc1"
   gem "rspec-instafail"
