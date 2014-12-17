@@ -3,7 +3,7 @@ class Api::V1::CredentialsController < Api::V1::BaseController
   before_action :authenticate
 
   def update
-    render_envelope package_envelope(update_service, 200, 304) 
+    render_envelope package_envelope(update_service, 200, 304)
   end
 
   private
@@ -13,7 +13,7 @@ class Api::V1::CredentialsController < Api::V1::BaseController
   end
 
   def update_service
-    @update_service ||= UpdateService.new Credential, 
-      params[:id], { confirmed_at: Time.zone.now }
+    @update_service ||= UpdateService.new Credential,
+                                          params[:id], confirmed_at: Time.zone.now
   end
 end

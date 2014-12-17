@@ -70,7 +70,7 @@ RSpec.describe User do
 
   describe "#send_confirmation" do
     it "should send a confirmation email" do
-      expect{ user.send_confirmation }.to change{ UserMailer.deliveries.count }
+      expect { user.send_confirmation }.to change { UserMailer.deliveries.count }
     end
   end
 end

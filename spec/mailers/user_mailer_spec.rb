@@ -3,11 +3,11 @@ require "rails_helper"
 RSpec.describe UserMailer do
   describe "confirmation" do
     let(:user) do
-      double "user", email:      "user@gmail.com", 
-                     first_name: "first", 
+      double "user", email:      "user@gmail.com",
+                     first_name: "first",
                      last_name:  "last"
     end
-    let(:mail) { UserMailer.confirmation user }
+    let(:mail) { described_class.confirmation user }
 
     it "should render the subject" do
       expect(mail.subject).to eq "Confirmation"
