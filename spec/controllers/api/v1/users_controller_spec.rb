@@ -1,18 +1,27 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::UsersController do
-  # describe "POST #create" do
-  #   before(:each) { post :create, user: attributes }
+  describe "POST #create" do
+    let(:attributes) { attributes_for(:user).merge(email).merge(password) }
+    let(:email)      { {} }
+    let(:password)   { { password: "12" } }
 
-  #   let(:attributes) { attributes_for :user }
+    before { post :create, user: attributes }
 
-  #   context "with valid attributes" do
+    context "with valid attributes" do
+      it "should return a status 200" do
+        expect(envelope_status).to eq 200
+      end
+    end
 
-  #   end
-  #   it "should return a status" do
-  #     expect(envelope_status).not_to be_nil
-  #   end
-  # end
+    context "with invalid attributes" do
+      let(:email) { { email: "" } }
+
+      it "should return a status 422" do
+        expect(envelope_status).to eq 422
+      end
+    end
+  end
 
   describe "PUT/PATCH #update" do
     let(:attributes) { { email: email, first_name: "new_first" } }

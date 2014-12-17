@@ -22,17 +22,14 @@ class UserCredentialService < CreateService
 
   def process_credential
     create_credential_service.process
-    create_credential_service.response
   end
 
   def process_key
     create_key_service.process
-    @key_response = create_key_service.response
   end
 
   def process_user
     create_user_service.process
-    create_user_service.response
   end
 
   def record_valid?(record)
@@ -44,6 +41,7 @@ class UserCredentialService < CreateService
       process_user
       process_credential
       process_key
+      @key_response = create_key_service.response
     else
       false
     end
