@@ -4,7 +4,7 @@ gem "rails", "4.1.8"
 
 gem "active_model_serializers"
 gem "airbrake"
-gem "analytics-ruby"
+gem "analytics-ruby", require: "segment"
 gem "attr_extras"
 gem "bson_ext"
 gem "dotenv-rails"
