@@ -2,46 +2,20 @@ class Api::V1::AuthenticationsController < Api::V1::BaseController
   before_action :authenticate, only: :logout
 
   def login
-    render_envelope login_envelope
+    render_envelope package_envelope(login_service, 200, 401)
   end
 
   def logout
-    render_envelope logout_envelope
+    render_envelope package_envelope(logout_service, 204, 404)
   end
 
   private
-
-  def login_envelope
-    if login_service.process
-      errors   = nil
-      resource = login_service.response
-      status   = 200
-    else
-      errors   = login_service.response
-      resource = nil
-      status   = 401
-    end
-    { errors: errors, resource: resource, status: status }
-  end
 
   def login_service
     @login_service ||= LoginService.new params, KeySerializer
   end
 
-  def logout_envelope
-    if logout_service.process
-      errors   = nil
-      resource = logout_service.response
-      status   = 204
-    else
-      errors   = logout_service.response
-      resource = nil
-      status   = 404
-    end
-    { errors: errors, resource: resource, status: status }
-  end
-
   def logout_service
-    @logout_service ||= DeleteService.new Key, { id: current_session.key.id }
+    delete_service Key, { id: current_session.key.id }
   end
 end

@@ -14,18 +14,6 @@ class Api::V1::BaseController < ApiController
     @current_session ||= Session.new authorization
   end
 
-  def create_service
-    if @create_service.nil?
-      @create_service = create_service_new
-      @create_service.process if @create_service
-    end
-    @create_service
-  end
-
-  def create_service_new
-    # Override this
-  end
-
   def delete_service(model, options, serializer = nil)
     service "delete", model, options, serializer
   end
@@ -41,6 +29,19 @@ class Api::V1::BaseController < ApiController
       resource: nil,
       status:   401
     )
+  end
+
+  def package_envelope(service, success_status, failure_status)
+    if service.process
+      errors   = nil
+      resource = service.response
+      status   = success_status
+    else
+      errors   = service.response
+      resource = nil
+      status   = failure_status
+    end
+    { errors: errors, resource: resource, status: status }
   end
 
   def read_service(model, options, serializer = nil)
