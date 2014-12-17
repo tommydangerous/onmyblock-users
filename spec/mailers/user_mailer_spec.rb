@@ -2,17 +2,27 @@ require "rails_helper"
 
 RSpec.describe UserMailer, :type => :mailer do
   describe "confirmation" do
-    let(:mail) { UserMailer.confirmation }
+    let(:user) do
+      double "user", email:      "user@gmail.com", 
+                     first_name: "first", 
+                     last_name:  "last"
+    end
+    let(:mail) { UserMailer.confirmation user }
 
-    it "renders the headers" do
-      expect(mail.subject).to eq("Confirmation")
-      expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["from@example.com"])
+    it "should render the subject" do
+      expect(mail.subject).to eq "Confirmation"
     end
 
-    it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+    it "should render the receiver email" do
+      expect(mail.to).to eq [user.email]
+    end
+
+    it "should render the sender email" do
+      expect(mail.from).to eq ["info@onmyblock.com"]
+    end
+
+    it "should assign @first_name" do
+      expect(mail.body.encoded).to match user.first_name
     end
   end
-
 end

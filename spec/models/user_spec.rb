@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe User do
+  let(:user) { create :user }
+
   subject { build :user }
 
   it do
@@ -63,6 +65,12 @@ RSpec.describe User do
     it "should not be valid with invalid status" do
       subject.status = "invalid"
       expect(subject.valid?).to be false
+    end
+  end
+
+  describe "#send_confirmation" do
+    it "should send a confirmation email" do
+      expect{ user.send_confirmation }.to change{ UserMailer.deliveries.count }
     end
   end
 end
