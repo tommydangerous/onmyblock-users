@@ -12,7 +12,7 @@ class Credential < BaseModel
   field :provider,        type: String, default: PROVIDERS[:onmyblock]
   field :user_id
 
-  validates :password_digest, length: { minimum: 2 }
+  validates :password, length: { minimum: 2 }
   validates :provider, inclusion: { in: PROVIDERS.values }
   validates_presence_of :password_digest, :identification, :user_id
 

@@ -8,7 +8,7 @@ FactoryGirl.define do
 
   factory :credential do
     identification { user.email }
-    password_digest SecureRandom.uuid
+    password { SecureRandom.uuid }
     user
   end
 

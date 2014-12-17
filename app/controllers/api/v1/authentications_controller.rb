@@ -1,6 +1,6 @@
 class Api::V1::AuthenticationsController < Api::V1::BaseController
   def login
-    render json: login_service.response
+    render_envelope login_envelope
   end
 
   def logout
@@ -9,12 +9,21 @@ class Api::V1::AuthenticationsController < Api::V1::BaseController
 
   private
 
-  def login_service
-    unless @login_service
-      @login_service = LoginService.new params
-      @login_service.process
+  def login_envelope
+    if login_service.process
+      errors   = nil
+      resource = login_service.response
+      status   = 200
+    else
+      errors   = login_service.response
+      resource = nil
+      status   = 401
     end
-    @login_service
+    { errors: errors, resource: resource, status: status }
+  end
+
+  def login_service
+    @login_service ||= LoginService.new params, KeySerializer
   end
 
   def logout_service

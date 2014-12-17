@@ -8,7 +8,7 @@ RSpec.describe Credential do
   it { should have_fields(:password_digest).with_alias(:digest).of_type String }
   it { should have_fields(:user_id) }
 
-  it { should validate_length_of(:password_digest).with_minimum 2 }
+  it { should validate_length_of(:password).with_minimum 2 }
   it { should validate_presence_of :password_digest }
   it { should validate_presence_of :identification }
   it do
