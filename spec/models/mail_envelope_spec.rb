@@ -20,4 +20,13 @@ RSpec.describe MailEnvelope do
   it { should respond_to :text }
   it { should respond_to :to }
   it { should respond_to :toname }
+
+  describe "#initialize" do
+    let(:action)  { "create" }
+    let(:options) { { action: action } }
+
+    it "should set @action" do
+      expect(subject.action).to eq action
+    end
+  end
 end

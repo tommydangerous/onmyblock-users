@@ -14,4 +14,10 @@ class MailEnvelope < BaseEnvelope
               :text,
               :to,
               :toname
+
+  def initialize(opts = {})
+    opts.each do |name, value|
+      instance_variable_set "@#{name}".to_sym, value
+    end
+  end
 end
