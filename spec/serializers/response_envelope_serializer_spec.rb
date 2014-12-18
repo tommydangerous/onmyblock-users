@@ -1,5 +1,4 @@
-require_relative "../../app/models/response_envelope"
-require_relative "../../app/serializers/response_envelope_serializer"
+require "rails_helper"
 
 RSpec.describe ResponseEnvelopeSerializer do
   let(:envelope) do
