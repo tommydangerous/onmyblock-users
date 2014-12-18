@@ -65,25 +65,25 @@ RSpec.describe Credential do
   end
 
   describe "#create_access_key" do
-    before { @key = credential.create_access_key }
+    let(:key) { credential.create_access_key }
 
     it "should create a key" do
-      expect(credential.keys).to include @key
+      expect(credential.keys).to include key
     end
 
     it "should create a key with an expires_at" do
-      expect(@key.expires_at).not_to be_nil
+      expect(key.expires_at).not_to be_nil
     end
 
     it "should create a key with a token" do
-      expect(@key.token).not_to be_nil
+      expect(key.token).not_to be_nil
     end
   end
 
   describe "#send_confirmation" do
     it "should send a confirmation email" do
-      expect { credential.send_confirmation }.to change { 
-        CredentialMailer.deliveries.count 
+      expect { credential.send_confirmation }.to change {
+        CredentialMailer.deliveries.count
       }
     end
   end

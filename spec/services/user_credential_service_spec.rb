@@ -30,18 +30,18 @@ RSpec.describe UserCredentialService do
       let(:service_options) { { first_name: "first", last_name: "last" } }
 
       it "should return json with key :email" do
-        hash = JSON.parse service.send(:failure_response), 
-          symbolize_names: true
+        hash = JSON.parse service.send(:failure_response),
+                          symbolize_names: true
         expect(hash).to have_key :email
       end
     end
 
     context "with invalid credential attributes" do
       let(:password) { "" }
-      
+
       it "should return json with key :password" do
-        hash = JSON.parse service.send(:failure_response), 
-          symbolize_names: true
+        hash = JSON.parse service.send(:failure_response),
+                          symbolize_names: true
         puts hash
         expect(hash).to have_key :password
       end
