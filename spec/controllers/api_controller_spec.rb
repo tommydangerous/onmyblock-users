@@ -3,13 +3,6 @@ require "rails_helper"
 RSpec.describe ApiController do
   let(:controller) { described_class.new }
 
-  describe "#delete_service" do
-    it "should receive :service message" do
-      expect(controller).to receive :service
-      controller.send :delete_service, Class, {}
-    end
-  end
-
   describe "#package_envelope" do
     let(:condition) { true }
     let(:hash)      { controller.send :package_envelope, service, 200, 404 }

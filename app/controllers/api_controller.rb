@@ -4,10 +4,6 @@ class ApiController < ApplicationController
 
   private
 
-  def delete_service(model, options, serializer = nil)
-    service "delete", model, options, serializer
-  end
-
   def package_envelope(service, success_status, failure_status)
     if service.process
       errors   = nil
