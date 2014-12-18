@@ -45,7 +45,7 @@ class Credential < BaseModel
     key
   end
 
-  def send_confirmation
-    CredentialMailer.confirmation(self, create_access_key).deliver
-  end
+  # def send_confirmation
+  #   CredentialMailer.confirmation(self, create_access_key).deliver
+  # end
 end
