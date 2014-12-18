@@ -16,6 +16,6 @@ class Api::V1::AuthenticationsController < Api::V1::BaseController
   end
 
   def logout_service
-    delete_service Key, id: current_session.key.id
+    service "delete", Key, { id: current_session.key.id }, nil
   end
 end
