@@ -32,6 +32,12 @@ RSpec.configure do |config|
   config.include Payload::Testing
   config.include Shoulda::Matchers
 
+  config.include Request::EnvelopeHelpers, type: :controller
+  config.include Request::HeadersHelpers, type: :controller
+  # config.before :each, type: :controller do
+  #   include_default_accept_headers
+  # end
+
   config.before :suite do
     FactoryGirl.lint
   end
