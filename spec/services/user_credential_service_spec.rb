@@ -3,9 +3,10 @@ require "rails_helper"
 RSpec.describe UserCredentialService do
   let(:build_credential) { service.build_credential }
   let(:build_user) { service.build_user }
+  let(:password)   { "password" }
   let(:service) { described_class.new service_options }
   let(:service_options) do
-    FactoryGirl.attributes_for(:user).merge(password: "password")
+    FactoryGirl.attributes_for(:user).merge(password: password)
   end
 
   describe "#build_credential" do
@@ -21,6 +22,29 @@ RSpec.describe UserCredentialService do
       expect(build_user.email).to eq service_options[:email]
       expect(build_user.first_name).to eq service_options[:first_name]
       expect(build_user.last_name).to eq service_options[:last_name]
+    end
+  end
+
+  describe "#failure_response" do
+    context "with invalid user attributes" do
+      let(:service_options) { { first_name: "first", last_name: "last" } }
+
+      it "should return json with key :email" do
+        hash = JSON.parse service.send(:failure_response), 
+          symbolize_names: true
+        expect(hash).to have_key :email
+      end
+    end
+
+    context "with invalid credential attributes" do
+      let(:password) { "" }
+      
+      it "should return json with key :password" do
+        hash = JSON.parse service.send(:failure_response), 
+          symbolize_names: true
+        puts hash
+        expect(hash).to have_key :password
+      end
     end
   end
 
@@ -106,7 +130,7 @@ RSpec.describe UserCredentialService do
       end
 
       context "when credential is not valid" do
-        let(:service_options) { FactoryGirl.attributes_for(:user) }
+        let(:password) { "" }
 
         it "should not send :process_user message to service" do
           expect(service).not_to receive :process_user

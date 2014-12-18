@@ -12,9 +12,10 @@ class Credential < BaseModel
   field :provider,        type: String, default: PROVIDERS[:onmyblock]
   field :user_id
 
-  validate :validate_password
+  validate :validate_password_create, on: :create
+  validate :validate_password_update, on: :update
   validates :provider, inclusion: { in: PROVIDERS.values }
-  validates_presence_of :password_digest, :identification, :user_id
+  validates_presence_of :identification, :user_id
 
   has_many :keys, dependent: :destroy
 
@@ -25,8 +26,14 @@ class Credential < BaseModel
 
   has_secure_password validations: false
 
-  def validate_password
-    if password && password.length < 2
+  def validate_password_create
+    if password.nil? || password.length < 2
+      errors.add :password, "must be at least 2 characters"
+    end
+  end
+
+  def validate_password_update
+    if password.present? && password.length < 2
       errors.add :password, "must be at least 2 characters"
     end
   end

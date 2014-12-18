@@ -8,7 +8,6 @@ RSpec.describe Credential do
   it { should have_fields(:password_digest).with_alias(:digest).of_type String }
   it { should have_fields(:user_id) }
 
-  it { should validate_presence_of :password_digest }
   it { should validate_presence_of :identification }
   it do
     should validate_inclusion_of(:provider)
@@ -41,7 +40,7 @@ RSpec.describe Credential do
     end
   end
 
-  describe "#validate_password" do
+  describe "#validate_password_create" do
     it "should be valid with password length 2 or more" do
       subject.password = "12"
       expect(subject.valid?).to be true
@@ -50,6 +49,18 @@ RSpec.describe Credential do
     it "should not be valid with password length less than 2" do
       subject.password = "1"
       expect(subject.valid?).to be false
+    end
+  end
+
+  describe "#validate_password_update" do
+    it "should be valid with no password changes" do
+      credential.password = nil
+      expect(credential.save).to be true
+    end
+
+    it "should not be valid with password length less than 2" do
+      credential.password = "1"
+      expect(credential.save).to be false
     end
   end
 

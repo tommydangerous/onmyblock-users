@@ -18,16 +18,19 @@ class Api::V1::BaseController < ApiController
   end
 
   def deny_access
-    if !current_session.signed_in?
-      errors = { access_denied: "you must login" }
-    else
-      errors = { session_expired: "your session has expired" }
-    end
     render_envelope(
-      errors:   errors,
+      errors:   deny_access_errors,
       resource: nil,
       status:   401
     )
+  end
+
+  def deny_access_errors
+    if !current_session.signed_in?
+      { access_denied: "you must login" }
+    else
+      { session_expired: "your session has expired" }
+    end
   end
 
   def package_envelope(service, success_status, failure_status)
@@ -41,10 +44,6 @@ class Api::V1::BaseController < ApiController
       status   = failure_status
     end
     { errors: errors, resource: resource, status: status }
-  end
-
-  def read_service(model, options, serializer = nil)
-    service "read", model, options, serializer
   end
 
   def render_envelope(opts)
