@@ -16,8 +16,8 @@ RSpec.describe ReadService do
     context "when record not found" do
       let(:options) { { email: "" } }
 
-      it "should have a nil response" do
-        expect(subject.response).to be_nil
+      it "should return errors" do
+        expect(subject.response).to have_key :not_found
       end
     end
   end
