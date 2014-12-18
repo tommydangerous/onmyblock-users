@@ -17,12 +17,12 @@ RSpec.describe MailEnvelopeSerializer do
   let(:payload) { { from: from, to: to } }
   let(:to)      { "to@gmail.com" }
 
-  it "should have action" do
-    expect(hash[:action]).to eq action
+  it "should have mailer_action" do
+    expect(hash[:mailer_action]).to eq action
   end
 
-  it "should have mailer" do
-    expect(hash[:mailer]).to eq mailer
+  it "should have mailer_name" do
+    expect(hash[:mailer_name]).to eq mailer
   end
 
   it "should have payload" do
