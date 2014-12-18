@@ -13,10 +13,6 @@ class Api::V1::BaseController < ApiController
     @current_session ||= Session.new authorization
   end
 
-  def delete_service(model, options, serializer = nil)
-    service "delete", model, options, serializer
-  end
-
   def deny_access
     render_envelope(
       errors:   deny_access_errors,
@@ -31,31 +27,5 @@ class Api::V1::BaseController < ApiController
     else
       { session_expired: "your session has expired" }
     end
-  end
-
-  def package_envelope(service, success_status, failure_status)
-    if service.process
-      errors   = nil
-      resource = service.response
-      status   = success_status
-    else
-      errors   = service.response
-      resource = nil
-      status   = failure_status
-    end
-    { errors: errors, resource: resource, status: status }
-  end
-
-  def service(action, model, options, serializer)
-    name = "#{action}_service"
-    ivar = "@#{name}"
-    if instance_variable_get(ivar).nil?
-      instance_variable_set ivar,
-                            Object.const_get(name.camelize).new(
-                              model, options, serializer
-                            )
-      instance_variable_get(ivar).process if instance_variable_get(ivar)
-    end
-    instance_variable_get ivar
   end
 end

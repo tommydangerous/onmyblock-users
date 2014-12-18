@@ -68,6 +68,6 @@ RSpec.describe Api::V1::BaseController do
       it "should return errors with key :session_expired" do
         expect(controller.send :deny_access_errors).to have_key :session_expired
       end
-    end
+    end   
   end
 end
