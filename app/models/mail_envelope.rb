@@ -1,0 +1,2 @@
+class MailEnvelope < BaseEnvelope  
+end

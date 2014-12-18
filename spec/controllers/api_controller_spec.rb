@@ -42,7 +42,7 @@ RSpec.describe ApiController do
   describe "#render_envelope" do
     it "should create a new Envelope" do
       allow(controller).to receive(:render)
-      expect(Envelope).to receive :new
+      expect(ResponseEnvelope).to receive :new
       controller.send :render_envelope, {}
     end
   end

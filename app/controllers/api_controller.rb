@@ -18,7 +18,7 @@ class ApiController < ApplicationController
   end
 
   def render_envelope(opts)
-    render json: Envelope.new(opts)
+    render json: ResponseEnvelope.new(opts)
   end
 
   def service(action, model, options, serializer, record_id = nil)

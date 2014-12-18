@@ -1,6 +1,6 @@
-require_relative "../../app/models/envelope"
+require_relative "../../app/models/response_envelope"
 
-RSpec.describe Envelope do
+RSpec.describe ResponseEnvelope do
   let(:options) { {} }
   subject { described_class.new options }
 

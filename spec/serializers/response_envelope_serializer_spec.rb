@@ -1,9 +1,9 @@
-require_relative "../../app/models/envelope"
-require_relative "../../app/serializers/envelope_serializer"
+require_relative "../../app/models/response_envelope"
+require_relative "../../app/serializers/response_envelope_serializer"
 
-RSpec.describe EnvelopeSerializer do
+RSpec.describe ResponseEnvelopeSerializer do
   let(:envelope) do
-    Envelope.new errors: errors, metadata: metadata, resource: resource
+    ResponseEnvelope.new errors: errors, metadata: metadata, resource: resource
   end
   let(:errors)   { { missing_value: "a value is missing" } }
   let(:hash)     { described_class.new(envelope).serializable_hash }
