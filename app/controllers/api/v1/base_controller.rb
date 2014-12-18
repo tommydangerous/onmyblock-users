@@ -46,10 +46,6 @@ class Api::V1::BaseController < ApiController
     { errors: errors, resource: resource, status: status }
   end
 
-  def render_envelope(opts)
-    render json: Envelope.new(opts)
-  end
-
   def service(action, model, options, serializer)
     name = "#{action}_service"
     ivar = "@#{name}"

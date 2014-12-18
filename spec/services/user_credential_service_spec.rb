@@ -42,7 +42,6 @@ RSpec.describe UserCredentialService do
       it "should return json with key :password" do
         hash = JSON.parse service.send(:failure_response),
                           symbolize_names: true
-        puts hash
         expect(hash).to have_key :password
       end
     end
