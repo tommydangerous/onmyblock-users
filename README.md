@@ -35,7 +35,13 @@ $ fig run app foreman start
 
 ### Individual Service Description Below
 ---
+### Making authenticated requests
+Send each request with an access token in the X-Authorization HTTP Header
+
 ### Routes
 Action | Method | Endpoint | Parameters
 --- | --- | --- | ---
 Create | POST | /api/v1/users | user[email, first_name, last_name, password]
+Update | PUT/PATCH | /api/v1/users/:id | user[email, first_name, last_name, roles]
+Login | POST | /api/v1/authentication | identification, password
+Logout | DELETE | /api/v1/authentication | N/A
