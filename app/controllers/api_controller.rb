@@ -21,11 +21,17 @@ class ApiController < ApplicationController
     render json: Envelope.new(opts)
   end
 
-  def service(action, model, options, serializer)
+  def service(action, model, options, serializer, record_id = nil)
     name = "#{action}_service"
     ivar = "@#{name}"
     if instance_variable_get(ivar).nil?
-      obj = Object.const_get(name.camelize).new model, options, serializer
+      if action == "update"
+        obj = Object.const_get(name.camelize).new(
+          model, record_id, options, serializer
+        )
+      else
+        obj = Object.const_get(name.camelize).new model, options, serializer
+      end
       instance_variable_set ivar, obj
     end
     instance_variable_get ivar

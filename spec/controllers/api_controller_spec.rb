@@ -48,8 +48,18 @@ RSpec.describe ApiController do
   end
 
   describe "#service" do
+    let(:action)  { "create" }
+    let(:service) { controller.send :service, action, Class, {}, nil }
     it "should set an instance variable" do
-      expect(controller.send :service, "create", Class, {}, nil).not_to be_nil
+      expect(service).not_to be_nil
+    end
+
+    context "when action is update" do
+      let(:action) { "update" }
+      
+      it "should return an UpdateService object" do
+        expect(service.class).to eq UpdateService
+      end
     end
   end
 end
