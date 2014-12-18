@@ -29,11 +29,8 @@ class ApiController < ApplicationController
     name = "#{action}_service"
     ivar = "@#{name}"
     if instance_variable_get(ivar).nil?
-      instance_variable_set ivar,
-                            Object.const_get(name.camelize).new(
-                              model, options, serializer
-                            )
-      instance_variable_get(ivar).process if instance_variable_get(ivar)
+      obj = Object.const_get(name.camelize).new model, options, serializer
+      instance_variable_set ivar, obj
     end
     instance_variable_get ivar
   end
