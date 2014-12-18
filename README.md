@@ -36,7 +36,7 @@ $ fig run app foreman start
 ### Individual Service Description Below
 ---
 ### Making authenticated requests
-Send each request with an access token in the X-Authorization HTTP Header
+Send each request with an access token in the `Authorization` HTTP Header
 
 ### Routes
 Action | Method | Endpoint | Parameters
