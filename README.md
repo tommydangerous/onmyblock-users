@@ -35,32 +35,7 @@ $ fig run app foreman start
 
 ### Individual Service Description Below
 ---
-
-### Models
-When you create a new model, make it inherit from the `MongoModel` class.
-```
-class User < MongoModel
-  ...
-end
-```
-
-### Controllers
-##### Creating new controllers
-Subclass controller `UsersApplicationController`
-```
-class UsersController < UsersApplicationController
-  ...
-end
-```
-
-#### Using controllers
-Use private method `render_json` to return your JSON.
-
-### Tools
-[Postman - REST Client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en)
-
-### Tests
-- Model: test database interaction
-- Controller: test for response and status
-- Service: test CRUD logic
-- Serializer: test for correct data returned
+### Routes
+Action | Method | Endpoint | Parameters
+--- | --- | --- | ---
+Create | POST | /api/v1/users | user[email, first_name, last_name, password]
