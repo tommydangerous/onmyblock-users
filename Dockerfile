@@ -60,4 +60,4 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Start foreman by default when running a container
-CMD bundle exec foreman start
+CMD /app/bin/web
