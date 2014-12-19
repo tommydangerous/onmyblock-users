@@ -9,7 +9,7 @@ class ApiController < ApplicationController
   end
 
   def new_object(name, args)
-    Object.const_get(name).new *args
+    Object.const_get(name).new(*args)
   end
 
   def package_envelope(service, success_status, failure_status)
