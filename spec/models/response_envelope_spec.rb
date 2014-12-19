@@ -1,7 +1,8 @@
-require_relative "../../app/models/envelope"
+require "rails_helper"
 
-RSpec.describe Envelope do
+RSpec.describe ResponseEnvelope do
   let(:options) { {} }
+
   subject { described_class.new options }
 
   it { should respond_to :errors }
