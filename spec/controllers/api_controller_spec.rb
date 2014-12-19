@@ -56,7 +56,7 @@ RSpec.describe ApiController do
 
     context "when action is update" do
       let(:action) { "update" }
-      
+
       it "should return an UpdateService object" do
         expect(service.class).to eq UpdateService
       end

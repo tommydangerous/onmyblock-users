@@ -1,4 +1,4 @@
-class MailEnvelope < BaseEnvelope  
+class MailEnvelope < BaseEnvelope
   attr_reader :action,
               :bcc,
               :bccname,
