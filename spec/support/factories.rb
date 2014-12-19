@@ -8,14 +8,14 @@ FactoryGirl.define do
 
   factory :credential do
     identification { user.email }
-    password_digest SecureRandom.uuid
+    password { SecureRandom.uuid }
     user
   end
 
   factory :key do
     credential
     expires_at Time.zone.now + 7.days
-    token SecureRandom.uuid
+    token { SecureRandom.uuid }
   end
 
   factory :user do

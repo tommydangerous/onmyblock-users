@@ -8,19 +8,14 @@ class CreateKeyService < CreateService
   def record
     if @record.nil?
       @record = model.new options
-      assign_expires_at
-      assign_token
+      configure_defaults
     end
     @record
   end
 
   private
 
-  def assign_expires_at
-    @record.assign_expires_at
-  end
-
-  def assign_token
-    @record.assign_token
+  def configure_defaults
+    @record.configure_defaults
   end
 end

@@ -4,28 +4,22 @@ class LoginService < CreateService
     @serializer = serializer
   end
 
-  def create_key
-    service = CreateKeyService.new key_params, @serializer
-    service.process
-    service.response
-  end
-
-  def process(condition = nil)
-    super valid?
+  def process(_condition = nil)
+    super valid? && create_key_service.process
   end
 
   def record
     @record ||= Credential.find_by identification: identification
   end
 
-  def valid?
-    record && authenticate ? true : false
-  end
-
   private
 
   def authenticate
     record.authenticate password
+  end
+
+  def create_key_service
+    @create_key_service ||= CreateKeyService.new key_params, @serializer
   end
 
   def identification
@@ -41,10 +35,14 @@ class LoginService < CreateService
   end
 
   def failure_response
-    {}
+    { authentication_failed: "invalid identification or password" }
   end
 
   def serialized_record
-    create_key
+    create_key_service.response
+  end
+
+  def valid?
+    record && authenticate ? true : false
   end
 end

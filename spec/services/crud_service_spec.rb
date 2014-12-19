@@ -8,9 +8,13 @@ RSpec.describe CrudService do
   let(:serializer) { nil }
 
   it { should respond_to :response }
-  it { should respond_to :status }
 
   describe "#process" do
+    it "should receive :set_response" do
+      expect(subject).to receive :conditional_response
+      subject.process
+    end
+
     context "with a condition" do
       it "should not send :record_action message" do
         expect(subject).not_to receive :record_action
@@ -18,65 +22,24 @@ RSpec.describe CrudService do
       end
 
       context "that is true" do
-        let(:condition) { true }
+        it "should return true" do
+          expect(subject.process true).to be true
+        end
 
-        it "should send :success_response message" do
+        it "should receive success_response" do
           expect(subject).to receive :success_response
-          subject.process condition
-        end
-
-        it "should send :success_status message" do
-          expect(subject).to receive :success_status
-          subject.process condition
-        end
-
-        it "should receive :serialized_record message" do
-          expect(subject).to receive :serialized_record
-          subject.process condition
-        end
-
-        it "should not send :failure_response message" do
-          expect(subject).not_to receive :failure_response
-          subject.process condition
-        end
-
-        it "should not send :failure_status message" do
-          expect(subject).not_to receive :failure_status
-          subject.process condition
-        end
-
-        it "should return with a status of 200  " do
-          subject.process condition
-          expect(subject.status).to eq 200  
+          subject.process true
         end
       end
 
       context "that is false" do
-        let(:condition) { false }
-
-        it "should not send :success_response message" do
-          expect(subject).not_to receive :success_response
-          subject.process condition
+        it "should return false" do
+          expect(subject.process false).to be false
         end
 
-        it "should not send :success_status message" do
-          expect(subject).not_to receive :success_status
-          subject.process condition
-        end
-
-        it "should send :failure_response message" do
+        it "should receive failure_response" do
           expect(subject).to receive :failure_response
-          subject.process condition
-        end
-
-        it "should send :failure_status message" do
-          expect(subject).to receive :failure_status
-          subject.process condition
-        end
-
-        it "should return with a status of 400" do
-          subject.process condition
-          expect(subject.status).to eq 400
+          subject.process false
         end
       end
     end

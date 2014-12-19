@@ -7,8 +7,7 @@ class ReadService < CrudService
 
   private
 
-  def failure_status
-    404
+  def failure_response
+    { not_found: "record was not found" }
   end
 end
-

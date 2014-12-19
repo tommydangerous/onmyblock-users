@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
   def metrics
     @metrics ||= dependencies[:metrics_client]
   end
+
+  # TODO: update the payload gem when they make a new release
+  #       since the gem should define this method.
+  def dependencies
+    @dependencies ||= Payload::RailsLoader.load
+  end
 end

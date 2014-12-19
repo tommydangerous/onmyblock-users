@@ -1,36 +1,22 @@
 class Api::V1::UsersController < Api::V1::BaseController
+  before_action :authenticate, only: :update
+
+  def create
+    render_envelope package_envelope(create_service, 200, 422)
+  end
+
   def update
-    service = authenticate_service update_callback
-    unless service.response
-      @response = service.response
-      @status   = service.status
-    end
-    render json: @response, status: @status
+    render_envelope package_envelope(update_service, 200, 422)
   end
 
   private
 
-  def authenticate_service(callback)
-    unless @authenticate_service
-      @authenticate_service = AuthenticateService.new params, callback
-      @authenticate_service.process
-    end
-    @authenticate_service
-  end
-
-  def create_service_new
-    UserCredentialService.new record_params
-  end
-
-  def record_params
+  def create_params
     params.require(:user).permit(:email, :first_name, :last_name, :password)
   end
 
-  def update_callback
-    Proc.new do |key|
-      @response = update_service.response
-      @status   = update_service.status
-    end
+  def create_service
+    @create_service ||= UserCredentialService.new create_params, KeySerializer
   end
 
   def update_params
@@ -38,10 +24,8 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def update_service
-    unless @update_service
-      @update_service = UpdateService.new User, params[:id], update_params
-      @update_service.process
-    end
-    @update_service
+    @update_service ||= UpdateService.new(
+      User, params[:id], update_params, UserSerializer
+    )
   end
 end

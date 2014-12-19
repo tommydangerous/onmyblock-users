@@ -1,48 +1,38 @@
 require_relative "service"
 
 class CrudService < Service
+  attr_reader :record
+
   def initialize(model, options, serializer = nil)
     @model      = model
     @options    = options
     @serializer = serializer
   end
-  
+
   attr_private :model, :serializer
 
   def process(condition = nil)
-    if condition.nil? && record_action || !condition.nil? && condition
-      @response = success_response
-      @status   = success_status
-    else
-      @response = failure_response
-      @status   = failure_status
-    end
-  end
-
-  def record
-    @record
-  end
-
-  def serialized_record
-    serializer ? serializer.new(record) : record
+    success = condition.nil? && record_action || !condition.nil? && condition
+    conditional_response success
+    success
   end
 
   private
 
-  def failure_response
-    nil
+  def conditional_response(condition)
+    @response = send "#{(condition ? "success" : "failure")}_response"
   end
 
-  def failure_status
-    400
+  def failure_response
+    nil
   end
 
   def record_action
     record
   end
 
-  def success_status
-    200
+  def serialized_record
+    serializer ? serializer.new(record) : record
   end
 
   def success_response

@@ -1,14 +1,20 @@
 require "rails_helper"
 
 RSpec.describe User do
+  let(:user) { create :user }
+
   subject { build :user }
 
-  it { should have_fields(
-    :email, :first_name, :last_name, :status).of_type String }
+  it do
+    should have_fields(:email, :first_name, :last_name, :status)
+      .of_type(String)
+  end
   it { should have_fields(:roles).of_type Array }
 
-  it { should validate_format_of(:email).to_allow(
-    "test@gmail.com").not_to_allow("test") }
+  it do
+    should validate_format_of(:email).to_allow("test@gmail.com")
+      .not_to_allow("test")
+  end
   it { should validate_presence_of :email }
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }

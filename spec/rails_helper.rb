@@ -32,8 +32,27 @@ RSpec.configure do |config|
   config.include Payload::Testing
   config.include Shoulda::Matchers
 
+  config.include Request::EnvelopeHelpers, type: :controller
+  config.include Request::HeadersHelpers, type: :controller
+  # config.before :each, type: :controller do
+  #   include_default_accept_headers
+  # end
+
   config.before :suite do
     FactoryGirl.lint
+  end
+
+  config.before :suite do
+    FactoryGirl.lint
+    DatabaseCleaner.clean_with :truncation
+  end
+
+  config.before :each do
+    DatabaseCleaner.start
+  end
+
+  config.after :each do
+    DatabaseCleaner.clean
   end
 
   # Remove this line if you"re not using ActiveRecord or ActiveRecord fixtures
@@ -60,9 +79,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   # Add application specific configuration below this line
-  config.include Request::JsonHelpers, type: :controller
-  config.include Request::HeadersHelpers, type: :controller
-
   # Clean/Reset Mongoid DB prior to running the tests
   config.before :each do
     Mongoid::Sessions.default.collections.select do |collection|
@@ -70,9 +86,5 @@ RSpec.configure do |config|
         collection.drop
       end
     end
-  end
-
-  config.before :each, type: :controller do
-    include_default_accept_headers
   end
 end

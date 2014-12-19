@@ -16,23 +16,20 @@ class UserCredentialService < CreateService
     create_user_service.record
   end
 
-  def process(condition = nil)
+  def process(_condition = nil)
     super sign_up_process
   end
 
   def process_credential
     create_credential_service.process
-    create_credential_service.response
   end
 
   def process_key
     create_key_service.process
-    @key_response = create_key_service.response
   end
 
   def process_user
     create_user_service.process
-    create_user_service.response
   end
 
   def record_valid?(record)
@@ -44,6 +41,7 @@ class UserCredentialService < CreateService
       process_user
       process_credential
       process_key
+      @key_response = create_key_service.response
     else
       false
     end
@@ -54,6 +52,8 @@ class UserCredentialService < CreateService
   end
 
   private
+
+  attr_reader :key_response
 
   def create_credential_service
     @create_credential_service ||= create_service Credential, credential_params
@@ -68,7 +68,7 @@ class UserCredentialService < CreateService
   end
 
   def create_user_service
-    @create_user_service ||= create_service User, options
+    @create_user_service ||= create_service User, user_params
   end
 
   def credential_params
@@ -93,6 +93,10 @@ class UserCredentialService < CreateService
   end
 
   def serialized_record
-    @key_response
+    key_response
+  end
+
+  def user_params
+    options.except :password
   end
 end

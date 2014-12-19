@@ -1,3 +1,3 @@
 class KeySerializer < ActiveModel::Serializer
-  attributes :expires_at, :token
+  attributes :token, :expires_at
 end

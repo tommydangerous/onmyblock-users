@@ -17,8 +17,8 @@ class Key < BaseModel
 
   belongs_to :credential
 
-  index({ credential_id: 1 })
-  index({ token: 1 })
+  index(credential_id: 1)
+  index(token: 1)
 
   def self.generate_access_token
     SecureRandom.uuid
@@ -30,6 +30,11 @@ class Key < BaseModel
 
   def assign_token(tok = Key.generate_access_token)
     self.token = tok
+  end
+
+  def configure_defaults
+    assign_expires_at
+    assign_token
   end
 
   def expired?

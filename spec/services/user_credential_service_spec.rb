@@ -3,10 +3,11 @@ require "rails_helper"
 RSpec.describe UserCredentialService do
   let(:build_credential) { service.build_credential }
   let(:build_user) { service.build_user }
-  let(:service) { UserCredentialService.new service_options }
-  let(:service_options) { 
-    FactoryGirl.attributes_for(:user).merge({ password: "password" })
-  }
+  let(:password)   { "password" }
+  let(:service) { described_class.new service_options }
+  let(:service_options) do
+    FactoryGirl.attributes_for(:user).merge(password: password)
+  end
 
   describe "#build_credential" do
     it "should return a built credential with the same attributes" do
@@ -24,15 +25,33 @@ RSpec.describe UserCredentialService do
     end
   end
 
+  describe "#failure_response" do
+    context "with invalid user attributes" do
+      let(:service_options) { { first_name: "first", last_name: "last" } }
+
+      it "should return json with key :email" do
+        hash = JSON.parse service.send(:failure_response),
+                          symbolize_names: true
+        expect(hash).to have_key :email
+      end
+    end
+
+    context "with invalid credential attributes" do
+      let(:password) { "" }
+
+      it "should return json with key :password" do
+        hash = JSON.parse service.send(:failure_response),
+                          symbolize_names: true
+        expect(hash).to have_key :password
+      end
+    end
+  end
+
   describe "#process" do
     before { service.process }
 
     it "should have a response" do
       expect(service.response).not_to be_nil
-    end
-
-    it "should have a status" do
-      expect(service.status).not_to be_nil
     end
   end
 
@@ -50,7 +69,7 @@ RSpec.describe UserCredentialService do
 
   describe "#process_key" do
     before { service.process_key }
-    
+
     it "should save a key to the database" do
       expect(Key.count).to eq 1
     end
@@ -110,7 +129,7 @@ RSpec.describe UserCredentialService do
       end
 
       context "when credential is not valid" do
-        let(:service_options) { FactoryGirl.attributes_for(:user) }
+        let(:password) { "" }
 
         it "should not send :process_user message to service" do
           expect(service).not_to receive :process_user
@@ -131,7 +150,7 @@ RSpec.describe UserCredentialService do
 
     context "when user is not valid" do
       let(:service_options) { {} }
-      
+
       it "should not send :process_user message to service" do
         expect(service).not_to receive :process_user
         service.sign_up_process

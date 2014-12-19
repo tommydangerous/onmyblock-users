@@ -23,10 +23,6 @@ RSpec.describe CreateService do
   context "with valid attributes" do
     before { subject.process }
 
-    it "should set status to 201" do
-      expect(subject.status).to eq 201
-    end
-
     it "should return a model instance" do
       expect(subject.response).to be_a model
     end
@@ -36,10 +32,6 @@ RSpec.describe CreateService do
     before { subject.process }
 
     let(:options) { false }
-
-    it "should set status to 201" do
-      expect(subject.status).to eq 422
-    end
 
     it "should return the record's errors" do
       expect(subject.response).to eq "errors"
