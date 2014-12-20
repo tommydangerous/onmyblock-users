@@ -1,15 +1,11 @@
-development:
+defaults: &defaults
   # Configure available database sessions. (required)
   sessions:
     # Defines the default session. (required)
     default:
-      # Defines the name of the default database that Mongoid can connect to.
-      # (required).
-      database: <%= ENV["APP_NAME"] %>_development
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
-      hosts:
-        - <%= ENV["MONGO_URL"] %>
+      hosts: <%= ENV["MONGO_URL"].split(",").inspect %>
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
@@ -55,12 +51,21 @@ development:
 
     # Ensure all times are UTC in the app side. (default: false)
     # use_utc: false
+development:
+  <<: *defaults
+  sessions:
+    default:
+      database: <%= ENV["APP_NAME"] %>_development
+production:
+  <<: *defaults
+  sessions:
+    default:
+      database: <%= ENV["APP_NAME"] %>_production
 test:
+  <<: *defaults
   sessions:
     default:
       database: <%= ENV["APP_NAME"] %>_test
-      hosts:
-        - <%= ENV["MONGO_URL"] %>
       options:
         read: primary
         # In the test environment we lower the retries and retry interval to
