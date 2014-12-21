@@ -1,11 +1,15 @@
+options_defaults: &options_defaults
+  raise_not_found_error: false
+sessions_default_defaults: &sessions_default_defaults
+  hosts: <%= ENV["MONGO_URL"].split(",").inspect %>
 defaults: &defaults
   # Configure available database sessions. (required)
   sessions:
     # Defines the default session. (required)
     default:
+      <<: *sessions_default_defaults
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
-      hosts: <%= ENV["MONGO_URL"].split(",").inspect %>
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
@@ -25,6 +29,7 @@ defaults: &defaults
         # retry_interval: 0.25
   # Configure Mongoid specific options. (optional)
   options:
+    <<: *options_defaults
     # Includes the root model name in json serialization. (default: false)
     # include_root_in_json: false
 
@@ -40,7 +45,7 @@ defaults: &defaults
 
     # Raise an error when performing a #find and the document is not found.
     # (default: true)
-    raise_not_found_error: false
+    # raise_not_found_error: false
 
     # Raise an error when defining a scope with the same name as an
     # existing method. (default: false)
@@ -55,16 +60,23 @@ development:
   <<: *defaults
   sessions:
     default:
+      <<: *sessions_default_defaults
       database: <%= ENV["APP_NAME"] %>_development
+  options:
+    <<: *options_defaults
 production:
   <<: *defaults
   sessions:
     default:
+      <<: *sessions_default_defaults
       database: <%= ENV["APP_NAME"] %>_production
+  options:
+    <<: *options_defaults
 test:
   <<: *defaults
   sessions:
     default:
+      <<: *sessions_default_defaults
       database: <%= ENV["APP_NAME"] %>_test
       options:
         read: primary
@@ -73,4 +85,4 @@ test:
         max_retries: 1
         retry_interval: 0
   options:
-    raise_not_found_error: false
+    <<: *options_defaults
