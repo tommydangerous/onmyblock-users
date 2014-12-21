@@ -15,7 +15,7 @@ module Resourceful
   end
 
   def envelope
-    view.update metadata: { status: resource.status }
+    ResponseEnvelope.new view_with_status
   end
 
   def find_record
@@ -52,8 +52,12 @@ module Resourceful
 
   def view
     @view ||= {
-      errors: {},
+      errors:   {},
       resource: resource.serialize(record)
     }
+  end
+
+  def view_with_status
+    view.update metadata: { status: resource.status }
   end
 end
