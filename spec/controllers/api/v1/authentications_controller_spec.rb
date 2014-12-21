@@ -39,8 +39,12 @@ RSpec.describe Api::V1::AuthenticationsController do
       delete :logout
     end
 
-    it "should return status 204" do
-      expect(envelope_status).to eq 204
+    it "should destroy the key" do
+      expect(Key.count).to eq 0
+    end
+
+    it "should return status 200" do
+      expect(response.status).to eq 200
     end
   end
 end
