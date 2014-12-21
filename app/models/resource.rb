@@ -79,6 +79,5 @@ class Resource
   def serializer
     dependencies["#{name}_serializer".to_sym]
   rescue Payload::UndefinedDependencyError
-    nil
   end
 end
