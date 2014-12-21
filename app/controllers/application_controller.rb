@@ -5,15 +5,15 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  private
-
-  def metrics
-    @metrics ||= dependencies[:metrics_client]
-  end
-
   # TODO: update the payload gem when they make a new release
   #       since the gem should define this method.
   def dependencies
     @dependencies ||= Payload::RailsLoader.load
+  end
+
+  private
+
+  def metrics
+    @metrics ||= dependencies[:metrics_client]
   end
 end
