@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
   def metrics
     @metrics ||= dependencies[:metrics_client]
   end
+
+  def not_found
+    render nothing: true, status: :not_found
+  end
 end
