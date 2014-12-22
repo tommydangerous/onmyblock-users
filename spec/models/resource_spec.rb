@@ -11,8 +11,21 @@ RSpec.describe Resource do
   end
 
   let(:dependencies) do
-    { example: factory, examples: finder, example_serializer: serializer }
+    container = { example: factory,
+                  examples: finder,
+                  example_serializer: serializer }
+
+    def container.[](key)
+      super.tap do |value|
+        if value.nil?
+          fail Payload::UndefinedDependencyError
+        end
+      end
+    end
+
+    container
   end
+
   let(:factory)      { double "factory", new: true }
   let(:finder)       { double "finder", find: true }
   let(:serializer)   { nil }
@@ -136,13 +149,13 @@ RSpec.describe Resource do
       let(:serializer) { double "serialize", new: "serialized" }
 
       it "should return the serializer instance" do
-        expect(subject.serialize(object)).to eq "serialized"
+        expect(subject.serialize object).to eq "serialized"
       end
     end
 
     context "when serializer does not exist" do
       it "should return the object" do
-        expect(subject.serialize(object)).to eq object
+        expect(subject.serialize object).to eq object
       end
     end
   end
