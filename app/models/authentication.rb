@@ -1,11 +1,15 @@
 class Authentication
   include ActiveModel::Model
 
-  attr_accessor :identification, :password
+  attr_accessor :identification, :key_id, :password
 
   attr_reader :key
 
   validate :authentication
+
+  def destroy
+    Key.find(key_id).try(:destroy) ? true : false
+  end
 
   def save
     if valid?

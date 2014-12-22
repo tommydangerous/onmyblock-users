@@ -20,6 +20,6 @@ class Api::V1::AuthenticationsController < Api::V1::BaseController
   end
 
   def set_key_id_parameter
-    params[:id] = current_session.key.id
+    params[:key_id] = current_session.key.id
   end
 end

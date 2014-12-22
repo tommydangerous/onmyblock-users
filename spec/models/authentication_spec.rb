@@ -16,9 +16,38 @@ RSpec.describe Authentication do
 
   it { should respond_to :identification }
   it { should respond_to :key }
+  it { should respond_to :key_id }
   it { should respond_to :password }
 
   it { should be_valid }
+
+  describe "#destroy" do
+    before { subject.save }
+
+    context "with correct key_id" do
+      before { subject.key_id = subject.key.id }
+
+      it "should return true" do
+        expect(subject.destroy).to be true
+      end
+
+      it "should destroy the key" do
+        expect { subject.destroy }.to change { credential.keys.size }.by -1
+      end
+    end
+
+    context "with incorrect key_id" do
+      before { subject.key_id = "0" }
+
+      it "should return false" do
+        expect(subject.destroy).to be false
+      end
+
+      it "should not destroy the key" do
+        expect { subject.destroy }.to change { credential.keys.size }.by 0
+      end
+    end
+  end
 
   describe "#save" do
     context "with correct identification and password" do
