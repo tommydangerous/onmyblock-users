@@ -9,6 +9,13 @@ class Api::V1::UsersController < Api::V1::BaseController
     render_envelope package_envelope(create_service, 200, 422)
   end
 
+  # def create
+  #   render_resource :valid? do
+  #     puts params[:password]
+  #     puts record
+  #   end
+  # end
+
   def update
     render_resource :update_attributes, resource.attributes
   end
