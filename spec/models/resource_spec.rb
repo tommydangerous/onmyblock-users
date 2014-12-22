@@ -36,6 +36,7 @@ RSpec.describe Resource do
     ActionController::Parameters.new example: attributes, id: 1
   end
 
+  it { should respond_to :attributes= }
   it { should respond_to :location }
   it { should respond_to :location= }
 

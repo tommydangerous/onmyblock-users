@@ -1,6 +1,6 @@
 class Resource
   attr_accessor :location
-  attr_writer :status
+  attr_writer :attributes, :status
 
   def initialize(controller)
     @controller = controller
