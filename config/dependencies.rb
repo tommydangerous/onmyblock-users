@@ -7,14 +7,22 @@ service :metrics_client do |_container|
 end
 
 service :authentications do
-  Key
+  Authentication
+end
+
+factory :authentication do |container|
+  container[:authentications].new container[:attributes]
+end
+
+factory :authentication_serializer do |container|
+  AuthenticationSerializer.new container[:record]
 end
 
 service :credentials do
   Credential
 end
 
-factory :credential do
+factory :credential do |container|
   container[:credentials].new container[:attributes]
 end
 
