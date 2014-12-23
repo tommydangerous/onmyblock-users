@@ -2,20 +2,48 @@ module Resourceful
   extend ActiveSupport::Concern
 
   included do
-    before_action :build_record, only: %i(create new)
+    before_action :build_record, only: %i(create)
     before_action :find_record,  only: %i(destroy show update)
   end
 
   attr_accessor :record
 
+  def create
+    render_resource :save do
+      resource.status = :created
+      resource.location = resource.path record
+    end
+  end
+
+  def destroy
+    record.destroy
+    render_resource :destroyed?
+  end
+
+  def index
+    view[:resource] = records
+    render_resource
+  end
+
+  def show
+    render_resource
+  end
+
+  def update
+    render_resource :update_attributes, resource.attributes
+  end
+
+  def view
+    @view ||= {
+      errors:   {},
+      resource: resource.serialize(record)
+    }
+  end
+
   private
 
   def build_record
     @record ||= resource.build
-  end
-
-  def envelope
-    ResponseEnvelope.new view_with_status
   end
 
   def find_record
@@ -50,14 +78,11 @@ module Resourceful
     }
   end
 
-  def view
-    @view ||= {
-      errors:   {},
-      resource: resource.serialize(record)
-    }
-  end
-
   def view_with_status
     view.update metadata: { status: resource.status }
+  end
+
+  def envelope
+    ResponseEnvelope.new view_with_status
   end
 end

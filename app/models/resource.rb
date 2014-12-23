@@ -1,6 +1,6 @@
 class Resource
   attr_accessor :location
-  attr_writer :status
+  attr_writer :attributes, :status
 
   def initialize(controller)
     @controller = controller
@@ -26,19 +26,19 @@ class Resource
     controller_name.singularize.to_sym
   end
 
-  def path(object)
-    controller.send route, object
+  def path(record)
+    controller.send route, record
   end
 
   def search(method = :all, *args)
     finder.send(method, *args)
   end
 
-  def serialize(object)
+  def serialize(record)
     if serializer
-      serializer.new record: object
+      serializer.new record: record
     else
-      object
+      record
     end
   end
 
