@@ -8,7 +8,7 @@ class MailEnvelope < BaseEnvelope
               :from,
               :fromname,
               :html,
-              :mailer,
+              :name,
               :reply_to,
               :subject,
               :text,
@@ -16,8 +16,8 @@ class MailEnvelope < BaseEnvelope
               :toname
 
   def initialize(opts = {})
-    opts.each do |name, value|
-      instance_variable_set "@#{name}".to_sym, value
+    opts.each do |key, value|
+      instance_variable_set "@#{key}".to_sym, value
     end
   end
 end
