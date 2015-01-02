@@ -32,7 +32,7 @@ RSpec.describe Authentication do
       end
 
       it "should destroy the key" do
-        expect { subject.destroy }.to change { credential.keys.size }.by -1
+        expect { subject.destroy }.to change { credential.keys.size }.by(-1)
       end
     end
 
