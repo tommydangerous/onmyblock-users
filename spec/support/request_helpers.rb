@@ -33,7 +33,7 @@ module Request
     end
 
     def api_token(token)
-      request.headers["Authorization"] = token
+      request.headers["OMB-Authorization"] = token
     end
 
     def api_response_format(format = Mime::JSON)

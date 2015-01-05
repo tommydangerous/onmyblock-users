@@ -6,7 +6,11 @@ class Api::V1::BaseController < ApiController
   end
 
   def authorization
-    request.headers["Authorization"]
+    request.headers[authorization_header_key]
+  end
+
+  def authorization_header_key
+    "OMB-Authorization"
   end
 
   def current_session

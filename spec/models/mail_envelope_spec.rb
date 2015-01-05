@@ -14,7 +14,7 @@ RSpec.describe MailEnvelope do
   it { should respond_to :from }
   it { should respond_to :fromname }
   it { should respond_to :html }
-  it { should respond_to :mailer }
+  it { should respond_to :name }
   it { should respond_to :reply_to }
   it { should respond_to :subject }
   it { should respond_to :text }

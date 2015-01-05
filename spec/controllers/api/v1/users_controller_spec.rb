@@ -35,16 +35,26 @@ RSpec.describe Api::V1::UsersController do
     end
 
     context "with valid attributes" do
+      it "should update the user" do
+        user.reload
+        expect(user.email).to eq email
+      end
+
       it "should return a status 200" do
-        expect(envelope_status).to eq 200
+        expect(response.status).to eq 200
       end
     end
 
     context "with invalid attributes" do
       let(:email) { "" }
 
+      it "should not update the user" do
+        user.reload
+        expect(user.email).not_to eq email
+      end
+
       it "should return a status 422" do
-        expect(envelope_status).to eq 422
+        expect(response.status).to eq 422
       end
     end
   end

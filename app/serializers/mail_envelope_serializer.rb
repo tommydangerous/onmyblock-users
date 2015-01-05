@@ -1,15 +1,17 @@
 class MailEnvelopeSerializer < ActiveModel::Serializer
-  attributes :mailer_action, :mailer_name, :payload
+  attributes :mailer
 
-  def mailer_action
-    object.action
+  def mailer
+    {
+      action:  object.action,
+      name:    object.name,
+      payload: payload
+    }
   end
 
-  def mailer_name
-    object.mailer
-  end
+  private
 
   def payload
-    object.instance_values.symbolize_keys.except(:action).except(:mailer)
+    object.instance_values.symbolize_keys.except(:action).except(:name)
   end
 end

@@ -1,6 +1,6 @@
 # Set the working application directory
 app_root          = ENV.fetch "ROOT_DIR", "/app"
-working_directory = app_root
+working_directory app_root
 
 # Unicorn PID file location; make sure this directory exists
 # pid "#{app_root}/tmp/pids/unicorn.pid"
@@ -20,20 +20,20 @@ timeout 30
 
 preload_app true
 
-before_fork do |server, worker|
+before_fork do |_server, _worker|
   Signal.trap "TERM" do
-    puts "Unicorn master intercepting TERM and sending myself QUIT instead"
+    Rails.logger.info "Unicorn master intercepting TERM and sending myself QUIT instead"
     Process.kill "Quit", Process.pid
   end
 
-  defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.disconnect!
+  defined?(ActiveRecord::Base) && ActiveRecord::Base.connection.disconnect!
 end
 
-after_fork do |server, worker|
+after_fork do |_server, _worker|
   Signal.trap "TERM" do
-    puts "Unicorn worker intercepting TERM and doing nothing. " \
+    Rails.logger.info "Unicorn worker intercepting TERM and doing nothing. " \
       "Wait for master to send QUIT"
   end
 
-  defined?(ActiveRecord::Base) and ActiveRecord::Base.establish_connection
+  defined?(ActiveRecord::Base) && ActiveRecord::Base.establish_connection
 end
