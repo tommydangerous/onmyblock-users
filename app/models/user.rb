@@ -1,4 +1,8 @@
-class User < BaseModel
+class User
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
+
   ROLES = {
     admin:    "admin",
     landlord: "landlord",
