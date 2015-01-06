@@ -17,6 +17,7 @@ class User < BaseModel
   field :last_name,  type: String
   field :roles,      type: Array
   field :status,     type: String
+  field :phone_number, type:String
 
   validate :validate_roles
   validate :validate_status
@@ -24,7 +25,6 @@ class User < BaseModel
                       with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+([A-Za-z0-9]*))\z/i
   validates_presence_of :email, :first_name, :last_name
   validates_uniqueness_of :email
-
   has_many :credentials, dependent: :destroy
 
   accepts_nested_attributes_for :credentials
