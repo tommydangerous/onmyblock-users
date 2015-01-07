@@ -9,13 +9,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     render_envelope package_envelope(create_service, 200, 422)
   end
 
-  # def create
-  #   render_resource :valid? do
-  #     puts params[:password]
-  #     puts record
-  #   end
-  # end
-
   def update
     render_resource :update_attributes, resource.attributes
   end
@@ -23,7 +16,8 @@ class Api::V1::UsersController < Api::V1::BaseController
   private
 
   def create_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password)
+    params[:user] = params
+    params.require(:user).permit :email, :first_name, :last_name, :password
   end
 
   def create_service
