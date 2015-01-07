@@ -130,7 +130,7 @@ RSpec.describe Resourceful, type: :controller do
           .with(attributes)
           .and_return true
 
-        put :update, id: 1, example: attributes
+        put :update, id: 1, **attributes
       end
 
       let(:attributes) { { test: "value" } }
@@ -154,7 +154,7 @@ RSpec.describe Resourceful, type: :controller do
           .with(attributes)
           .and_return false
 
-        put :update, id: 1, example: attributes
+        put :update, id: 1, **attributes
       end
 
       let(:attributes) { { test: "value" } }
