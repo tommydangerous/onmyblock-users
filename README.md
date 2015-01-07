@@ -43,5 +43,5 @@ Action | Method | Endpoint | Parameters
 --- | --- | --- | ---
 Login | POST | /api/v1/authentication | identification, password
 Logout | DELETE | /api/v1/authentication | N/A
-Create | POST | /api/v1/users | user[email, first_name, last_name, password]
-Update | PUT/PATCH | /api/v1/users/:id | id, user[email, first_name, last_name, roles]
+Create | POST | /api/v1/users | email, first_name, last_name, password
+Update | PUT/PATCH | /api/v1/users/:id | id, email, first_name, last_name, roles
