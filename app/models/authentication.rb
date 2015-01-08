@@ -7,6 +7,12 @@ class Authentication
 
   validate :authentication
 
+  def initialize(opts = {})
+    @identification = opts[:identification]
+    @key_id         = opts[:key_id]
+    @password       = opts[:password]
+  end
+
   def destroy
     Key.find(key_id).try(:destroy) ? true : false
   end
