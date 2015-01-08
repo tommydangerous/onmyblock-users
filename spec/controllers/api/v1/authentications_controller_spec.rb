@@ -12,10 +12,8 @@ RSpec.describe Api::V1::AuthenticationsController do
     let(:user) { create :user }
 
     before do
-      post :login, authentication: {
-        identification: credential.identification,
-        password:       login_password
-      }
+      post :login, identification: credential.identification,
+                   password: login_password
     end
 
     context "with valid identification and password" do
