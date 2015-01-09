@@ -50,10 +50,10 @@ class ApiController < ApplicationController
 
   def set_access_control_headers
     headers["Access-Control-Allow-Headers"] =
-      %w{Accept Authorization Content-Type Origin X-Requested-With}.join(",")
+      %w(Accept Authorization Content-Type Origin X-Requested-With).join(",")
     headers["Access-Control-Allow-Origin"] = "*"
     headers["Access-Control-Allow-Methods"] =
-      %w{DELETE GET OPTIONS POST PUT}.join(",")
+      %w(DELETE GET OPTIONS POST PUT).join(",")
     headers["Access-Control-Request-Method"] = "*"
   end
 end

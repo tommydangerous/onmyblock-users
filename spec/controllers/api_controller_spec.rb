@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ApiController do
   controller do
     def dummy
-      render text: 'Hello world'
+      render text: "Hello world"
     end
   end
 
@@ -78,7 +78,7 @@ RSpec.describe ApiController do
       expect(
         controller.headers["Access-Control-Allow-Headers"]
       ).to eq(
-        %w{Accept Authorization Content-Type Origin X-Requested-With}.join(",")
+        %w(Accept Authorization Content-Type Origin X-Requested-With).join(",")
       )
     end
 
@@ -91,7 +91,7 @@ RSpec.describe ApiController do
     it "should set Access-Control-Allow-Methods header" do
       expect(
         controller.headers["Access-Control-Allow-Methods"]
-      ).to eq %w{DELETE GET OPTIONS POST PUT}.join(",")
+      ).to eq %w(DELETE GET OPTIONS POST PUT).join(",")
     end
 
     it "should set Access-Control-Request-Method header" do
