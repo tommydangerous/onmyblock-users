@@ -89,7 +89,7 @@ class UserCredentialService < CreateService
     elsif !record_valid? credential
       errors = credential.errors
     end
-    errors.to_json
+    errors
   end
 
   def serialized_record
