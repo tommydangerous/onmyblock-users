@@ -16,6 +16,6 @@ class Api::V1::CredentialsController < Api::V1::BaseController
   end
 
   def set_confirmed_at
-    params[:credential] = { confirmed_at: Time.zone.now }
+    params[:confirmed_at] = Time.zone.now
   end
 end

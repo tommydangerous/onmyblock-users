@@ -1,4 +1,8 @@
-class Key < BaseModel
+class Key
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
+
   DEFAULT_DAYS       = 3
   DEFAULT_EXPIRES_AT = Time.zone.now + DEFAULT_DAYS.days
   KEY_TYPES = {

@@ -6,7 +6,7 @@ RSpec.describe Api::V1::UsersController do
     let(:email)      { {} }
     let(:password)   { { password: "12" } }
 
-    before { post :create, user: attributes }
+    before { post :create, **attributes }
 
     context "with valid attributes" do
       it "should return a status 200" do
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::UsersController do
 
     before do
       api_token key.token
-      patch :update, id: user.id, user: attributes
+      patch :update, id: user.id, **attributes
     end
 
     context "with valid attributes" do

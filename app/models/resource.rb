@@ -7,7 +7,11 @@ class Resource
   end
 
   def attributes
-    @attributes ||= params.require(name).permit!
+    if @attributes.nil?
+      hash = params.merge("#{name}" => params.except(:action, :controller, :id))
+      @attributes = hash.require(name).permit!
+    end
+    @attributes
   end
 
   def build

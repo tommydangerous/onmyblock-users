@@ -33,7 +33,7 @@ RSpec.describe Resource do
   let(:attributes) { { test: "testing" } }
 
   let :params do
-    ActionController::Parameters.new example: attributes, id: 1
+    ActionController::Parameters.new id: 1, **attributes
   end
 
   it { should respond_to :attributes= }
@@ -41,14 +41,8 @@ RSpec.describe Resource do
   it { should respond_to :location= }
 
   context "#attributes" do
-    it "should permit all attributes under the resource name" do
-      expect(controller.params).to receive(:require)
-        .with(:example)
-        .and_return params
-
-      expect(params).to receive :permit!
-
-      subject.attributes
+    it "should permit all attributes except id under the resource name" do
+      expect(subject.attributes).to have_key :test
     end
 
     it "should allow attributes to be updated" do
