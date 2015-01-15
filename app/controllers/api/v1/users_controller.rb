@@ -21,6 +21,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def create_service
-    @create_service ||= UserCredentialService.new create_params, KeySerializer
+    @create_service ||=
+      UserCredentialService.new create_params, UserKeySerializer
   end
 end
