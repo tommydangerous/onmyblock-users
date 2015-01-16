@@ -7,7 +7,7 @@ class Api::V1::AuthenticationsController < Api::V1::BaseController
 
   def login
     render_resource :save do
-      resource.status = :created
+      resource.status = 201
     end
   end
 
