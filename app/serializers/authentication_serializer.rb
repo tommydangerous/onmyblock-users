@@ -14,7 +14,7 @@ class AuthenticationSerializer < ActiveModel::Serializer
   end
 
   def id
-    user.try :id
+    user.id.to_s if user
   end
 
   def last_name

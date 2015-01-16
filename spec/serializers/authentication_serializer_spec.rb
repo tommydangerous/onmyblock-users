@@ -18,9 +18,13 @@ RSpec.describe AuthenticationSerializer do
     end
   end
 
-  %i(id email first_name last_name).each do |name|
+  %i(email first_name last_name).each do |name|
     it "should have #{name}" do
       expect(hash[name]).to eq object.key.user.send(name.to_sym)
     end
+  end
+
+  it "should have an id" do
+    expect(hash[:id]).to eq object.key.user.id.to_s
   end
 end
