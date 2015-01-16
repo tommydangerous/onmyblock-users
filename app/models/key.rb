@@ -44,4 +44,8 @@ class Key
   def expired?
     expires_at <= Time.now
   end
+
+  def user
+    @user ||= credential.user
+  end
 end

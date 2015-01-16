@@ -12,11 +12,15 @@ RSpec.describe AuthenticationSerializer do
 
   before { object.save }
 
-  it "should have token" do
-    expect(hash[:token]).to eq object.key.token
+  %i(token expires_at).each do |name|
+    it "should have #{name}" do
+      expect(hash[name]).to eq object.key.send(name.to_sym)
+    end
   end
 
-  it "should have expires_at" do
-    expect(hash[:expires_at]).to eq object.key.expires_at
+  %i(id email first_name last_name).each do |name|
+    it "should have #{name}" do
+      expect(hash[name]).to eq object.key.user.send(name.to_sym)
+    end
   end
 end
