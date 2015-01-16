@@ -32,16 +32,13 @@ class UserCredentialService < CreateService
     create_user_service.process
   end
 
-  def record_valid?(record)
-    record.valid?
+  def record_valid?(obj)
+    obj.valid?
   end
 
   def sign_up_process
     if record_valid?(user) && record_valid?(credential)
-      process_user
-      process_credential
-      process_key
-      @key_response = create_key_service.response
+      process_all
     else
       false
     end
@@ -92,11 +89,24 @@ class UserCredentialService < CreateService
     errors
   end
 
+  def process_all
+    process_user
+    process_credential
+    process_key
+  end
+
   def serialized_record
-    key_response
+    serializer ? serializer.new(user_key).serializable_hash : user_key
   end
 
   def user_params
     options.except :password
+  end
+
+  def user_key
+    UserKey.new(
+      key:  create_key_service.record,
+      user: create_user_service.record
+    )
   end
 end

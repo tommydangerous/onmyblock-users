@@ -4,15 +4,9 @@ RSpec.describe UserSerializer do
   let(:user) { create :user }
   let(:hash) { described_class.new(user).serializable_hash }
 
-  it "should have email" do
-    expect(hash[:email]).to eq user.email
-  end
-
-  it "should have first_name" do
-    expect(hash[:first_name]).to eq user.first_name
-  end
-
-  it "should have last_name" do
-    expect(hash[:last_name]).to eq user.last_name
+  %i(email first_name id last_name).each do |key|
+    it "should have #{key}" do
+      expect(hash[key]).to eq user.send(key)
+    end
   end
 end
