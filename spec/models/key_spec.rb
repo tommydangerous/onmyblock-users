@@ -77,4 +77,10 @@ RSpec.describe Key do
       end
     end
   end
+
+  describe "#user" do
+    it "should return the credential's user" do
+      expect(subject.user).to eq subject.credential.user
+    end
+  end
 end

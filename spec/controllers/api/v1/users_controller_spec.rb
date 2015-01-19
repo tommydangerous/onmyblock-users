@@ -9,8 +9,8 @@ RSpec.describe Api::V1::UsersController do
     before { post :create, **attributes }
 
     context "with valid attributes" do
-      it "should return a status 200" do
-        expect(envelope_status).to eq 200
+      it "should return a status 201" do
+        expect(envelope_status).to eq 201
       end
     end
 

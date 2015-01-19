@@ -6,7 +6,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   skip_before_action :build_record, only: :create
 
   def create
-    render_envelope package_envelope(create_service, 200, 422)
+    render_envelope package_envelope(create_service, 201, 422)
   end
 
   def update
