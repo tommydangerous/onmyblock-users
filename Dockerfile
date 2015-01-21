@@ -1,6 +1,11 @@
 FROM onmyblock/ruby:2.1.5
 MAINTAINER OnMyBlock development@onmyblock.com
 
+# Generate the /app directory which is where the Rails application will be mounted
+RUN mkdir /app
+WORKDIR /app
+VOLUME /app
+
 # Add /app/bin to $PATH
 ENV PATH /app/bin:$PATH
 
