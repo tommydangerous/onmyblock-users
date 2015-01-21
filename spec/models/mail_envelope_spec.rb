@@ -5,11 +5,11 @@ RSpec.describe MailEnvelope do
 
   subject { described_class.new options }
 
-  it { should respond_to :action }
   it { should respond_to :bcc }
   it { should respond_to :bccname }
   it { should respond_to :cc }
   it { should respond_to :ccname }
+  it { should respond_to :deliver_action }
   it { should respond_to :files }
   it { should respond_to :from }
   it { should respond_to :fromname }
@@ -22,11 +22,11 @@ RSpec.describe MailEnvelope do
   it { should respond_to :toname }
 
   describe "#initialize" do
-    let(:action)  { "create" }
-    let(:options) { { action: action } }
+    let(:deliver_action) { "create" }
+    let(:options)        { { deliver_action: deliver_action } }
 
-    it "should set @action" do
-      expect(subject.action).to eq action
+    it "should set @deliver_action" do
+      expect(subject.deliver_action).to eq deliver_action
     end
   end
 end

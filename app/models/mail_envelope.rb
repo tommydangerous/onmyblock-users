@@ -1,9 +1,9 @@
 class MailEnvelope < BaseEnvelope
-  attr_reader :action,
-              :bcc,
+  attr_reader :bcc,
               :bccname,
               :cc,
               :ccname,
+              :deliver_action,
               :files,
               :from,
               :fromname,
