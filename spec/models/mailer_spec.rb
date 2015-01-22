@@ -1,8 +1,19 @@
 require "rails_helper"
 
 RSpec.describe Mailer do
-  let(:deliver_action) { "confirmation" }
-  let(:name)   { "credential" }
+  class TestMailer < BaseMailer
+    def test_action(opts)
+      capture_options opts
+      mail from: from, to: to do |format|
+        format.text do
+          render text: "test"
+        end
+      end
+    end
+  end
+
+  let(:deliver_action) { "test_action" }
+  let(:name)           { "test" }
   let(:payload) do
     {
       from: "from@gmail.com",
