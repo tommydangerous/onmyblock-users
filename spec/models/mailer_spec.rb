@@ -13,13 +13,15 @@ RSpec.describe Mailer do
   end
 
   let(:deliver_action) { "test_action" }
+  let(:from)           { "from@gmail.com" }
   let(:name)           { "test" }
   let(:payload) do
     {
-      from: "from@gmail.com",
-      to:   "to@gmail.com"
+      from: from,
+      to:   to
     }
   end
+  let(:to) { "to@gmail.com" }
 
   subject do
     described_class.new(
@@ -41,8 +43,18 @@ RSpec.describe Mailer do
     context "with valid attributes" do
       it "should deliver an email" do
         expect { subject.save }.to change {
-          subject.send(:mailer).deliveries.count
+          ActionMailer::Base.deliveries.count
         }.by 1
+      end
+
+      it "should deliver from the correct from" do
+        subject.save
+        expect(ActionMailer::Base.deliveries.first.from).to eq [from]
+      end
+
+      it "should deliver to the correct to" do
+        subject.save
+        expect(ActionMailer::Base.deliveries.first.to).to eq [to]
       end
 
       it "should return true" do

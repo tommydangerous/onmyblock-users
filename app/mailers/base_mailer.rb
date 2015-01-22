@@ -1,14 +1,4 @@
 class BaseMailer < ActionMailer::Base
-  private
-
-  def capture_options(opts)
-    if opts.class == String
-      @options = JSON.parse opts, symbolize_names: true
-    else
-      @options = opts
-    end
-  end
-
   def from
     @options[:from]
   end
@@ -19,5 +9,15 @@ class BaseMailer < ActionMailer::Base
 
   def to
     @options[:to]
+  end
+
+  private
+
+  def capture_options(opts)
+    if opts.class == String
+      @options = JSON.parse opts, symbolize_names: true
+    else
+      @options = opts
+    end
   end
 end
