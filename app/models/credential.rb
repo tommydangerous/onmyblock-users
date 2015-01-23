@@ -5,8 +5,6 @@ class Credential
 
   include ActiveModel::SecurePassword
 
-  attr_accessor :password
-
   PROVIDERS = {
     facebook:  "facebook",
     onmyblock: "onmyblock"
