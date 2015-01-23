@@ -1,5 +1,6 @@
 class CredentialResetWithIdentification
-  delegate :save, :valid?, to: :credential_reset
+  delegate :save,   to: :credential_reset_with_mail
+  delegate :valid?, to: :credential_reset
 
   def initialize(options = {})
     @identification = options[:identification]
@@ -29,6 +30,10 @@ class CredentialResetWithIdentification
 
   def credential
     @credential ||= Credential.find_by identification: @identification
+  end
+
+  def credential_reset_with_mail
+    @credential_reset_with_mail ||= CredentialResetWithMail.new credential_reset
   end
 
   def expires_at
