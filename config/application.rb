@@ -13,6 +13,14 @@ module Base
 
     config.autoload_paths += Dir[Rails.root.join("app", "services", "{**/}")]
 
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins "*"
+        resource "*", headers: :any,
+          methods: %i(delete get options patch post put)
+      end
+    end
+
     # Add application specific config below this line
   end
 end

@@ -53,7 +53,7 @@ class ApiController < ApplicationController
       %w(Accept Authorization Content-Type Origin X-Requested-With).join(",")
     headers["Access-Control-Allow-Origin"] = "*"
     headers["Access-Control-Allow-Methods"] =
-      %w(DELETE GET OPTIONS POST PUT).join(",")
+      %w(DELETE GET OPTIONS PATCH POST PUT).join(",")
     headers["Access-Control-Request-Method"] = "*"
   end
 end

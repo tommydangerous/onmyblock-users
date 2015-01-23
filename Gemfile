@@ -11,6 +11,7 @@ gem "dotenv-rails"
 gem "mongoid"
 gem "newrelic_rpm"
 gem "payload", require: "payload/railtie"
+gem "rack-cors", require: "rack/cors"
 gem "redis-rails"
 gem "unicorn-rails"
 
