@@ -21,6 +21,7 @@ RSpec.describe Credential do
   it_should_behave_like :crud
 
   it { should have_many(:keys).with_dependent :destroy }
+  it { should have_many(:credential_resets).with_dependent :destroy }
 
   it { should belong_to :user }
 
