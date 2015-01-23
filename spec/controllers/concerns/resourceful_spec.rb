@@ -30,7 +30,7 @@ RSpec.describe Resourceful, type: :controller do
   let(:saved)   { true }
 
   describe "#create" do
-    before { post :create, example: attributes }
+    before { post :create, example: attributes, callback: "callback" }
 
     let(:attributes) { { test: "value" } }
 

@@ -7,12 +7,12 @@
   <script>
     $.ajax({
             type: "PUT",
-            url: "http://54.177.86.14:3002/api/v1/listings/54c158b769702d5f3c990000",
+            url: "http://474e37a2.ngrok.com/api/v1/listings/54a45a926d6163365b000000",
             contentType: "application/json",
             data: "",
             dataType: "jsonp",
             success: function(response){
-              console.log(response);
+              console.log("RESPONSE:" + response.resource.address);
             },
             error : function() {
             },
