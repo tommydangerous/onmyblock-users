@@ -1,4 +1,4 @@
-class CredentialResetWithMail < SimpleDelegator
+class CredentialResetWithMail < SimplerDelegator
   alias_method :credential_reset, :object
 
   def save
