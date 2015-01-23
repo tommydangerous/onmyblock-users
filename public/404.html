@@ -3,23 +3,6 @@
 <head>
   <title>The page you were looking for doesn't exist (404)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script>
-    $.ajax({
-            type: "PUT",
-            url: "http://474e37a2.ngrok.com/api/v1/listings/54a45a926d6163365b000000",
-            contentType: "application/json",
-            data: "",
-            dataType: "jsonp",
-            success: function(response){
-              console.log("RESPONSE:" + response.resource.address);
-            },
-            error : function() {
-            },
-            complete: function () {
-            }
-          });
-  </script>
   <style>
   body {
     background-color: #EFEFEF;
