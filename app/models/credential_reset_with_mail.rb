@@ -12,7 +12,7 @@ class CredentialResetWithMail < SimplerDelegator
   end
 
   def mailer
-    Mailer.new(
+    @mailer ||= Mailer.new(
       deliver_action: "create", name: "credential_reset", payload: payload
     )
   end
@@ -22,7 +22,7 @@ class CredentialResetWithMail < SimplerDelegator
       from:     "support@onmyblock.com",
       fromname: "OnMyBlock",
       subject:  "Password Reset",
-      text:     "reset link",
+      text:     credential_reset.token,
       to:       credential_reset.credential.identification
     }
   end
