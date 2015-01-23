@@ -5,6 +5,18 @@ class CredentialResetWithIdentification
     @identification = options[:identification]
   end
 
+  def credential_reset
+    @credential_reset ||= create_credential_reset
+  end
+
+  def errors
+    if valid?
+      {}
+    else
+      { credential: "does not exist" }
+    end
+  end
+
   private
 
   def create_credential_reset
@@ -17,10 +29,6 @@ class CredentialResetWithIdentification
 
   def credential
     @credential ||= Credential.find_by identification: @identification
-  end
-
-  def credential_reset
-    @credential_reset ||= create_credential_reset
   end
 
   def expires_at

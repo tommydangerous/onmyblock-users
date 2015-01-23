@@ -15,4 +15,20 @@ RSpec.describe CredentialResetWithIdentification do
 
     it { should_not be_valid }
   end
+
+  describe "#errors" do
+    context "when valid" do
+      it "should not have errors" do
+        expect(subject.errors).not_to have_key :credential
+      end
+    end
+
+    context "when invalid" do
+      let(:credential) { double "credential", identification: "" }
+
+      it "should have errors" do
+        expect(subject.errors).to have_key :credential
+      end
+    end
+  end
 end
