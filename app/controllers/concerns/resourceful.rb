@@ -70,11 +70,13 @@ module Resourceful
   end
 
   def render_options
-    {
+    hash = {
       json:     render_options_json,
       location: resource.location,
       status:   resource.status
     }
+    hash[:callback] = params[:callback] if params[:callback]
+    hash
   end
 
   def render_options_json
