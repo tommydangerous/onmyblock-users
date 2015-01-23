@@ -17,7 +17,7 @@ module Base
       allow do
         origins "*"
         resource "*", headers: :any,
-          methods: %i(delete get options patch post put)
+                      methods: %i(delete get options patch post put)
       end
     end
 
