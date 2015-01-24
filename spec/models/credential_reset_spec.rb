@@ -14,4 +14,20 @@ RSpec.describe CredentialReset do
   it { should belong_to :credential }
 
   it { should have_index_for credential_id: 1 }
+
+  describe "#expired?" do
+    context "when expires_at is in the future" do
+      it "should return false" do
+        expect(subject.expired?).to be false
+      end
+    end
+
+    context "when expires_at is in the past" do
+      subject { build :credential_reset, expires_at: Time.zone.now - 1 .day }
+
+      it "should return true" do
+        expect(subject.expired?).to be true
+      end
+    end
+  end
 end

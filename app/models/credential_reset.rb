@@ -12,4 +12,8 @@ class CredentialReset
   belongs_to :credential
 
   index credential_id: 1
+
+  def expired?
+    expires_at < Time.zone.now
+  end
 end
