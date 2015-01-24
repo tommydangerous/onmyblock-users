@@ -11,8 +11,9 @@ Rails.application.routes.draw do
         end
       end
       resources :credentials,       only: :update
-      resources :credential_resets, only: :create
-      resources :credential_update_from_resets, only: :create
+      resources :credential_resets, only: :create, path: "credential/reset"
+      resources :credential_update_from_resets, only: :create,
+        path: "credential/reset/update"
       resources :users, only: %i(create update)
     end
   end
