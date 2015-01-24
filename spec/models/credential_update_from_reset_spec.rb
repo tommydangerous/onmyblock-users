@@ -13,6 +13,12 @@ RSpec.describe CredentialUpdateFromReset do
           it "should return true" do
             expect(subject.save).to be true
           end
+
+          it "should make credential_reset expired" do
+            subject.save
+            credential_reset.reload
+            expect(credential_reset.expired?).to be true
+          end
         end
 
         context "with invalid password" do

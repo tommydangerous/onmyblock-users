@@ -14,6 +14,6 @@ class CredentialReset
   index credential_id: 1
 
   def expired?
-    expires_at < Time.zone.now
+    expires_at <= Time.zone.now
   end
 end

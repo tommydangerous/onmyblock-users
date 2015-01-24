@@ -23,7 +23,11 @@ class CredentialUpdateFromReset
   end
 
   def save
-    valid? ? credential.save : false
+    if valid?
+      credential_reset.update expires_at: Time.zone.now if credential.save
+    else
+      false
+    end
   end
 
   def valid?
