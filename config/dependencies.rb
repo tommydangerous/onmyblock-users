@@ -38,6 +38,14 @@ factory :credential_reset_serializer do |container|
   CredentialResetWithIdentificationSerializer.new container[:record]
 end
 
+service :credential_update_from_resets do |container|
+  CredentialUpdateFromReset
+end
+
+factory :credential_update_from_reset do |container|
+  container[:credential_update_from_resets].new container[:attributes]
+end
+
 service :users do
   User
 end
