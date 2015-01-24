@@ -38,13 +38,36 @@ $ fig run app foreman start
 
 ### Individual Service Description Below
 ---
-### Making authenticated requests
-Send each request with an access token in the `OMB-Authorization` HTTP Header
+## Making authenticated requests
+When making requests to authenticated endpoints, add a token in the
+`OMB-Authorization` HTTP Header.
 
-### Routes
+## Current API Version
+version = v1
+
+## Authentications
 Action | Method | Endpoint | Parameters
 --- | --- | --- | ---
-Login | POST | /api/v1/authentication | identification, password
-Logout | DELETE | /api/v1/authentication | N/A
-Create | POST | /api/v1/users | email, first_name, last_name, password
-Update | PUT/PATCH | /api/v1/users/:id | id, email, first_name, last_name, roles
+Login | POST | /api/[version]/authentication | identification (email), password
+Logout | DELETE | /api/[version]/authentication | N/A
+
+## Credential Reset
+Action | Method | Endpoint | Parameters
+--- | --- | --- | ---
+Create | POST | /api/[version]/credential/reset | identification (email)
+
+## Credential Reset Update
+Action | Method | Endpoint | Parameters
+--- | --- | --- | ---
+Create | POST | /api/[version]/credential/reset/update | password, token
+
+## Credentials
+Action | Method | Endpoint | Parameters
+--- | --- | --- | ---
+Update | PUT/PATCH | /api/[version]/credentials | token
+
+## Users
+Action | Method | Endpoint | Parameters
+--- | --- | --- | ---
+Create | POST | /api/[version]/users | email, first_name, last_name, password
+Update | PUT/PATCH | /api/[version]/users/:id | email, first_name, id, last_name, roles
