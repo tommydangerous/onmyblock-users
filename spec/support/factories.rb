@@ -13,6 +13,12 @@ FactoryGirl.define do
     user
   end
 
+  factory :credential_reset do
+    credential
+    expires_at Time.zone.now + 3.days
+    token { SecureRandom.uuid }
+  end
+
   factory :key do
     credential
     expires_at Time.zone.now + 7.days

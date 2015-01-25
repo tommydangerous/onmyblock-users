@@ -66,16 +66,25 @@ module Resourceful
       resource.status = :unprocessable_entity
       view[:errors] = record.errors
     end
-
     render render_options
   end
 
   def render_options
-    {
-      json: envelope,
-      status: resource.status,
-      location: resource.location
+    hash = {
+      json:     render_options_json,
+      location: resource.location,
+      status:   resource.status
     }
+    hash[:callback] = params[:callback] if params[:callback]
+    hash
+  end
+
+  def render_options_json
+    if params[:callback]
+      ResponseEnvelopeSerializer.new(envelope).serializable_hash.to_json
+    else
+      envelope
+    end
   end
 
   def view_with_status

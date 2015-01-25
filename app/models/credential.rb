@@ -21,7 +21,8 @@ class Credential
   validates :provider, inclusion: { in: PROVIDERS.values }
   validates_presence_of :identification, :user_id
 
-  has_many :keys, dependent: :destroy
+  has_many :credential_resets, dependent: :destroy
+  has_many :keys,              dependent: :destroy
 
   belongs_to :user
 

@@ -26,6 +26,30 @@ factory :credential do |container|
   container[:credentials].new container[:attributes]
 end
 
+service :credential_resets do
+  CredentialResetWithIdentification
+end
+
+factory :credential_reset do |container|
+  container[:credential_resets].new container[:attributes]
+end
+
+factory :credential_reset_serializer do |container|
+  CredentialResetWithIdentificationSerializer.new container[:record]
+end
+
+service :credential_update_from_resets do
+  CredentialUpdateFromReset
+end
+
+factory :credential_update_from_reset do |container|
+  container[:credential_update_from_resets].new container[:attributes]
+end
+
+factory :credential_update_from_reset_serializer do |container|
+  CredentialUpdateFromResetSerializer.new container[:record]
+end
+
 service :users do
   User
 end

@@ -67,4 +67,33 @@ RSpec.describe User do
       expect(subject.valid?).to be false
     end
   end
+
+  context "when updating email" do
+    context "when user has a credential" do
+      let(:credential) { create :credential, user: user }
+      let(:email)      { "new_email@gmail.com" }
+
+      before { credential }
+
+      it "should update the credential's identification" do
+        user.update email: email
+        credential.reload
+        expect(credential.identification).to eq email
+      end
+    end
+  end
+
+  context "when updating anything but email" do
+    context "when user has a credential" do
+      let(:credential) { create :credential, user: user }
+
+      before { credential }
+
+      it "should not update the credential's identification" do
+        user.update first_name: "new_first"
+        credential.reload
+        expect(credential.identification).to eq user.email
+      end
+    end
+  end
 end
