@@ -14,9 +14,6 @@ class Api::V1::BaseController < ApiController
   end
 
   def current_session
-    Rails.logger.info "-" * 100
-    Rails.logger.info authorization
-    Rails.logger.info Session.new(authorization).key.id
     @current_session ||= Session.new authorization
   end
 
