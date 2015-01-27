@@ -21,7 +21,7 @@ class User
   field :last_name,  type: String
   field :roles,      type: Array
   field :status,     type: String
-  field :phone_number, type:String
+  field :phone_number, type: String
 
   validate :validate_roles
   validate :validate_status
