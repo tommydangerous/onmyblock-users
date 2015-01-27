@@ -1,5 +1,5 @@
 class AuthenticationSerializer < ActiveModel::Serializer
-  attributes :token, :expires_at, :id, :email, :first_name, :last_name
+  attributes :token, :expires_at, :id, :email, :first_name, :last_name, :phone_number
 
   def email
     user.try :email
@@ -13,6 +13,10 @@ class AuthenticationSerializer < ActiveModel::Serializer
     user.try :first_name
   end
 
+  def phone_number
+     user.try :phone_number
+  end 
+  
   def id
     user.id.to_s if user
   end
