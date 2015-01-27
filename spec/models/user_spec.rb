@@ -6,7 +6,7 @@ RSpec.describe User do
   subject { build :user }
 
   it do
-    should have_fields(:email, :first_name, :last_name, :status)
+    should have_fields(:email, :first_name, :last_name, :status, :phone_number)
       .of_type(String)
   end
   it { should have_fields(:roles).of_type Array }
