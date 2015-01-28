@@ -17,7 +17,11 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def create_params
     params[:user] = params
-    params.require(:user).permit :email, :first_name, :last_name, :password,:phone_number
+    params.require(:user).permit(:email,
+                                 :first_name,
+                                 :last_name,
+                                 :password,
+                                 :phone_number)
   end
 
   def create_service

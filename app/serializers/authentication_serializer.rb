@@ -14,9 +14,9 @@ class AuthenticationSerializer < ActiveModel::Serializer
   end
 
   def phone_number
-     user.try :phone_number
-  end 
-  
+    user.try :phone_number
+  end
+
   def id
     user.id.to_s if user
   end
