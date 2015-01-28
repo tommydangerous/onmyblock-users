@@ -11,19 +11,19 @@ When you clone a child repository, make sure you add this as an upstream.
 $ git remote add upstream git@github.com:onmyblock/rails.git
 ```
 
-Then you can pull in upstream changes by calling
+Then you can pull in upstream changes by calling:
 ```
 $ git pull upstream master
 ```
 
-Before running your app, install the gems
+Before running your app, install the gems:
 ```
 $ fig run app bundle install
 ```
 
 ### Running commands
-Use `fig` to interact with the application containers.
 
+Use `fig` to interact with the application containers:
 ```
 $ fig run app rspec
 ```
