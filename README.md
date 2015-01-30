@@ -71,4 +71,3 @@ Action | Method | Endpoint | Parameters
 --- | --- | --- | ---
 Create | POST | /api/[version]/users | email, first_name, last_name, password
 Update | PUT/PATCH | /api/[version]/users/:id | email, first_name, id, last_name, roles
----
