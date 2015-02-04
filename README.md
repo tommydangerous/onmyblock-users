@@ -38,7 +38,7 @@ $ fig run app foreman start
 
 ### Individual Service Description Below
 ---
-## Making authenticated requests
+##  Making authenticated requests
 When making requests to authenticated endpoints, add a token in the
 `OMB-Authorization` HTTP Header.
 
